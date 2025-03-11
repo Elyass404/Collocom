@@ -10,7 +10,8 @@
 </head>
 <body class="bg-gray-100 flex items-center justify-center min-h-screen">
     <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
-        <h2 class="text-2xl font-bold mb-6 text-gray-800 text-center">Welcome Back</h2>
+        <img src="http://logobook.com/wp-content/uploads/2019/02/NHS_Camden_and_Challenge_logo-1.svg" alt="Logo" class="w-16 h-16 mx-auto">
+        <h2 class="text-2xl font-bold mb-6 mt-4 text-gray-800 text-center">Log In </h2>
         <form method="POST" action="{{ route('login') }}">
             @csrf
 
@@ -54,7 +55,7 @@
 
             <!-- Forgot Password Link -->
             <div class="text-center">
-                <a href="{{ route('password.request') }}" class="text-blue-500 hover:underline">Forgot Your Password?</a>
+                <a href="#" class="text-blue-500 hover:underline">Forgot Your Password?</a>
             </div>
         </form>
     </div>

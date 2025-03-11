@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
+use App\Http\Controllers\AuthController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -18,6 +19,21 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+// authentication routes:
+
+
+Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
+
+Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
+
+Route::post('/register', [AuthController::class, 'register']);
+
+Route::post('/login', [AuthController::class, 'login']);
+
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+
+
 Route::get('/dash',function(){return view('dashboard');})->name('dashboard');
 
 Route::get('/users/create',function(){return view('users.create');})->name('users.create');
@@ -28,6 +44,9 @@ Route::get('/tags/index',function(){return view('tags.index');})->name('tags.ind
 
 Route::get('/tags/create',function(){return view('tags.create');})->name('tags.create');
 
+Route::get('/offers/create',function(){return view('offers.create');})->name('offers.create');
+
+Route::get('/offers/index',function(){return view('offers.create');})->name('offers.create');
 
 
-require __DIR__.'/auth.php';
+

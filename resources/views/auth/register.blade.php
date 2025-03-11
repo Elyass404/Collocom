@@ -13,8 +13,8 @@
         <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
             <!-- Logo -->
             <div class="text-center mb-8">
-                <img src="http://logobook.com/wp-content/uploads/2019/02/NHS_Camden_and_Challenge_logo-1.svg" alt="Logo" class="w-24 h-24 mx-auto">
-                <h1 class="text-3xl font-bold text-gray-800 mt-4">Collocom</h1>
+                <img src="http://logobook.com/wp-content/uploads/2019/02/NHS_Camden_and_Challenge_logo-1.svg" alt="Logo" class="w-16 h-16 mx-auto">
+                <h1 class="text-3xl font-bold text-gray-800 mt-4">Create Account</h1>
             </div>
 
             <!-- Registration Form -->

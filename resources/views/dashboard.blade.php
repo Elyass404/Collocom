@@ -55,7 +55,7 @@
                         <th class="py-2">Actions</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody class="">
                     <td class="py-2">1</td>
                         <td class="py-2">Mustapha</td>
                         <td class="py-2">Mustapha@youcode.com</td>
