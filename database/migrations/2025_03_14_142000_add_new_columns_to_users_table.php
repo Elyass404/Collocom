@@ -13,13 +13,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string("gender",25); //I specified the the name of the column and also the max length 
+            // $table->string("gender",25); //I specified the the name of the column and also the max length 
             $table->enum("gender",["Male","Female"]);
             $table->unsignedBigInteger("role_id")->nullable();
             /* We can also write like this (one line bellow) writing and then we wont have to write the line bellow where we specify the foreign key its done automatically by laravel witht the constrained method
             here is the other syntaxe: $table->foreignId('role_id')->constrained('roles')->onDelete('cascade'); */
             $table->string("profile_picture",255)->nullable();
-            $table->date("birthdate");
+            $table->date("birthdate")->nullable();
             $table->text("bio")->nullable();
             $table->unsignedBigInteger("situation_id")->nullable();
 
