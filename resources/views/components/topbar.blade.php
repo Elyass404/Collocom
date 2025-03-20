@@ -13,10 +13,10 @@
                 </button>
                 <!-- Dropdown Menu -->
                 <div id="menu" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg">
-                    <a href="{{route('users.profile')}}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Profile</a>
+                    <a href="{{route('users.profile')}}" class="block px-4 py-2 text-left w-full text-gray-700 hover:bg-gray-100">Profile</a>
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
-                        <button type="submit" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                        <button type="submit" class="block px-4 py-2 text-left w-full text-gray-700 hover:bg-gray-100">
                             Logout
                         </button>
                     </form>

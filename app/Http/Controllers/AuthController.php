@@ -8,9 +8,18 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\RegisterRequest;
 use App\Models\User;
+use App\Repositories\Interfaces\AuthRepositoryInterface;
 
 class AuthController extends Controller
 {
+    protected $authRepository;
+
+    public function __construct(AuthRepositoryInterface $authRepository)
+    {
+        $this->authRepository = $authRepository;
+    }
+
+
     public function showLogin()
     {
         return view('auth.login'); 
@@ -21,26 +30,54 @@ class AuthController extends Controller
         return view('auth.register'); 
     }
 
-    public function register(RegisterRequest  $request)
-{
-    
-    $request->validate([
-        'name' => 'required|string|max:255',
-        'email' => 'required|email|unique:users',
-        'password' => 'required|min:6|confirmed',
-    ]);
+    public function register(RegisterRequest $request){
 
-    $user = User::create([
-        'name' => $request->name,
-        'email' => $request->email,
-        'password' => Hash::make($request->password),
-    ]);
+        $this->authRepository->register($request->validated());
 
-    // Log in the user
-    Auth::login($user);
+        return redirect()->route('login')->with('success',"You have created you account with success! Please login.");
+    }
 
-    return redirect()->route('dashboard')->with('success', 'Registration successful!');
-}
+    public function login(LoginRequest $request){
+
+        if($this->authRepository->login($request->validated())){
+           return redirect()->route("dashboard")->with("seccess","Welcome Back!");
+        }
+
+        return back()->withErrors(["email","Invalid Credential!"])->withInput();
+    }
+
+    public function logout(){
+        $this->authRepository->logout();
+        return redirect()->route("login")->with("success","You are logged out!");
+    }
+
+
+
+
+
+
+
+//the method without the repository design patter
+
+    /* public function register(RegisterRequest  $request){
+
+        // $request->validate([
+        //     'name' => 'required|string|max:255',
+        //     'email' => 'required|email|unique:users',
+        //     'password' => 'required|min:6|confirmed',
+        // ]);
+
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+        ]);
+
+        // Log in the user
+        Auth::login($user);
+
+        return redirect()->route('dashboard')->with('success', 'Registration successful!');
+    }
 
 public function login(LoginRequest $request){
 
@@ -64,6 +101,6 @@ public function logout(Request $request)
     $request->session()->regenerateToken();
 
     return redirect()->route('login')->with('success', 'You have been logged out.');
-}
+} */
 
 }
