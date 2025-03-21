@@ -1,9 +1,10 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\ProfileController;
+use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 Route::get('/', function () {
     return view('welcome');
@@ -34,9 +35,14 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 
 
+
+
+
+Route::middleware(['auth'])->group(function () {
+
 Route::get('/dash',function(){return view('dashboard');})->name('dashboard');
 
-Route::get('/users/create',function(){return view('users.create');})->name('users.create');
+Route::resource('users', UserController::class);
 
 Route::get('/profile',function(){return view('users.profile');})->name('users.profile');
 
@@ -47,6 +53,12 @@ Route::get('/tags/create',function(){return view('tags.create');})->name('tags.c
 Route::get('/offers/create',function(){return view('offers.create');})->name('offers.create');
 
 Route::get('/offers/index',function(){return view('offers.create');})->name('offers.create');
+});
+
+//this is just for the test
+Route::get("/hello",function(){return "heelo";})->middleware(["auth"]);
+
+
 
 
 
