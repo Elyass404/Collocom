@@ -43,6 +43,9 @@ Route::middleware(['auth'])->group(function () {
 Route::get('/dash',function(){return view('dashboard');})->name('dashboard');
 
 Route::resource('users', UserController::class);
+// Route::post('users', [UserController::class,"store"])->name('users.store');
+
+// Route::get('/users/create',function(){return view('users.create');})->name('users.create');
 
 Route::get('/profile',function(){return view('users.profile');})->name('users.profile');
 

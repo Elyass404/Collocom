@@ -52,7 +52,8 @@ class UserController extends Controller
 
         $this->userRepository->create($validatedData);
 
-        return redirect()->route("users.index")->with("success","The user has been added successfully!");
+
+        return redirect()->route("dashboard")->with("success","The user has been added successfully!");
     }
 
     /**
