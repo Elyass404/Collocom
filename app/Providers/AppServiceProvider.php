@@ -6,7 +6,8 @@ use App\Models\Category;
 use Illuminate\Support\ServiceProvider;
 use App\Repositories\Eloquent\AuthRepository;
 use App\Repositories\Eloquent\UserRepository;
-use App\Repositories\Eloquent\CategoryRapository;
+use App\Repositories\Eloquent\CategoryRepository;
+
 
 use App\Repositories\Interfaces\AuthRepositoryInterface;
 use App\Repositories\Interfaces\UserRepositoryInterface;

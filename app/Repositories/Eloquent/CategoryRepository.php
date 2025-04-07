@@ -5,7 +5,7 @@ namespace App\Repositories\Eloquent;
 use App\Models\Category;
 use App\Repositories\Interfaces\CategoryRepositoryInterface;
 
-class CategoryRapository implements CategoryRepositoryInterface
+class CategoryRepository implements CategoryRepositoryInterface
 {
     /**
      * Create a new class instance.
