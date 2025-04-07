@@ -20,7 +20,7 @@
         <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
             <div class="bg-white p-6 rounded-lg shadow-md">
                 <h3 class="text-gray-500">Total Users</h3>
-                <p class="text-2xl font-bold">1000000</p>
+                <p class="text-2xl font-bold">{{$countUsers}}</p>
             </div>
             <div class="bg-white p-6 rounded-lg shadow-md">
                 <h3 class="text-gray-500">Total Tags</h3>
@@ -56,7 +56,7 @@
                     </tr>
                 </thead>
                 <tbody class="">
-                    <td class="py-2">1</td>
+                    {{-- <td class="py-2">1</td>
                         <td class="py-2">Mustapha</td>
                         <td class="py-2">Mustapha@youcode.com</td>
                         <td class="py-2">User </td>
@@ -68,13 +68,13 @@
                                 @method('DELETE')
                                 <button type="submit" class="px-2 py-1 bg-red-500 text-white rounded">Delete</button>
                             </form>
-                        </td>
-                    {{-- @foreach($users as $user)
+                        </td> --}}
+                    @foreach($users as $user)
                     <tr class="border-b">
                         <td class="py-2">{{ $user->id }}</td>
                         <td class="py-2">{{ $user->name }}</td>
                         <td class="py-2">{{ $user->email }}</td>
-                        <td class="py-2">{{ $user->role }}</td>
+                        <td class="py-2">{{ $user->role_id }}</td>
                         <td class="py-2">
                             <a href="{{ route('users.show', $user->id) }}" class="px-2 py-1 bg-green-500 text-white rounded">Show</a>
                             <a href="{{ route('users.edit', $user->id) }}" class="px-2 py-1 bg-yellow-500 text-white rounded">Edit</a>
@@ -85,7 +85,7 @@
                             </form>
                         </td>
                     </tr>
-                    @endforeach --}}
+                    @endforeach
                 </tbody>
             </table>
             <!-- Pagination -->

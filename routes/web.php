@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
@@ -40,8 +41,8 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::middleware(['auth'])->group(function () {
 
-Route::get('/dash',function(){return view('dashboard');})->name('dashboard');
-
+// Route::get('/dash',function(){return view('dashboard');})->name('dashboard');
+Route::get("/dashboard",[DashboardController::class,"index"])->name("dashboard");
 Route::resource('users', UserController::class);
 // Route::post('users', [UserController::class,"store"])->name('users.store');
 

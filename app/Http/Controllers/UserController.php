@@ -23,7 +23,7 @@ class UserController extends Controller
     public function index()
     {
         $users=$this->userRepository->getAll();
-        return view("users.index",compact("users"));
+        return view("dashboard",compact("users"));
     }
 
     /**

@@ -2,12 +2,15 @@
 
 namespace App\Providers;
 
+use App\Models\Category;
 use Illuminate\Support\ServiceProvider;
-use App\Repositories\Interfaces\AuthRepositoryInterface;
-use App\Repositories\Interfaces\UserRepositoryInterface;
-
 use App\Repositories\Eloquent\AuthRepository;
 use App\Repositories\Eloquent\UserRepository;
+use App\Repositories\Eloquent\CategoryRapository;
+
+use App\Repositories\Interfaces\AuthRepositoryInterface;
+use App\Repositories\Interfaces\UserRepositoryInterface;
+use App\Repositories\Interfaces\CategoryRepositoryInterface;
 
 
 class AppServiceProvider extends ServiceProvider
@@ -21,6 +24,8 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(AuthRepositoryInterface::class,AuthRepository::class);
         //binding the UserRepositoryInterface with the UserRepository
         $this->app->bind(UserRepositoryInterface::class, UserRepository::class);
+        //binding the CategoryRepositoryInterface with the CategoryRepository
+        $this->app->bind(CategoryRepositoryInterface::class, CategoryRepository::class);
     }
 
     /**
