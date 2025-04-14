@@ -23,7 +23,9 @@ class UserController extends Controller
     public function index()
     {
         $users=$this->userRepository->getAll();
-        return view("dashboard",compact("users"));
+        $countUsers = User::count();
+
+        return view("dashboard",compact("users","countUsers"));
     }
 
     /**

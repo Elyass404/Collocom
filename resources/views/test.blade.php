@@ -20,15 +20,15 @@
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
             <div class="bg-white p-6 rounded-lg shadow-md">
                 <h3 class="text-gray-500">Total Categories</h3>
-                <p class="text-2xl font-bold">{{$countCategories}}</p>
+                <p class="text-2xl font-bold">2</p>
             </div>
             <div class="bg-white p-6 rounded-lg shadow-md">
                 <h3 class="text-gray-500">Active Categories</h3>
-                <p class="text-2xl font-bold">{{$activeCategories}}</p>
+                <p class="text-2xl font-bold">2</p>
             </div>
             <div class="bg-white p-6 rounded-lg shadow-md">
                 <h3 class="text-gray-500">Latest Category</h3>
-                <p class="text-2xl font-bold">{{$latestCategory}}</p>
+                <p class="text-2xl font-bold">2</p>
             </div>
         </div>
 
@@ -38,7 +38,7 @@
                 <h2 class="text-xl font-bold">Categories</h2>
                 <div class="flex gap-4">
                     <input type="text" placeholder="Search..." class="px-4 py-2 border rounded-lg">
-                    <a href="{{ route('categories.create') }}" class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">
+                    <a href="#" class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">
                         Create New Category
                     </a>
                 </div>
@@ -46,14 +46,14 @@
             <table class="w-full">
                 <thead>
                     <tr class="border-b">
-                        <th class="py-2">ID</th>
+                        <th class="py-2 ">ID</th>
                         <th class="py-2">Name</th>
                         <th class="py-2">Created At</th>
                         <th class="py-2">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($categories as $category)
+                    {{-- @foreach($categories as $category)
                     <tr class="border-b">
                         <td class="py-2">{{ $category->id }}</td>
                         <td class="py-2">{{ $category->name }}</td>
@@ -68,12 +68,26 @@
                             </form>
                         </td>
                     </tr>
-                    @endforeach
+                    @endforeach --}}
+                    <tr class="border-b">
+                        <td class="py-2 text-center bg-yellow-500">hhhhhh</td>
+                        <td class="py-2 text-ce text-center bg-red-700">hhfffffffffffffffffffffffffffffffffhhhhhh</td>
+                        <td class="py-2 text-center bg-orange-600">hhhhh</td>
+                        <td class="py-2 text-center bg-blue-700">
+                            <a href="#" class="px-2 py-1 bg-green-500 text-white rounded">Show</a>
+                            <a href="#" class="px-2 py-1 bg-yellow-500 text-white rounded">Edit</a>
+                            <form action="#" method="POST" class="inline">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="px-2 py-1 bg-red-500 text-white rounded">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
             <!-- Pagination -->
             <div class="flex justify-end mt-4">
-                {{ $categories->links() }}
+                {{-- {{ $categories->links() }} --}}
             </div>
         </div>
     </div>

@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
@@ -9,6 +10,10 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::get('/test', function () {
+    return view('test');
 });
 
 Route::get('/dashboard', function () {
@@ -44,6 +49,7 @@ Route::middleware(['auth'])->group(function () {
 // Route::get('/dash',function(){return view('dashboard');})->name('dashboard');
 Route::get("/dashboard",[DashboardController::class,"index"])->name("dashboard");
 Route::resource('users', UserController::class);
+Route::resource('categories', CategoryController::class);
 // Route::post('users', [UserController::class,"store"])->name('users.store');
 
 // Route::get('/users/create',function(){return view('users.create');})->name('users.create');

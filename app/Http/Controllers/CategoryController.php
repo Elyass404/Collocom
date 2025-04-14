@@ -23,7 +23,11 @@ class CategoryController extends Controller
     {
         //continue the work from here , get inspired by the user controller, it uses the repository pattern as well
         $categories = $this->categoryRepository->getAll();
-        return view("categories.index",compact("categories"));
+        $countCategories= Category:: count();
+        $activeCategories = 12;
+        $latestCategory = 4;
+        
+        return view("categories.index",compact("categories","countCategories", "activeCategories","latestCategory"));
     }
 
     /**
@@ -39,7 +43,7 @@ class CategoryController extends Controller
      */
     public function store(StoreCategoryRequest $request)
     {
-        $validatedData = $request->validate();
+        $validatedData = $request->validated();
         $this->categoryRepository->create($validatedData);
         return redirect()->route('categories.index')->with("success","The category has been created successfully!");
     }

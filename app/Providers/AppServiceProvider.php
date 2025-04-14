@@ -3,12 +3,13 @@
 namespace App\Providers;
 
 use App\Models\Category;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
 use App\Repositories\Eloquent\AuthRepository;
 use App\Repositories\Eloquent\UserRepository;
+
+
 use App\Repositories\Eloquent\CategoryRepository;
-
-
 use App\Repositories\Interfaces\AuthRepositoryInterface;
 use App\Repositories\Interfaces\UserRepositoryInterface;
 use App\Repositories\Interfaces\CategoryRepositoryInterface;
@@ -34,6 +35,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+    //
     }
 }
