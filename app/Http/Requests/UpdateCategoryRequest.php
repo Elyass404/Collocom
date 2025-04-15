@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateCategoryRequest extends FormRequest
@@ -11,7 +12,7 @@ class UpdateCategoryRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +23,8 @@ class UpdateCategoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            "name"=>"required|string|max:30|".Rule::unique('categories', 'name')->ignore($this->route('category')),
+            "parent_id"=>"nullable|integer|exists:categories,id",
         ];
     }
 }
