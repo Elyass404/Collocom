@@ -69,7 +69,7 @@
 
         <!-- Pagination -->
         <div class="mt-6">
-            {{ $offers->links() }}
+            {{-- {{ $offers->links() }} --}}
         </div>
     </div>
 </body>

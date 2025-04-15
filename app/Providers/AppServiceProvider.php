@@ -7,13 +7,13 @@ use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
 use App\Repositories\Eloquent\AuthRepository;
 use App\Repositories\Eloquent\UserRepository;
-
-
+use App\Repositories\Eloquent\OfferRepository;
 use App\Repositories\Eloquent\CategoryRepository;
+
 use App\Repositories\Interfaces\AuthRepositoryInterface;
 use App\Repositories\Interfaces\UserRepositoryInterface;
 use App\Repositories\Interfaces\CategoryRepositoryInterface;
-
+use App\Repositories\Interfaces\OffersRepositoryInterface;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -28,6 +28,8 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(UserRepositoryInterface::class, UserRepository::class);
         //binding the CategoryRepositoryInterface with the CategoryRepository
         $this->app->bind(CategoryRepositoryInterface::class, CategoryRepository::class);
+        //binding the OfferRepositoryInterface with the OfferRepository
+        $this->app->bind(OffersRepositoryInterface::class, OfferRepository::class);
     }
 
     /**

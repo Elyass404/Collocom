@@ -60,7 +60,7 @@ Route::get('/tags/index',function(){return view('tags.index');})->name('tags.ind
 
 Route::get('/tags/create',function(){return view('tags.create');})->name('tags.create');
 
-Route::get('/offers/index',function(){return view('offers.create');})->name('offers.index');
+Route::get('/offers/index',function(){return view('offers.index');})->name('offers.index');
 
 Route::get('/offers/create',function(){return view('offers.create');})->name('offers.create');
 });
