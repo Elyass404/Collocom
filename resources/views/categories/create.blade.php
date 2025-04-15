@@ -47,11 +47,26 @@
                         class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" 
                         placeholder="Enter category name"
                         value="{{ old('name') }}"
-                        required
                     >
                 </div>
+
+                <div>
+                    <label for="parent_id" class ="block text-gray-700 font-bold mb-2">Parent Category</label>
+                    <select 
+                        name="parent_id"
+                        id="parent_category"
+                        class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus: ring-blue-500"
+                        value="{{old ("parent_id") }}"
+                        >
+                        <option value="" class="" selected >Select the parent category</option>
+                        @foreach($categories as $cat)
+                        <option value="{{$cat->id}}">{{$cat->name}}</option>
+                        @endforeach
+                        </select>
+                        
+                </div>
             
-                <div class="flex justify-end">
+                <div class="flex justify-end py-4">
                     <button type="submit" class="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">
                         Create Category
                     </button>

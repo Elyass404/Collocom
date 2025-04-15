@@ -19,7 +19,7 @@ class CategoryRepository implements CategoryRepositoryInterface
 
     public function getAll()
     {
-        return $this->categories->paginate(2);
+        return $this->categories->paginate(10);
     }
 
     public function getById(int $id)

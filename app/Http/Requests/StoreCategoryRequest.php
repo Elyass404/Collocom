@@ -23,6 +23,7 @@ class StoreCategoryRequest extends FormRequest
     {
         return [
             "name"=>"required|string|max:30|unique:categories,name",
+            "parent_id"=>"nullable|integer|exists:categories,id",
         ];
     }
 }

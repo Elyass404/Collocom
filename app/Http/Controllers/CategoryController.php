@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\User;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
 
@@ -35,7 +36,9 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view("categories.create");
+        $categories = $this->categoryRepository->getAll();
+
+        return view("categories.create", compact("categories"));
     }
 
     /**
@@ -53,7 +56,7 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        $catgeory= $this->categoryRepository->getById($id);
+        $category= $this->categoryRepository->getById($id);
         return view("categories.show",compact("category"));
     }
 
@@ -63,18 +66,19 @@ class CategoryController extends Controller
     public function edit($id)
     {
         $category= $this->categoryRepository->getById($id);
-        return view("categories.edit",compact("category"));
+        $categories = $this->categoryRepository->getAll();
+
+        return view("categories.edit",compact("category","categories"));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update($id ,UpdateCategoryRequest $request)
+    public function update($id,UpdateCategoryRequest $request)
     {
         $validatedData = $request->validate();
-
         $this->categoryRepository->update($id, $validatedData);
-        return redirect()->route("categories.index")->with("success","The Category has been modified wiht success!");
+        return redirect()->route("categories.index")->with("success","The Category has been modified with success!");
     }
 
     /**
@@ -83,7 +87,7 @@ class CategoryController extends Controller
     public function destroy($id)
     {
         $this->categoryRepository->delete($id);
-        return redirect()->route("category.index")->with("success","The category has been deleted successfully");
+        return redirect()->route("categories.index")->with("success","The category has been deleted successfully");
 
     }
 }
