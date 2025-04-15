@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\OfferController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
@@ -50,6 +51,7 @@ Route::middleware(['auth'])->group(function () {
 Route::get("/dashboard",[DashboardController::class,"index"])->name("dashboard");
 Route::resource('users', UserController::class);
 Route::resource('categories', CategoryController::class);
+Route::resource('/offers',OfferController::class);
 // Route::post('users', [UserController::class,"store"])->name('users.store');
 
 // Route::get('/users/create',function(){return view('users.create');})->name('users.create');
@@ -60,9 +62,14 @@ Route::get('/tags/index',function(){return view('tags.index');})->name('tags.ind
 
 Route::get('/tags/create',function(){return view('tags.create');})->name('tags.create');
 
-Route::get('/offers/index',function(){return view('offers.index');})->name('offers.index');
+//The offers related endpoints
 
-Route::get('/offers/create',function(){return view('offers.create');})->name('offers.create');
+Route::patch("/offers/suspend", [OfferController::class,"suspend"])->name('offers.suspend');
+Route::patch("/offers/reactivate", [OfferController::class,"reactivate"])->name('offers.reactivate');
+
+// Route::get('/offers/index',function(){return view('offers.index');})->name('offers.index');
+
+// Route::get('/offers/create',function(){return view('offers.create');})->name('offers.create');
 });
 
 //this is just for the test

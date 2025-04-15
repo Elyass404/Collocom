@@ -1,10 +1,10 @@
-<!-- resources/views/categories/index.blade.php -->
+<!-- resources/views/offers/index.blade.php -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Categories</title>
+    <title>Offers</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
@@ -19,75 +19,90 @@
         <!-- Cards -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
             <div class="bg-white p-6 rounded-lg shadow-md">
-                <h3 class="text-gray-500">Total Categories</h3>
-                <p class="text-2xl font-bold">2</p>
+                <h3 class="text-gray-500">Total Offers</h3>
+                <p class="text-2xl font-bold">55</p>
             </div>
             <div class="bg-white p-6 rounded-lg shadow-md">
-                <h3 class="text-gray-500">Active Categories</h3>
-                <p class="text-2xl font-bold">2</p>
+                <h3 class="text-gray-500">Active Offers</h3>
+                <p class="text-2xl font-bold">55</p>
             </div>
             <div class="bg-white p-6 rounded-lg shadow-md">
-                <h3 class="text-gray-500">Latest Category</h3>
-                <p class="text-2xl font-bold">2</p>
+                <h3 class="text-gray-500">Latest Offer</h3>
+                <p class="text-2xl font-bold">55</p>
             </div>
         </div>
 
         <!-- Table -->
         <div class="bg-white rounded-lg shadow-md p-6">
             <div class="flex justify-between items-center mb-4">
-                <h2 class="text-xl font-bold">Categories</h2>
+                <h2 class="text-xl font-bold">Offers</h2>
                 <div class="flex gap-4">
                     <input type="text" placeholder="Search..." class="px-4 py-2 border rounded-lg">
-                    <a href="#" class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">
-                        Create New Category
+                    <a href="{{ route('offers.create') }}" class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">
+                        Create New Offer
                     </a>
                 </div>
             </div>
+            
+            @if (session('success'))
+                <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
+                    {{ session('success') }}
+                </div>
+            @endif
+            
             <table class="w-full">
                 <thead>
                     <tr class="border-b">
-                        <th class="py-2 ">ID</th>
-                        <th class="py-2">Name</th>
-                        <th class="py-2">Created At</th>
+                        <th class="py-2">ID</th>
+                        <th class="py-2">City</th>
+                        <th class="py-2">Contact</th>
+                        <th class="py-2">Location</th>
+                        <th class="py-2">Rooms</th>
+                        <th class="py-2">Status</th>
                         <th class="py-2">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {{-- @foreach($categories as $category)
-                    <tr class="border-b">
-                        <td class="py-2">{{ $category->id }}</td>
-                        <td class="py-2">{{ $category->name }}</td>
-                        <td class="py-2">{{ $category->created_at->format('Y-m-d') }}</td>
+                    @foreach([1,1,1,1,1] as $offer)
+                    <tr class="border-b hover:bg-gray-50">
+                        <td class="py-2 text-center">88</td>
+                        <td class="py-2">88</td>
+                        <td class="py-2">8</td>
+                        <td class="py-2">8</td>
+                        <td class="py-2 text-center">88</td>
                         <td class="py-2">
-                            <a href="{{ route('categories.show', $category->id) }}" class="px-2 py-1 bg-green-500 text-white rounded">Show</a>
-                            <a href="{{ route('categories.edit', $category->id) }}" class="px-2 py-1 bg-yellow-500 text-white rounded">Edit</a>
-                            <form action="{{ route('categories.destroy', $category->id) }}" method="POST" class="inline">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="px-2 py-1 bg-red-500 text-white rounded">Delete</button>
-                            </form>
+                            @if(1==0)
+                                <span class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs">Active</span>
+                            @else
+                                <span class="px-2 py-1 bg-red-100 text-red-800 rounded-full text-xs">Inactive</span>
+                            @endif
+                        </td>
+                        <td class="py-2">
+                            <a href="{{ route('offers.show',1) }}" class="px-2 py-1 bg-green-500 text-white rounded text-sm">Show</a>
+                            <a href="{{ route('offers.edit',1) }}" class="px-2 py-1 bg-yellow-500 text-white rounded text-sm">Edit</a>
+                            
+                            @if(1==0)
+                                <form action="{{ route('offers.suspend') }}" method="POST" class="inline">
+                                    @csrf
+                                    @method('PATCH')
+                                    <button type="submit" class="px-2 py-1 bg-red-500 text-white rounded text-sm">Suspend</button>
+                                </form>
+                            @else
+                                <form action="{{ route('offers.reactivate') }}" method="POST" class="inline">
+                                    @csrf
+                                    @method('PATCH')
+                                    <button type="submit" class="px-2 py-1 bg-blue-500 text-white rounded text-sm">Activate</button>
+                                </form>
+                            @endif
                         </td>
                     </tr>
-                    @endforeach --}}
-                    <tr class="border-b">
-                        <td class="py-2 text-center bg-yellow-500">hhhhhh</td>
-                        <td class="py-2 text-ce text-center bg-red-700">hhfffffffffffffffffffffffffffffffffhhhhhh</td>
-                        <td class="py-2 text-center bg-orange-600">hhhhh</td>
-                        <td class="py-2 text-center bg-blue-700">
-                            <a href="#" class="px-2 py-1 bg-green-500 text-white rounded">Show</a>
-                            <a href="#" class="px-2 py-1 bg-yellow-500 text-white rounded">Edit</a>
-                            <form action="#" method="POST" class="inline">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="px-2 py-1 bg-red-500 text-white rounded">Delete</button>
-                            </form>
-                        </td>
-                    </tr>
+                    @endforeach
                 </tbody>
             </table>
+            
             <!-- Pagination -->
             <div class="flex justify-end mt-4">
-                {{-- {{ $categories->links() }} --}}
+                {{-- {{ $offers->links() }} --}}
             </div>
         </div>
     </div>

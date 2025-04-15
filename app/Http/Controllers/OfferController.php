@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Offer;
+use App\Repositories\Interfaces\CategoryRepositoryInterface;
+use App\Repositories\Interfaces\OffersRepositoryInterface;
 use Illuminate\Http\Request;
 
 class OfferController extends Controller
@@ -10,9 +12,17 @@ class OfferController extends Controller
     /**
      * Display a listing of the resource.
      */
+    protected $offerRepository; 
+    protected $categoryRepository;
+    public function __construct(OffersRepositoryInterface $offerRepository, CategoryRepositoryInterface $categoryRepository)
+    {
+        $this->offerRepository = $offerRepository;
+        $this->categoryRepository = $categoryRepository;
+    }
     public function index()
     {
-        //
+        $offers= $this->offerRepository->getAll();
+        return view("offers.index",compact("offers"));
     }
 
     /**
@@ -20,7 +30,8 @@ class OfferController extends Controller
      */
     public function create()
     {
-        //
+        $categories = $this->categoryRepository->getAll();
+        return view("offers.create",compact("categories"));
     }
 
     /**
