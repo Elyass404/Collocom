@@ -75,7 +75,7 @@ class User extends Authenticatable
 
     public function situation()
     {
-        return $this->belongsTo(Situation::class);
+        return $this->belongsTo(Situations::class);
     }
 
     public function role()

@@ -2,10 +2,10 @@
 
 namespace App\Repositories\Eloquent;
 
-use App\Repositories\Interfaces\OffersRepositoryInterface;
+use App\Repositories\Interfaces\OfferRepositoryInterface;
 use App\Models\Offer;
 
-class OfferRepository implements OffersRepositoryInterface
+class OfferRepository implements OfferRepositoryInterface
 {
     /**
      * Create a new class instance.
@@ -42,6 +42,17 @@ class OfferRepository implements OffersRepositoryInterface
     {
         $offer = $this->getById($id);
         return $offer->delete();
+    }
 
+    public function reactivate($id)
+    {
+        $offer = $this->offers->where('id',$id)->update(["status"=>"Activated"]);
+        return $offer;
+    }
+
+    public function suspend($id)
+    {
+        $offer= $this->offers->where('id',$id)->update(["status"=>"suspended"]);
+        return $offer;
     }
 }

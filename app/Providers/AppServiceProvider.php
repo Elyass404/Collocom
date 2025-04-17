@@ -13,7 +13,7 @@ use App\Repositories\Eloquent\CategoryRepository;
 use App\Repositories\Interfaces\AuthRepositoryInterface;
 use App\Repositories\Interfaces\UserRepositoryInterface;
 use App\Repositories\Interfaces\CategoryRepositoryInterface;
-use App\Repositories\Interfaces\OffersRepositoryInterface;
+use App\Repositories\Interfaces\OfferRepositoryInterface;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -29,7 +29,7 @@ class AppServiceProvider extends ServiceProvider
         //binding the CategoryRepositoryInterface with the CategoryRepository
         $this->app->bind(CategoryRepositoryInterface::class, CategoryRepository::class);
         //binding the OfferRepositoryInterface with the OfferRepository
-        $this->app->bind(OffersRepositoryInterface::class, OfferRepository::class);
+        $this->app->bind(OfferRepositoryInterface::class, OfferRepository::class);
     }
 
     /**

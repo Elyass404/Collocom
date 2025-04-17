@@ -64,8 +64,8 @@ Route::get('/tags/create',function(){return view('tags.create');})->name('tags.c
 
 //The offers related endpoints
 
-Route::patch("/offers/suspend", [OfferController::class,"suspend"])->name('offers.suspend');
-Route::patch("/offers/reactivate", [OfferController::class,"reactivate"])->name('offers.reactivate');
+Route::patch("/offers/{id}/suspend", [OfferController::class,"suspend"])->name('offers.suspend');
+Route::patch("/offers/{id}/reactivate", [OfferController::class,"reactivate"])->name('offers.reactivate');
 
 // Route::get('/offers/index',function(){return view('offers.index');})->name('offers.index');
 
