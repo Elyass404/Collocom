@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Process\FakeProcessResult;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Offer>
@@ -29,7 +30,9 @@ class OfferFactory extends Factory
             'situation_id' => $this->faker->numberBetween(1, 5), 
             'status' => $this->faker->randomElement(['Active', 'Suspended']),
             'description'=>$this->faker->paragraph(),
-            'price'=>$this->faker->numberBetween(100,4000)
+            'price'=>$this->faker->numberBetween(100,4000),
+            'place_capacity'=>$this->faker->numberBetween(1,10), //think if you should make it from 1 or 2
+            'number_of_rooms'=>$this->faker->numberBetween(1,5),
         ];
     }
 }
