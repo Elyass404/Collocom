@@ -6,7 +6,7 @@ use App\Models\Category;
 use App\Models\User;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
-
+use App\Models\Offer;
 use App\Repositories\Interfaces\CategoryRepositoryInterface;
 use Illuminate\Cache\RedisTagSet;
 
@@ -25,6 +25,7 @@ class CategoryController extends Controller
         //continue the work from here , get inspired by the user controller, it uses the repository pattern as well
         $categories = $this->categoryRepository->getAll();
         $countCategories= Category:: count();
+        $countOffers= Offer:: count();
         $activeCategories = 12;
         $latestCategory = 4;
         

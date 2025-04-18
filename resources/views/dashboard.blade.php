@@ -28,7 +28,7 @@
             </div>
             <div class="bg-white p-6 rounded-lg shadow-md">
                 <h3 class="text-gray-500">Total Offers</h3>
-                <p class="text-2xl font-bold">427</p>
+                <p class="text-2xl font-bold">{{$countOffers}}</p>
             </div>
             <div class="bg-white p-6 rounded-lg shadow-md">
                 <h3 class="text-gray-500">Revenue</h3>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Offer;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -16,6 +17,7 @@ class DashboardController extends Controller
         //Users related 
         $users= User::all()->except(Auth::id()); //this will help us get all the users in the platdform without bringing the user logged in in the moment
         $countUsers = User::count();
+        $countOffers = Offer::count();
 
         //Categories related
         // $categories=Category::all();
@@ -26,7 +28,7 @@ class DashboardController extends Controller
         // $countOffers=Offer::count();
 
         //in the view, when you pass the variables to show the data, you can also use the array(associative array) method instead of compact
-        return view("/dashboard",compact("users","countUsers"));
+        return view("/dashboard",compact("users","countUsers","countOffers"));
         
     }
 

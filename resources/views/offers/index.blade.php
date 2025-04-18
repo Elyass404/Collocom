@@ -58,7 +58,7 @@
                         <th class="py-2">Pnone Number</th>
                         <th class="py-2">Region</th>
                         <th class="py-2">City</th>
-                        <th class="py-2">Rooms</th>
+                        <th class="py-2">Places</th>
                         <th class="py-2">Status</th>
                         <th class="py-2">Actions</th>
                     </tr>
@@ -66,28 +66,28 @@
                 <tbody>
                     @foreach($offers as $offer)
                     <tr class="border-b hover:bg-gray-50">
-                        <td class="py-2 text-center">{{ $offer->id }}</td>
-                        <td class="py-2 text-center">{{ $offer->user_id }}</td>
-                        <td class="py-2">{{ $offer->city }}</td>
-                        <td class="py-2">{{ $offer->contact }}</td>
-                        <td class="py-2">{{ $offer->location }}</td>
-                        <td class="py-2 text-center">{{ $offer->number_of_rooms }}</td>
-                        <td class="py-2">
-                            @if($offer->status)
-                                <span class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs">Active</span>
-                            @else
-                                <span class="px-2 py-1 bg-red-100 text-red-800 rounded-full text-xs">Inactive</span>
+                        <td class="py-2 text-center">{{ $offer->id}}</td>
+                        <td class="py-2 text-center">{{ $offer->Owner->name}}</td>
+                        <td class="py-2 text-center">{{ $offer->phone_number }}</td>
+                        <td class="py-2 text-center">{{ $offer->region }}</td>
+                        <td class="py-2 text-center">{{ $offer->city}}</td>
+                        <td class="py-2 text-center">{{ $offer->available_places }}</td>
+                        <td class="py-2 text-center">
+                            @if($offer->status == "Active")
+                                <span class="px-2 py-1 bg-green-100 text-green-600 rounded-full text-xs">Active</span>
+                            @elseif($offer->status == "Suspended")
+                                <span class="px-2 py-1 bg-red-100 text-red-600 rounded-full text-xs">Inactive</span>
                             @endif
                         </td>
-                        <td class="py-2">
+                        <td class="py-2 text-center">
                             <a href="{{ route('offers.show', $offer->id) }}" class="px-2 py-1 bg-green-500 text-white rounded text-sm">Show</a>
                             <a href="{{ route('offers.edit', $offer->id) }}" class="px-2 py-1 bg-yellow-500 text-white rounded text-sm">Edit</a>
                             
-                            @if($offer->status)
+                            @if($offer->status =="Suspended")
                                 <form action="{{ route('offers.suspend', $offer->id) }}" method="POST" class="inline">
                                     @csrf
                                     @method('PATCH')
-                                    <button type="submit" class="px-2 py-1 bg-red-500 text-white rounded text-sm">Suspend</button>
+                                    <button type="submit" class="px-2 py-1 bg-orange-500 text-white rounded text-sm">Suspend</button>
                                 </form>
                             @else
                                 <form action="{{ route('offers.reactivate', $offer->id) }}" method="POST" class="inline">
@@ -96,6 +96,11 @@
                                     <button type="submit" class="px-2 py-1 bg-blue-500 text-white rounded text-sm">Activate</button>
                                 </form>
                             @endif
+                            <form action="{{route('offers.destroy', $offer->id)}}">
+                            @csrf
+                            @method('DELETE')
+                            <a class="px-2 py-1 bg-red-500 text-white rounded text-sm">Delete</a>
+                        </form>
                         </td>
                     </tr>
                     @endforeach

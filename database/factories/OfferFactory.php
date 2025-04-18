@@ -27,7 +27,9 @@ class OfferFactory extends Factory
             'category_id' => $this->faker->randomElement([1,2,3,4,9,10]), 
             'owner_id' =>  $this->faker->randomElement([1,3,4,5,6,7]), 
             'situation_id' => $this->faker->numberBetween(1, 5), 
-            'status' => $this->faker->randomElement(['Active', 'Suspended','Review'])
+            'status' => $this->faker->randomElement(['Active', 'Suspended']),
+            'description'=>$this->faker->paragraph(),
+            'price'=>$this->faker->numberBetween(100,4000)
         ];
     }
 }
