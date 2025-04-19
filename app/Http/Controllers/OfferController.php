@@ -65,6 +65,7 @@ class OfferController extends Controller
         $photos = ["https://th.bing.com/th/id/R.f8d04c765b226b0dc9f41edaa2b55555?rik=4ARprhP%2fkCTt9A&pid=ImgRaw&r=0",
                    "https://th.bing.com/th/id/R.f8d04c765b226b0dc9f41edaa2b55555?rik=4ARprhP%2fkCTt9A&pid=ImgRaw&r=0https://th.bing.com/th/id/OIP.iE7mcw3w2aFFDhXP9A1lggHaE8?rs=1&pid=ImgDetMain",
                     "https://th.bing.com/th/id/OIP.bFGklHsqtTS_fpHd1-eb3AHaJ3?rs=1&pid=ImgDetMain"];
+        
         return view("offers.show", compact("offer","photos"));
     }
 

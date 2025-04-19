@@ -151,8 +151,8 @@
                         </div>
                         
                         <div class="flex justify-between">
-                            <span class="text-gray-500">For Sale/Rent</span>
-                            <span class="font-medium">{{ $offer->type }}</span>
+                            <span class="text-gray-500">{{--{{$offer->category->name}}--}}Capacity Of Property</span>
+                            <span class="font-medium">{{ $offer->place_capacity }}</span>
                         </div>
                     </div>
                 </div>
@@ -229,5 +229,26 @@
 </body>
 </html>
 
+
+{{-- hello claude, thanks for the view you are providing me withi do really appreciate it, now iam looking for a view for the 
+form of adding the offer, this form is a little long so i want you to make a layout that wont make the user feel boored or somthing like that
+the form should be consistent with the style of other view, but at the same time i want it in a modern, clean, way, and it should be userfriendly, 
+the form of the offers will contain the following information input:
+title ,
+price, 
+category (select input that shows the categories available in the DB),
+region (select input also),
+city(select input, depending on the value of the region select input),
+number of rooms (number),
+capacity of property (number input),
+thumbnail(photo in put, so we can know which photo the user want to use as thumbnail),
+photos(photos of the property the user uplaods, so the user shows the photos of the property)
+available places(number of places available in the property so even the capacity is 4 but available places could be just 1 because we want 1 to finish the wanted number of people inside that house or property in general),
+description(so the publisher of the offer can add other thing about the offer, of to clarify something)
+situation (select input also from the situation created in the DB )
+creator (this field is a disabled field and has the name of the authenticated user, automatically )
+
+NOTE :dont follow strictlly the order of i gave you, you arrange the inputs depending on a good user experience and what should be in which order
+Note: you includ the components as the previous views(the sidebar  and the topbar) --}}
 
 

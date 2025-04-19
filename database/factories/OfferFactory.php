@@ -31,7 +31,7 @@ class OfferFactory extends Factory
             'status' => $this->faker->randomElement(['Active', 'Suspended']),
             'description'=>$this->faker->paragraph(),
             'price'=>$this->faker->numberBetween(100,4000),
-            'place_capacity'=>$this->faker->numberBetween(1,10), //think if you should make it from 1 or 2
+            'place_capacity'=>$this->faker->numberBetween(2,10), //i decided to make minimum of 2 because the first one the user that creating the offer him self 
             'number_of_rooms'=>$this->faker->numberBetween(1,5),
         ];
     }
