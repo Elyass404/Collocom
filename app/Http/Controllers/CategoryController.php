@@ -28,6 +28,8 @@ class CategoryController extends Controller
         $countOffers= Offer:: count();
         $activeCategories = 12;
         $latestCategory = 4;
+
+        
         
         return view("categories.index",compact("categories","countCategories", "activeCategories","latestCategory"));
     }

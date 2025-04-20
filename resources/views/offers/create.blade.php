@@ -13,7 +13,15 @@
     
     <div class="ml-64 pt-32 p-6">
         
-        
+        @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
         <div class="flex-1 p-8">
             <div class="max-w-5xl mx-auto">
                 <div class="mb-8">
@@ -34,18 +42,15 @@
                             </div>
                             
                             <div>
-                                <label for="price" class="block text-sm font-medium text-gray-700 mb-1">Price (per night) <span class="text-red-500">*</span></label>
+                                <label for="price" class="block text-sm font-medium text-gray-700 mb-1">Price (per month) <span class="text-red-500">*</span></label>
                                 <div class="mt-1 relative rounded-md shadow-sm">
-                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                        <span class="text-gray-500 sm:text-sm">$</span>
-                                    </div>
-                                    <input type="number" name="price" id="price" required min="0" step="0.01" class="w-full pl-7 pr-4 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500" placeholder="0.00">
+                                    <input type="number" name="price" id="price" required min="0" step="0.01" class="w-full pl-7 pr-4 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500" placeholder="In Dirhams">
                                 </div>
                             </div>
                             
                             <div>
                                 <label for="category" class="block text-sm font-medium text-gray-700 mb-1">Category <span class="text-red-500">*</span></label>
-                                <select name="category" id="category" required class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500">
+                                <select name="category_id" id="category" required class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500">
                                     <option value="">Select a category</option>
                                     <!-- Categories will be populated from DB -->
                                     @forEach($categories as $category)
@@ -65,6 +70,9 @@
                                 <select name="region" id="region" required class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500">
                                     <option value="">Select a region</option>
                                     <!-- Regions will be populated from DB -->
+                                    @forEach($regions as $region)
+                                    <option value="{{$region->region}}">{{$region->region}}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             
@@ -72,7 +80,9 @@
                                 <label for="city" class="block text-sm font-medium text-gray-700 mb-1">City <span class="text-red-500">*</span></label>
                                 <select name="city" id="city" required class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500" disabled>
                                     <option value="">Select a city</option>
-                                    <!-- Cities will be populated based on region -->
+                                    @forEach($cities as $city)
+                                    <option value="{{$city->id}}">{{$city->city}}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
@@ -96,14 +106,6 @@
                                 <label for="available_places" class="block text-sm font-medium text-gray-700 mb-1">Available Places <span class="text-red-500">*</span></label>
                                 <input type="number" name="available_places" id="available_places" required min="1" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500" placeholder="2">
                                 <p class="mt-1 text-xs text-gray-500">Number of spots still open for booking</p>
-                            </div>
-                            
-                            <div class="col-span-3">
-                                <label for="situation" class="block text-sm font-medium text-gray-700 mb-1">Property Situation <span class="text-red-500">*</span></label>
-                                <select name="situation" id="situation" required class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500">
-                                    <option value="">Select property situation</option>
-                                    <!-- Situations will be populated from DB -->
-                                </select>
                             </div>
                             
                             <div class="col-span-3">
@@ -184,40 +186,52 @@
     </div>
 
     <script>
-        // For region/city dynamic select
-        document.getElementById('region').addEventListener('change', function() {
-            const regionId = this.value;
-            const citySelect = document.getElementById('city');
+        // Convert PHP arrays to JavaScript arrays
+    const allCities = @json($cities);
+    const allRegions = @json($regions);
+    
+    
+    
+    document.addEventListener('DOMContentLoaded', function() {
+        // Get the region and city select elements
+        const regionSelect = document.getElementById('region');
+        const citySelect = document.getElementById('city');
+        
+        // Initialize city dropdown (disabled by default)
+        citySelect.disabled = true;
+        
+        // Add event listener to region select
+        regionSelect.addEventListener('change', function() {
+            const selectedRegionName = this.value;
             
-            if (regionId) {
+            // Reset city dropdown
+            citySelect.innerHTML = '<option value="">Select a city</option>';
+            
+            if (selectedRegionName ) {
                 // Enable city select
                 citySelect.disabled = false;
+
+                let regionId= allRegions.filter(region=> region.region === selectedRegionName );
                 
-                // Clear existing options
-                citySelect.innerHTML = '<option value="">Loading cities...</option>';
                 
-                // Fetch cities for selected region
-                fetch(`/api/cities/${regionId}`)
-                    .then(response => response.json())
-                    .then(data => {
-                        citySelect.innerHTML = '<option value="">Select a city</option>';
-                        data.forEach(city => {
-                            const option = document.createElement('option');
-                            option.value = city.id;
-                            option.textContent = city.name;
-                            citySelect.appendChild(option);
-                        });
-                    })
-                    .catch(error => {
-                        console.error('Error fetching cities:', error);
-                        citySelect.innerHTML = '<option value="">Error loading cities</option>';
-                    });
+                // Filter cities that belong to the selected region
+                const filteredCities = allCities.filter(city => city.region === regionId[0].id);
+                console.log(filteredCities);
+                
+                
+                // Add filtered cities to dropdown
+                filteredCities.forEach(city => {
+                    const option = document.createElement('option');
+                    option.value = city.city;
+                    option.textContent = city.city;
+                    citySelect.appendChild(option);
+                });
             } else {
-                // If no region selected, disable city select
+                // If no region selected, keep city select disabled
                 citySelect.disabled = true;
-                citySelect.innerHTML = '<option value="">Select a city</option>';
             }
         });
+    });
 
         // Thumbnail preview
         document.getElementById('thumbnail').addEventListener('change', function(e) {

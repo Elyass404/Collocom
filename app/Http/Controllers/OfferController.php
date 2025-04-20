@@ -7,8 +7,12 @@ use Illuminate\Http\Request;
 use Illuminate\Auth\Events\Validated;
 use App\Http\Requests\StoreOfferRequest;
 use App\Http\Requests\UpdateOfferRequest;
+use App\Models\City;
+use App\Models\Region;
 use App\Repositories\Interfaces\OfferRepositoryInterface;
 use App\Repositories\Interfaces\CategoryRepositoryInterface;
+use App\Repositories\Interfaces\OfferPhotoRepositoryInterface;
+use Illuminate\Support\Facades\Auth;
 
 class OfferController extends Controller
 {
@@ -17,10 +21,12 @@ class OfferController extends Controller
      */
     protected $offerRepository; 
     protected $categoryRepository;
-    public function __construct(OfferRepositoryInterface $offerRepository, CategoryRepositoryInterface $categoryRepository)
+    protected $offerPhotoRepository;
+    public function __construct(OfferRepositoryInterface $offerRepository, CategoryRepositoryInterface $categoryRepository, OfferPhotoRepositoryInterface $offerPhotoRepository)
     {
         $this->offerRepository = $offerRepository;
         $this->categoryRepository = $categoryRepository;
+        $this->offerPhotoRepository = $offerPhotoRepository;
     }
     public function index()
     {
@@ -42,7 +48,10 @@ class OfferController extends Controller
     public function create()
     {
         $categories = $this->categoryRepository->getAll();
-        return view("offers.create",compact("categories"));
+        $regions= Region::all();
+        $cities= City::all();
+
+        return view("offers.create",compact("categories","regions","cities"));
     }
 
     /**
@@ -50,9 +59,58 @@ class OfferController extends Controller
      */
     public function store(StoreOfferRequest $request)
     {
+        $user= Auth::user();
         $validatedData = $request->validated();
-        $this->offerRepository->create($validatedData);
-        return redirect()->route("offers.index")->with("success","The offer has been added with success!");
+         
+
+
+    
+    // Handle thumbnail upload
+    // $thumbnailPath = $request->file('thumbnail')->store('offers/thumbnails', 'public');
+    $thumbnailPath = "testing";
+    // Create the offer record with only validated data
+
+
+    $offerData = [
+        'title' => $validatedData['title'],
+        'price' => $validatedData['price'],
+        'category_id' => $validatedData['category_id'],
+        'region' => $validatedData['region'],
+        'city' => $validatedData['city'],
+        'number_of_rooms' => $validatedData['rooms'],
+        'place_capacity' => $validatedData['capacity'],
+        'available_places' => $validatedData['available_places'],
+        'description' => $validatedData['description'],
+        'thumbnail' => $thumbnailPath,
+        'owner_id' => $user->id ,
+        'phone_number' => $user->phone_number ,
+        'situation_id'=>$user->situation_id
+    ];
+    dd($offerData); // just to test if the code reached here successfully 
+
+
+    $recentOffer =$this->offerRepository->create($offerData);
+
+    $recentOfferId = $recentOffer->id;
+
+    // insert those multiple photos inserted by the user multiple photos
+    if ($request->hasFile('photos')) {
+
+        foreach ($request->file('photos') as $photo) {
+            $photoPath = $photo->store('offers/photos', 'public');
+            $offerPhotoData = [
+                "offer_id"=>$recentOfferId,
+                "photo"=>$photoPath,
+            ];
+            
+            // to store each photo of the photos the user uploaded in each itiration 
+            $this->offerPhotoRepository->storePhoto($offerPhotoData);
+            
+        }
+    }
+
+    
+    return redirect()->route('offers.index')->with('success', 'Offer created successfully!');
 
     }
 
