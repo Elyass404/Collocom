@@ -46,13 +46,13 @@ class OfferRepository implements OfferRepositoryInterface
 
     public function reactivate($id)
     {
-        $offer = $this->offers->where('id',$id)->update(["status"=>"Activated"]);
+        $offer = $this->offers->where('id',$id)->update(["status"=>"Active"]);
         return $offer;
     }
 
     public function suspend($id)
     {
-        $offer= $this->offers->where('id',$id)->update(["status"=>"suspended"]);
+        $offer= $this->offers->where('id',$id)->update(["status"=>"Suspended"]);
         return $offer;
     }
 }

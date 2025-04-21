@@ -10,9 +10,10 @@
 </head>
 <body class="bg-gray-100">
     
-    @include('components.topbar')
+    {{-- @include('components.topbar') --}}
+    @include('components.headerUser')
 
-    @include('components.sidebar')
+    {{-- @include('components.sidebar') --}}
 
     <!-- Main Content -->
     <div class="ml-64 pt-32 p-6">
@@ -83,7 +84,7 @@
                             <a href="{{ route('offers.show', $offer->id) }}" class="px-2 py-1 bg-green-500 text-white rounded text-sm">Show</a>
                             <a href="{{ route('offers.edit', $offer->id) }}" class="px-2 py-1 bg-yellow-500 text-white rounded text-sm">Edit</a>
                             
-                            @if($offer->status =="Suspended")
+                            @if($offer->status =="Active")
                                 <form action="{{ route('offers.suspend', $offer->id) }}" method="POST" class="inline">
                                     @csrf
                                     @method('PATCH')
@@ -113,6 +114,7 @@
             </div>
         </div>
     </div>
+    @include("components.footer")
 
     <!-- JavaScript for Dropdown Menu -->
     <script>
@@ -122,3 +124,19 @@
     </script>
 </body>
 </html>
+
+{{-- Now into the main page which is the home page, 
+for the home page i want a modern clean and user friendly home page where i want to show a modern hero section with an H1 title 
+and a paragraph describing the platform, and also a button that redirecte you to the offers Page
+in  i want also to make a header (top bar) as a component in order to just call in each page without writing the whole same code for each page, and it should inlude the following pages(Home, Offers, About Us, Contact, and create offer button)
+after the hero section, i want a statistics section where i show how many offers in the platform and how many users in the paltform and also how many city is included in the offers
+after that i want a section wheere it shows three offers (as recent offers) and below them a button that takes you into the page of the offers where you can search and filter over the offers in the page
+also after that i want section where the testemonials  will be shown , eache testemonial should be a card with the name of user, his situation("work profile") , and his opinion about the platform etc, 
+after that i want you to make a footer , that footer should be modern and clean 
+NOTE: for the css you should use cdn tailwind css, inside the blade file --}}
+
+can you make the header has a pill shaped and has a gap between the top of the page ,and also the left and write, and instead of the logo to be a writing, i have a png image that i want to place there , also the header i want it to have a subtle shadow
+
+
+
+

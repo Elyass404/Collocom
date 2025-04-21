@@ -123,8 +123,8 @@
                 <div class="bg-white rounded-lg shadow-md p-6">
                     <h2 class="text-xl font-bold mb-2">Price</h2>
                     <p class="text-3xl font-bold text-blue-600">MAD {{ number_format($offer->price, 2) }}</p>
+                    <p class="text-sm text-gray-500">{{ number_format(($offer->price)/($offer->place_capacity), 2) }} Dirhams per person</p>
                     <p class="text-sm text-gray-500">Created on {{ $offer->created_at->format('M d, Y') }}</p>
-                    <p class="text-sm text-gray-500">{{ ($offer->price)/($offer->place_capacity)}} per person</p>
                 </div>
 
                 <!-- Property Details Card -->

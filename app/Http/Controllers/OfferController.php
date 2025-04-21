@@ -165,7 +165,7 @@ class OfferController extends Controller
     }
 
     public function suspend($id){
-        $this->offerRepository->reactivate($id);
+        $this->offerRepository->suspend($id);
         return redirect()->route("offers.index")->with("success","The offer has been Suspended!");
     }
 

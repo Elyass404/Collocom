@@ -1,117 +1,113 @@
-<!-- resources/views/offers/index.blade.php -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Offers</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>PropertyHub - Find Your Perfect Stay</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .hero-pattern {
+            background-color: #f9fafb;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23e5e7eb' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+        
+        .testimonial-card {
+            transition: transform 0.3s ease-in-out;
+        }
+        
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+        }
+    </style>
 </head>
-<body class="bg-gray-100">
+<body class="bg-gray-50">
+    {{-- @include('components.header') --}}
     
-    @include('components.topbar')
-
-    @include('components.sidebar')
-
-    <!-- Main Content -->
-    <div class="ml-64 pt-32 p-6">
-        <!-- Cards -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-            <div class="bg-white p-6 rounded-lg shadow-md">
-                <h3 class="text-gray-500">Total Offers</h3>
-                <p class="text-2xl font-bold">55</p>
-            </div>
-            <div class="bg-white p-6 rounded-lg shadow-md">
-                <h3 class="text-gray-500">Active Offers</h3>
-                <p class="text-2xl font-bold">55</p>
-            </div>
-            <div class="bg-white p-6 rounded-lg shadow-md">
-                <h3 class="text-gray-500">Latest Offer</h3>
-                <p class="text-2xl font-bold">55</p>
-            </div>
-        </div>
-
-        <!-- Table -->
-        <div class="bg-white rounded-lg shadow-md p-6">
-            <div class="flex justify-between items-center mb-4">
-                <h2 class="text-xl font-bold">Offers</h2>
-                <div class="flex gap-4">
-                    <input type="text" placeholder="Search..." class="px-4 py-2 border rounded-lg">
-                    <a href="{{ route('offers.create') }}" class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">
-                        Create New Offer
-                    </a>
+    <!-- Hero Section -->
+    <section class="hero-pattern py-16 sm:py-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="lg:grid lg:grid-cols-2 lg:gap-8 items-center">
+                <div class="mb-12 lg:mb-0">
+                    <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold text-gray-900 leading-tight">
+                        Find Your Perfect <span class="text-indigo-600">Temporary Home</span>
+                    </h1>
+                    <p class="mt-6 text-xl text-gray-600 max-w-lg">
+                        Connect with hosts around the world offering unique places to stay. Whether you're traveling or looking for a short-term solution, find the perfect space to feel at home.
+                    </p>
+                    <div class="mt-8">
+                        <a href="{{ route('offers.index') }}" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                            Explore Offers
+                            <svg xmlns="http://www.w3.org/2000/svg" class="ml-2 h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                <div class="relative">
+                    <div class="aspect-w-16 aspect-h-9 sm:aspect-w-3 sm:aspect-h-2">
+                        <img class="object-cover rounded-lg shadow-xl" src="{{ asset('storage/images/hero-image.jpg') }}" alt="Cozy home interior" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1554995207-c18c203602cb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80';">
+                    </div>
                 </div>
             </div>
-            
-            @if (session('success'))
-                <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
-                    {{ session('success') }}
+        </div>
+    </section>
+    
+    <!-- Statistics Section -->
+    <section class="py-12 bg-indigo-700">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 text-center">
+                <div class="bg-white p-8 rounded-lg shadow-md">
+                    <div class="text-indigo-600 text-4xl font-bold mb-2">55</div>
+                    <h3 class="text-xl font-semibold text-gray-800">Available Offers</h3>
+                    <p class="text-gray-500 mt-2">Find a variety of properties that match your needs</p>
                 </div>
-            @endif
-            
-            <table class="w-full">
-                <thead>
-                    <tr class="border-b">
-                        <th class="py-2">ID</th>
-                        <th class="py-2">City</th>
-                        <th class="py-2">Contact</th>
-                        <th class="py-2">Location</th>
-                        <th class="py-2">Rooms</th>
-                        <th class="py-2">Status</th>
-                        <th class="py-2">Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach([1,1,1,1,1] as $offer)
-                    <tr class="border-b hover:bg-gray-50">
-                        <td class="py-2 text-center">88</td>
-                        <td class="py-2">88</td>
-                        <td class="py-2">8</td>
-                        <td class="py-2">8</td>
-                        <td class="py-2 text-center">88</td>
-                        <td class="py-2">
-                            @if(1==0)
-                                <span class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs">Active</span>
-                            @else
-                                <span class="px-2 py-1 bg-red-100 text-red-800 rounded-full text-xs">Inactive</span>
-                            @endif
-                        </td>
-                        <td class="py-2">
-                            <a href="{{ route('offers.show',1) }}" class="px-2 py-1 bg-green-500 text-white rounded text-sm">Show</a>
-                            <a href="{{ route('offers.edit',1) }}" class="px-2 py-1 bg-yellow-500 text-white rounded text-sm">Edit</a>
-                            
-                            @if(1==0)
-                                <form action="{{ route('offers.suspend') }}" method="POST" class="inline">
-                                    @csrf
-                                    @method('PATCH')
-                                    <button type="submit" class="px-2 py-1 bg-red-500 text-white rounded text-sm">Suspend</button>
-                                </form>
-                            @else
-                                <form action="{{ route('offers.reactivate') }}" method="POST" class="inline">
-                                    @csrf
-                                    @method('PATCH')
-                                    <button type="submit" class="px-2 py-1 bg-blue-500 text-white rounded text-sm">Activate</button>
-                                </form>
-                            @endif
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
-            
-            <!-- Pagination -->
-            <div class="flex justify-end mt-4">
-                {{-- {{ $offers->links() }} --}}
+                
+                <div class="bg-white p-8 rounded-lg shadow-md">
+                    <div class="text-indigo-600 text-4xl font-bold mb-2">145</div>
+                    <h3 class="text-xl font-semibold text-gray-800">Active Users</h3>
+                    <p class="text-gray-500 mt-2">Join our growing community of hosts and guests</p>
+                </div>
+                
+                <div class="bg-white p-8 rounded-lg shadow-md">
+                    <div class="text-indigo-600 text-4xl font-bold mb-2">142</div>
+                    <h3 class="text-xl font-semibold text-gray-800">Cities Covered</h3>
+                    <p class="text-gray-500 mt-2">Properties available across multiple locations</p>
+                </div>
             </div>
         </div>
-    </div>
-
-    <!-- JavaScript for Dropdown Menu -->
-    <script>
-        document.getElementById('profile-menu').addEventListener('click', function() {
-            document.getElementById('menu').classList.toggle('hidden');
-        });
-    </script>
+    </section>
+    
+    <!-- Featured Offers Section -->
+    <section class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-extrabold text-gray-900 sm:text-4xl">Recent Offers</h2>
+                <p class="mt-3 max-w-2xl mx-auto text-xl text-gray-500 sm:mt-4">
+                    Check out these recently added properties available for booking
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                @foreach([12,12,12] as $offer)
+                <div class="bg-white rounded-lg shadow-md overflow-hidden transition duration-300 hover:shadow-xl">
+                    <div class="relative h-48">
+                        <img src="hfgdfg" alt="thel" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1560185127-6a8c2d27698f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80';">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-semibold text-gray-900">helo</h3>
+                        <p class="mt-2 text-gray-600">this is the desceiotion </p>
+                        <div class="mt-4 flex items-center justify-between">
+                            <span class="text-indigo-600 font-bold text-lg">for the most of them here is th one </span>
+                            <a href="#" class="text-indigo-600 hover:underline">View Details</a>
+                        </div>
+                    </div>
+                </div>
+                @endforeach
+            </div>
+        </div>
+    </section>
+    
+    {{-- @include('components.footer') --}}
 </body>
 </html>
