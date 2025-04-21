@@ -50,7 +50,7 @@
                         <div class="swiper-wrapper">
                             @forelse($photos as $photo)
                                 <div class="swiper-slide">
-                                    <img src="{{$photo}}" alt="Offer Image" class="w-full h-96 object-contain">
+                                    <img src="{{ asset('storage/'. $photo->photo) }}" alt="Offer Image" class="w-full h-96 object-contain">
                                 </div>
                             @empty
                                 <div class="swiper-slide">
@@ -68,11 +68,13 @@
                     <!-- Thumbnails -->
                     <div class="p-4 grid grid-cols-5 gap-2">
                         @forelse($photos as $index => $photo)
-                            <img src="{{$photo}}" alt="Thumbnail" 
+                            <img src="{{ asset('storage/' . $photo->photo) }}" alt="Thumbnail" 
                                 class="w-full h-20 object-cover rounded cursor-pointer thumbnail" 
                                 data-index="{{ $index }}">
                         @empty
-                            <div class="w-full h-20 bg-gray-200 rounded"></div>
+                            <div class="w-full h-20 bg-gray-200 rounded flex items-center justify-center">
+                                <p class="text-gray-500">No thumbnails available</p>
+                            </div>
                         @endforelse
                     </div>
                 </div>

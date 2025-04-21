@@ -20,4 +20,9 @@ class OfferPhotoRepository implements OfferPhotoRepositoryInterface
     {
         return $this->offerPhoto->create($data);
     }
+
+    public function getOfferPhotos($id)
+    {
+        return $this->offerPhoto->where('offer_id', $id)->get();
+    }
 }

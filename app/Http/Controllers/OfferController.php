@@ -66,8 +66,7 @@ class OfferController extends Controller
 
     
     // Handle thumbnail upload
-    // $thumbnailPath = $request->file('thumbnail')->store('offers/thumbnails', 'public');
-    $thumbnailPath = "testing";
+    $thumbnailPath = $request->file('thumbnail')->store('offers/thumbnails', 'public');
     // Create the offer record with only validated data
 
 
@@ -86,7 +85,6 @@ class OfferController extends Controller
         'phone_number' => $user->phone_number ,
         'situation_id'=>$user->situation_id
     ];
-    dd($offerData); // just to test if the code reached here successfully 
 
 
     $recentOffer =$this->offerRepository->create($offerData);
@@ -102,11 +100,15 @@ class OfferController extends Controller
                 "offer_id"=>$recentOfferId,
                 "photo"=>$photoPath,
             ];
+
             
             // to store each photo of the photos the user uploaded in each itiration 
             $this->offerPhotoRepository->storePhoto($offerPhotoData);
             
         }
+
+        dd($request->file('photos')); // just to test if the code reached here successfully 
+
     }
 
     
@@ -120,9 +122,8 @@ class OfferController extends Controller
     public function show($id)
     {
         $offer = $this->offerRepository->getById($id);
-        $photos = ["https://th.bing.com/th/id/R.f8d04c765b226b0dc9f41edaa2b55555?rik=4ARprhP%2fkCTt9A&pid=ImgRaw&r=0",
-                   "https://th.bing.com/th/id/R.f8d04c765b226b0dc9f41edaa2b55555?rik=4ARprhP%2fkCTt9A&pid=ImgRaw&r=0https://th.bing.com/th/id/OIP.iE7mcw3w2aFFDhXP9A1lggHaE8?rs=1&pid=ImgDetMain",
-                    "https://th.bing.com/th/id/OIP.bFGklHsqtTS_fpHd1-eb3AHaJ3?rs=1&pid=ImgDetMain"];
+        $photos = $this->offerPhotoRepository->getOfferPhotos($id);
+        
         
         return view("offers.show", compact("offer","photos"));
     }
