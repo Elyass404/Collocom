@@ -10,10 +10,10 @@
 </head>
 <body class="bg-gray-100">
     
-    {{-- @include('components.topbar') --}}
-    @include('components.headerUser')
+    @include('components.topbar')
+    {{-- @include('components.headerUser') --}}
 
-    {{-- @include('components.sidebar') --}}
+    @include('components.sidebar')
 
     <!-- Main Content -->
     <div class="ml-64 pt-32 p-6">
@@ -114,7 +114,7 @@
             </div>
         </div>
     </div>
-    @include("components.footer")
+    {{-- @include("components.footer") --}}
 
     <!-- JavaScript for Dropdown Menu -->
     <script>

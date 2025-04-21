@@ -54,6 +54,8 @@ class OfferController extends Controller
         return view("offers.create",compact("categories","regions","cities"));
     }
 
+
+    
     /**
      * Store a newly created resource in storage.
      */
@@ -62,6 +64,7 @@ class OfferController extends Controller
         $user= Auth::user();
         $validatedData = $request->validated();
          
+
 
 
     
@@ -135,8 +138,9 @@ class OfferController extends Controller
     {
         $offer = $this->offerRepository->getById($id);
         $categories = $this->categoryRepository->getAll();
-
-        return view("offers.edit", compact("offer","categories"));
+        $cities = City::all();
+        $regions = Region::all();
+        return view("offers.edit", compact("offer","categories","cities","regions"));
     }
 
     /**
@@ -144,9 +148,25 @@ class OfferController extends Controller
      */
     public function update(UpdateOfferRequest $request, $id)
     {
-        $validatedData = $request->validated();
-        $this->offerRepository->update($id, $validatedData);
-        return redirect()->route("offers.index")->with("success","The offer has been updated successfully");
+        // $validatedData = $request->validated();
+        // $this->offerRepository->update($id, $validatedData);
+        // return redirect()->route("offers.index")->with("success","The offer has been updated successfully");
+        /*
+    -call the user authenticated 
+    -define the validated data  variable  from the request 
+    -check if the thumbnail brought in the request is the same as the one stored in the db store the thumbnail path , from the request->file('thumbnail')->store('offer/thumbnails','public');
+    -store the information corresponded to the table offer in an associative array having the name of the column and the value you assign to it
+    -check if the images are the same, if not then  update the images in the offerPhotos
+    */
+
+    $user = Auth::user();
+    $validatedData = $request->validated();
+
+    $offer = $this->offerRepository->getById($id);
+    if($offer->thumbnail === "offers/thumbnail/".$request->file('thumbnail')){
+        dd(true);
+    };
+
         
     }
 
