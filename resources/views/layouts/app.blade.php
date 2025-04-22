@@ -1,4 +1,3 @@
-// Save this as: resources/views/layouts/app.blade.php
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,7 +9,9 @@
 </head>
 <body class="min-h-screen flex flex-col">
     <main class="flex-grow">
+        @include('components.headerUser')
         @yield('content')
+        @include('components.footer')
     </main>
     
     <script>

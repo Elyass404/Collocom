@@ -3,7 +3,7 @@
       <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
         <!-- Site info -->
         <div class="col-span-1 md:col-span-1">
-          <h2 class="text-xl font-bold text-white mb-4">PropertyHub</h2>
+          <h2 class="text-xl font-bold text-white mb-4">Collocom</h2>
           <p class="text-gray-400 text-sm">
             Find your perfect temporary stay with our platform that connects people looking for a place with those who have spaces to share.
           </p>
@@ -64,7 +64,7 @@
   
       <!-- Copyright -->
       <div class="mt-8 pt-8 border-t border-gray-700">
-        <p class="text-sm text-gray-400 text-center">© 2024 PropertyHub. All rights reserved.</p>
+        <p class="text-sm text-gray-400 text-center">© 2024 Collocom. All rights reserved.</p>
       </div>
     </div>
   </footer>
