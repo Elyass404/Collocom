@@ -1,0 +1,26 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class OfferRequest extends Model
+{
+    /** @use HasFactory<\Database\Factories\OfferRequestsFactory> */
+    use HasFactory;
+
+    protected $fillable = [
+        'offer_id',
+        'owner_id',
+        'user-id',
+    ];
+
+    public function offer(){
+        return $this->belongsTo(Offer::class);
+    }
+
+    public function users(){
+        return true;
+    }
+}
