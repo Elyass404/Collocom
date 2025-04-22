@@ -18,7 +18,7 @@ class OfferRepository implements OfferRepositoryInterface
 
     public function getAll()
     {
-        return $this->offers->paginate(10);
+        return $this->offers->whereNotNull('category_id')->paginate(20);
     }
 
     public function getById($id)

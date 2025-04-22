@@ -12,6 +12,7 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 Route::get('/', [PagesController::class, 'home'])->name('home');
 Route::get('offers/{id}/show_details', [PagesController::class, 'showDetails'])->name('offers.show_details');
+Route::get('offers/offers_list', [PagesController::class, 'offersList'])->name('offers.offers_list');
 
 Route::get('/test', function () {
     return view('test');

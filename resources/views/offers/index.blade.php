@@ -135,7 +135,6 @@ also after that i want section where the testemonials  will be shown , eache tes
 after that i want you to make a footer , that footer should be modern and clean 
 NOTE: for the css you should use cdn tailwind css, inside the blade file --}}
 
-can you make the header has a pill shaped and has a gap between the top of the page ,and also the left and write, and instead of the logo to be a writing, i have a png image that i want to place there , also the header i want it to have a subtle shadow
 
 
 

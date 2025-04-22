@@ -66,7 +66,7 @@
                     </select>
                 </div>
             </div>
-
+            @if(empty($offers))
             <!-- No Results Message -->
             <div class="bg-white p-8 rounded-lg shadow-md text-center">
                 <h3 class="text-lg font-medium text-gray-900 mb-2">No offers found</h3>
@@ -75,34 +75,41 @@
                     Clear Filters
                 </a>
             </div>
-
+            @else
             <!-- Offers Grid -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-10">
-                {{-- the foreach loop in here  --}}
+                @foreach($offers as $offer)
                 <div class="bg-white rounded-lg shadow-md overflow-hidden">
                     <div class="relative h-48">
-                        <img src="/placeholder.jpg" alt="Thumbnail" class="w-full h-full object-cover">
-                        <div class="absolute top-0 right-0 bg-indigo-600 text-white px-3 py-1 m-2 rounded-md text-sm font-semibold">2</div>
-                        <div class="absolute top-0 left-0 bg-black bg-opacity-70 text-white px-3 py-1 m-2 rounded-md text-sm font-semibold">Category</div>
+                        <img src="{{asset("storage/".$offer->thumbnail)}}" alt="Thumbnail" class="w-full h-full object-cover">
+                        <div class="absolute top-0 right-0 flex bg-indigo-600 text-white px-3 py-1 m-2 rounded-md text-sm font-semibold">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                            </svg>
+                            {{$offer->place_capacity}}</div>
+                        <div class="absolute top-0 left-0 bg-black bg-opacity-70 text-white px-3 py-1 m-2 rounded-md text-sm font-semibold">{{$offer->category->name}}</div>
                     </div>
                     <div class="p-6">
                         <div class="flex items-center mb-2">
-                            <span class="text-gray-700 text-sm">City Name</span>
+                            <span class="text-gray-700 border rounded-lg px-2 py-1 text-sm">{{$offer->city}}</span>
                         </div>
-                        <h3 class="text-lg font-semibold text-gray-900">Offer Title</h3>
-                        <p class="text-indigo-600 font-bold text-lg mt-1">MAD 0 <span class="text-black text-base font-normal">(0/person)</span></p>
-                        <p class="mt-2 text-gray-600">Offer description goes here...</p>
+                        <h3 class="text-lg font-semibold text-gray-900">{{$offer->title}}</h3>
+                        <p class="text-indigo-600 font-bold text-lg mt-1">MAD {{$offer->price}}<span class="text-black text-base font-normal"> ({{number_format($offer->price/$offer->place_capacity)}} Dirhams/person)</span></p>
+                        <p class="mt-2 text-gray-600">{{Str::limit($offer->description,120)}}</p>
                         <div class="mt-4 flex items-center justify-between space-x-2">
-                            <a class="flex-1 border border-indigo-600 text-indigo-600 py-2 px-4 rounded-md text-center font-medium hover:bg-indigo-50">See Details</a>
-                            <a class="flex-1 bg-indigo-600 text-white py-2 px-4 rounded-md text-center font-medium hover:bg-indigo-700">Ask to Join</a>
+                            <a href="{{route("offers.show_details",$offer->id)}}" class="flex-1 border border-indigo-600 text-indigo-600 py-2 px-4 rounded-md cursor-pointer text-center font-medium hover:bg-indigo-50">See Details</a>
+                            <a class="flex-1 bg-indigo-600 text-white py-2 px-4 rounded-md text-center cursor-pointer font-medium hover:bg-indigo-700">Ask to Join</a>
                         </div>
                     </div>
                 </div>
-                {{-- the end of the foreach in here  --}}
+                @endforeach
             </div>
+            @endif
 
             <!-- Pagination -->
-            <div class="mt-8 text-center text-gray-500">Pagination here...</div>
+            <div class="mt-8 text-center text-gray-500">
+                {{$offers->links()}}
+            </div>
         </div>
     </section>
 @endsection

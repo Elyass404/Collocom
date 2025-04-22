@@ -31,4 +31,9 @@ class PagesController extends Controller
         $offer = $this->offerRepository->getById($id);
         return view("offers.show_details",compact('offer'));
     }
+
+    public function offersList(){
+        $offers = $this->offerRepository->getAll();
+        return view("offers.offers_list", compact("offers"));
+    }
 }
