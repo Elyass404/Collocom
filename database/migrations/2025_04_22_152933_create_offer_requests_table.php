@@ -13,7 +13,15 @@ return new class extends Migration
     {
         Schema::create('offer_requests', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger("offer_id");
+            $table->unsignedBigInteger("owner_id");
+            $table->unsignedBigInteger("user_id");
             $table->timestamps();
+
+            $table->foreign("offer_id")->references("id")->on("offers")->onDelete("cascade");
+            $table->foreign("owner_id")->references("id")->on("users")->onDelete("cascade");
+            $table->foreign("user_id")->references("id")->on("users")->onDelete("cascade");
+
         });
     }
 

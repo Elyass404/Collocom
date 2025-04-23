@@ -10,6 +10,7 @@ class OfferRequest extends Model
     /** @use HasFactory<\Database\Factories\OfferRequestsFactory> */
     use HasFactory;
 
+    protected $table = "offer_requests";
     protected $fillable = [
         'offer_id',
         'owner_id',

@@ -2,12 +2,13 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\OfferController;
 use App\Http\Controllers\PagesController;
-use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\OfferRequestController;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 Route::get('/', [PagesController::class, 'home'])->name('home');
@@ -72,6 +73,7 @@ Route::get('/tags/create',function(){return view('tags.create');})->name('tags.c
 
 Route::patch("/offers/{id}/suspend", [OfferController::class,"suspend"])->name('offers.suspend');
 Route::patch("/offers/{id}/reactivate", [OfferController::class,"reactivate"])->name('offers.reactivate');
+Route::get("/offers/{offerId}/ask_to_join",[OfferRequestController::class,"askToJoin"]);
 
 // Route::get('/offers/index',function(){return view('offers.index');})->name('offers.index');
 

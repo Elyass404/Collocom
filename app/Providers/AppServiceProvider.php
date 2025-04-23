@@ -10,6 +10,8 @@ use App\Repositories\Eloquent\UserRepository;
 use App\Repositories\Eloquent\OfferRepository;
 use App\Repositories\Eloquent\CategoryRepository;
 use App\Repositories\Eloquent\OfferPhotoRepository;
+use App\Repositories\Eloquent\OfferRequestRepository;
+
 
 
 use App\Repositories\Interfaces\AuthRepositoryInterface;
@@ -17,6 +19,7 @@ use App\Repositories\Interfaces\UserRepositoryInterface;
 use App\Repositories\Interfaces\OfferRepositoryInterface;
 use App\Repositories\Interfaces\CategoryRepositoryInterface;
 use App\Repositories\Interfaces\OfferPhotoRepositoryInterface;
+use App\Repositories\Interfaces\OfferRequestRepositoryInterface;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -35,6 +38,8 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(OfferRepositoryInterface::class, OfferRepository::class);
         //binding the OfferPhotoRepositoryInterface with the OfferPhotoRepository
         $this->app->bind(OfferPhotoRepositoryInterface::class, OfferPhotoRepository::class);
+        //binding the OfferRequestRepositoryInterface with the OfferRequestRepository
+        $this->app->bind(OfferRequestRepositoryInterface::class, OfferRequestRepository::class);
     }
 
     /**
