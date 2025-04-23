@@ -13,7 +13,7 @@ class OfferRequest extends Model
     protected $fillable = [
         'offer_id',
         'owner_id',
-        'user-id',
+        'user_id',
     ];
 
     public function offer(){
