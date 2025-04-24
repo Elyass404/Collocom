@@ -29,7 +29,7 @@
 
                 <!-- Right side buttons (static look, no auth logic) -->
                 <div class="hidden sm:ml-6 sm:flex sm:items-center">
-                    <a href="#" class="ml-3 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700">
+                    <a href="{{route("offers.create")}}" class="ml-3 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700">
                         Create Offer
                     </a>
                     <div class="ml-3 relative">
@@ -69,7 +69,7 @@
             <a href="#" class="block pl-3 pr-4 py-2 border-l-4 text-base font-medium text-gray-500 hover:text-gray-700">Offers</a>
             <a href="#" class="block pl-3 pr-4 py-2 border-l-4 text-base font-medium text-gray-500 hover:text-gray-700">About Us</a>
             <a href="#" class="block pl-3 pr-4 py-2 border-l-4 text-base font-medium text-gray-500 hover:text-gray-700">Contact</a>
-            <a href="#" class="block pl-3 pr-4 py-2 border-l-4 text-base font-medium text-indigo-600 hover:bg-gray-50 hover:border-gray-300">Create Offer</a>
+            <a href="{{route('offers.create')}}" class="block pl-3 pr-4 py-2 border-l-4 text-base font-medium text-indigo-600 hover:bg-gray-50 hover:border-gray-300">Create Offer</a>
         </div>
 
         <div class="pt-4 pb-3 border-t border-gray-200">

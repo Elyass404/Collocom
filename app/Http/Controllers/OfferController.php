@@ -31,9 +31,11 @@ class OfferController extends Controller
     public function index()
     {
         $offers= $this->offerRepository->getAll();
+        // dd($offers->demands);
         $countOffers = 174;
         $activeOffers = 144;
         $latestOffers = 23;
+        
         return view("offers.index",compact(
             "offers",
             "countOffers",
@@ -64,10 +66,6 @@ class OfferController extends Controller
         $user= Auth::user();
         $validatedData = $request->validated();
          
-
-
-
-    
     // Handle thumbnail upload
     $thumbnailPath = $request->file('thumbnail')->store('offers/thumbnails', 'public');
     // Create the offer record with only validated data

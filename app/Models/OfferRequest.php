@@ -21,7 +21,11 @@ class OfferRequest extends Model
         return $this->belongsTo(Offer::class);
     }
 
+    public function owner(){
+        return $this->hasOne(User::class,"owner_id");
+    }
+
     public function users(){
-        return true;
+        return $this->hasMany(User::class, "user_id");
     }
 }

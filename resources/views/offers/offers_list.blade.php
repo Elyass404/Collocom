@@ -98,8 +98,11 @@
                         <p class="mt-2 text-gray-600">{{Str::limit($offer->description,120)}}</p>
                         <div class="mt-4 flex items-center justify-between space-x-2">
                             <a href="{{route("offers.show_details",$offer->id)}}" class="flex-1 border border-indigo-600 text-indigo-600 py-2 px-4 rounded-md cursor-pointer text-center font-medium hover:bg-indigo-50">See Details</a>
-                            
+                            @if($offer->demands->isNotEmpty())
                             <button type="button" id="{{$offer->id}}" class="ask_to_join_button flex-1 bg-indigo-600 text-white py-2 px-4 rounded-md text-center cursor-pointer font-medium hover:bg-indigo-700">Ask to Join</button>
+                            @else
+                            <button type="button" id="{{$offer->id}}" class="ask_to_join_button flex-1 bg-red-500 text-white py-2 px-4 rounded-md text-center cursor-pointer font-medium hover:bg-red-600">Cancel Demand</button>
+                            @endif
                         </div>
                     </div>
                 </div>

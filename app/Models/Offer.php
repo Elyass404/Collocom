@@ -41,4 +41,8 @@ class Offer extends Model
         return $this->hasMany(OfferPhoto::class);
     }
 
+    public function demands(){
+        return $this->hasMany(OfferRequest::class, 'id');
+    }
+
 }

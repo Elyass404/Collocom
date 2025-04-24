@@ -22,6 +22,9 @@ buttons.forEach(button=>{
                 });
             }
         });
+    document.getElementById(idOffer).classList.replace("bg-indigo-600", "bg-red-500");
+    document.getElementById(idOffer).classList.replace("hover:bg-indigo-700","hover:bg-red-600");
+    document.getElementById(idOffer).textContent = ('Cancel Demande');
     })
 })
 

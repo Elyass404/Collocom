@@ -34,6 +34,7 @@ class PagesController extends Controller
 
     public function offersList(){
         $offers = $this->offerRepository->getAll();
+
         return view("offers.offers_list", compact("offers"));
     }
 }

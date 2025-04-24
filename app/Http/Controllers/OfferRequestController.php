@@ -34,6 +34,9 @@ class OfferRequestController extends Controller
         ];
 
         $this->offerRequestRepository->askToJoin($offerData);
+
+        
+
         return response()->json(["success"=>"Your has been joined successfully !"]);
 
         }catch(Exception $e){

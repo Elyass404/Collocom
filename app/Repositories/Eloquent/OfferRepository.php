@@ -2,8 +2,9 @@
 
 namespace App\Repositories\Eloquent;
 
-use App\Repositories\Interfaces\OfferRepositoryInterface;
 use App\Models\Offer;
+use App\Repositories\Interfaces\OfferRepositoryInterface;
+use Illuminate\Support\Facades\Auth;
 
 class OfferRepository implements OfferRepositoryInterface
 {
@@ -18,7 +19,17 @@ class OfferRepository implements OfferRepositoryInterface
 
     public function getAll()
     {
-        return $this->offers->whereNotNull('category_id')->paginate(20);
+        $userId = Auth::id();
+
+    $offers = $this->offers
+        ->whereNotNull('category_id')
+        ->with(['demands' => fn($query) => $query->where('user_id', $userId)])
+        ->paginate(20);
+
+        dd($offers->categ);
+        return $offers;
+
+        
     }
 
     public function getById($id)
