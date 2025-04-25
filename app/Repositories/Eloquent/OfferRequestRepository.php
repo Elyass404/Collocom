@@ -70,7 +70,7 @@ class OfferRequestRepository implements OfferRequestRepositoryInterface
            return $this->OfferRequest
                     ->where('offer_id',$offerId)
                     ->where('user_id', $userId)
-                    ->first(); 
+                    ->exists(); 
         
         
 

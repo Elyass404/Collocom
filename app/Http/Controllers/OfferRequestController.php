@@ -36,12 +36,14 @@ class OfferRequestController extends Controller
         ];
 
         $existOffer = $this->offerRequestRepository->getDemande($offerId,Auth::id());
-        dd($existOffer);
+        // dd($existOffer);
         if(!$existOffer){
 
         $this->offerRequestRepository->askToJoin($offerData);
 
         return response()->json(["success"=>"Your demande has been Sent successfully !"]);
+        }else{
+            return response()->json(["error"=>"You have alreadey sent a demand for this offer!"]);
         }
         
         
