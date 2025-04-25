@@ -11,5 +11,6 @@ interface OfferRequestRepositoryInterface
     public function acceptRequest($id);
     public function rejectRquest($id);
     public function cancelDamande($id);
+    public function getDemande($offerId,$userId); // in order to chekc the deand exists already in the table of demands or not
     public function cancelDecision($id); //to give the owner to cancel the accept/reject decision he made for a demand 
 }

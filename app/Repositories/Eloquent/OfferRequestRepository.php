@@ -34,7 +34,7 @@ class OfferRequestRepository implements OfferRequestRepositoryInterface
         return $this->OfferRequest->where("user_id", Auth::id());
     }
 
-    public function getDemandes()
+    public function getDemandes() //this method for the owner of the offer to get the demandes people sent 
     {
         return $this->OfferRequest->where("owner_id",Auth::id());
     }
@@ -55,10 +55,25 @@ class OfferRequestRepository implements OfferRequestRepositoryInterface
         return $offer->update(['status'=>"Accepted"]);
     }
 
-    public function cancelDamande($id)
+    public function cancelDamande($offerId)
     {
-        $offer= $this->getById($id);
+        $offer = $this->OfferRequest->where('offer_id', $offerId)
+                        ->where('user_id', Auth::id())
+                        ->first();
+
         return $offer->delete();
+    }
+
+    public function getDemande($offerId, $userId)
+    {
+        
+           return $this->OfferRequest
+                    ->where('offer_id',$offerId)
+                    ->where('user_id', $userId)
+                    ->first(); 
+        
+        
+
     }
 
     public function cancelDecision($id)

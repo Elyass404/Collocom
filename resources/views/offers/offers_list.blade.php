@@ -101,7 +101,7 @@
                             @if(!$offer->demands->isNotEmpty())
                             <button type="button" id="{{$offer->id}}" class="ask_to_join_button flex-1 bg-indigo-600 text-white py-2 px-4 rounded-md text-center cursor-pointer font-medium hover:bg-indigo-700">Ask to Join</button>
                             @else
-                            <button type="button" id="{{$offer->id}}" class="cancel_demand_button flex-1 bg-red-500 text-white py-2 px-4 rounded-md text-center cursor-pointer font-medium hover:bg-red-600">Cancel Demande</button>
+                            <button type="button" id="{{$offer->id}}" class="cancel_demande_button flex-1 bg-red-500 text-white py-2 px-4 rounded-md text-center cursor-pointer font-medium hover:bg-red-600">Cancel Demande</button>
                             @endif
                         </div>
                     </div>
@@ -117,4 +117,5 @@
         </div>
     </section>
     <script src="{{asset('js/askTojoin.js')}}"></script>
+    <script src="{{asset('js/cancelDemande.js')}}"></script>
 @endsection

@@ -10,6 +10,8 @@ use App\Repositories\Interfaces\OfferRequestRepositoryInterface;
 use Exception;
 use Illuminate\Support\Facades\Auth;
 
+use function PHPUnit\Framework\isEmpty;
+
 class OfferRequestController extends Controller 
 {
     /**
@@ -33,16 +35,35 @@ class OfferRequestController extends Controller
             'user_id'=>Auth::id(),
         ];
 
+        $existOffer = $this->offerRequestRepository->getDemande($offerId,Auth::id());
+        dd($existOffer);
+        if(!$existOffer){
+
         $this->offerRequestRepository->askToJoin($offerData);
 
+        return response()->json(["success"=>"Your demande has been Sent successfully !"]);
+        }
         
-
-        return response()->json(["success"=>"Your has been joined successfully !"]);
+        
 
         }catch(Exception $e){
             return response()->json(["error"=>$e->getMessage()]);
         }
-        
+    }
+
+    public function cancelDemande($offerId){
+
+        try{
+            
+            
+            $this->offerRequestRepository->cancelDamande($offerId);
+
+            return response()->json(["success"=>"Your demande has been Canceled successfully !"]);
+
+        }catch(Exception $e){
+            return response()->json(["error"=>$e->getMessage()]);
+            
+        }
 
     }
 
