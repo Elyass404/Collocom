@@ -42,7 +42,7 @@ class Offer extends Model
     }
 
     public function demands(){
-        return $this->hasMany(OfferRequest::class, 'id');
+        return $this->hasMany(OfferRequest::class, 'offer_id');
     }
 
 }

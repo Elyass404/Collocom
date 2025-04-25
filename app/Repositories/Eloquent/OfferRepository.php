@@ -19,6 +19,8 @@ class OfferRepository implements OfferRepositoryInterface
 
     public function getAll()
     {
+        // return $this->offers->whereNotNull('category_id')->paginate(20);
+        
         $userId = Auth::id();
 
     $offers = $this->offers
@@ -26,7 +28,6 @@ class OfferRepository implements OfferRepositoryInterface
         ->with(['demands' => fn($query) => $query->where('user_id', $userId)])
         ->paginate(20);
 
-        dd($offers->categ);
         return $offers;
 
         
