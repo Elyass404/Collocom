@@ -30,7 +30,7 @@
                         <h1 class="text-2xl font-bold">Create New Offer</h1>
                         <p class="mt-1 text-indigo-100">List your property by filling in the details below</p>
                     </div>
-                    <a href="{{ route('offers.index') }}" class="px-4 py-2 bg-white text-indigo-600 rounded-md hover:bg-indigo-50 transition-colors font-medium">
+                    <a href="{{ url()->previous() }}" class="px-4 py-2 bg-white text-indigo-600 rounded-md hover:bg-indigo-50 transition-colors font-medium">
                         <i class="fas fa-times mr-2"></i>Cancel
                     </a>
                 </div>
@@ -189,7 +189,7 @@
 
                 <!-- Submit Buttons -->
                 <div class="p-6 bg-gray-50 flex justify-between space-x-3">
-                    <a href="{{ route('offers.index') }}" class="px-6 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                    <a href="{{ url()->previous()}}" class="px-6 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                         <i class="fas fa-times mr-2"></i> Cancel
                     </a>
                     <button type="submit" class="px-8 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">

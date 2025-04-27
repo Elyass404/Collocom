@@ -9,6 +9,7 @@ use App\Http\Requests\StoreOfferRequest;
 use App\Http\Requests\UpdateOfferRequest;
 use App\Models\City;
 use App\Models\Region;
+use App\Models\User;
 use App\Repositories\Interfaces\OfferRepositoryInterface;
 use App\Repositories\Interfaces\CategoryRepositoryInterface;
 use App\Repositories\Interfaces\OfferPhotoRepositoryInterface;
@@ -115,8 +116,6 @@ class OfferController extends Controller
             
         }
 
-        dd($request->file('photos')); // just to test if the code reached here successfully 
-
     }
 
     
@@ -145,7 +144,8 @@ class OfferController extends Controller
         $categories = $this->categoryRepository->getAll();
         $cities = City::all();
         $regions = Region::all();
-        return view("offers.edit", compact("offer","categories","cities","regions"));
+        $offerCreator = User::findOrFail($offer->owner_id);
+        return view("offers.edit", compact("offer","categories","cities","regions","offerCreator"));
     }
 
     /**

@@ -5,7 +5,7 @@
                 <div class="flex">
                     <!-- Logo -->
                     <div class="flex-shrink-0 flex items-center">
-                        <a href="#" class="flex items-center">
+                        <a href="{{route("home")}}" class="flex items-center">
                             <img src="/path/to/your/logo.png" alt="PropertyHub" class="h-8 w-auto">
                         </a>
                     </div>
