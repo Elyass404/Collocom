@@ -10,6 +10,7 @@
 <body class="bg-gray-50">
     @include('components.topbar')
     @include('components.sidebar')
+ 
     
     <div class="ml-64 pt-32 p-6">
         
@@ -25,7 +26,7 @@
         <div class="flex-1 p-8">
             <div class="max-w-5xl mx-auto">
                 <div class="mb-8">
-                    <h1 class="text-3xl font-bold text-gray-800">Add New Offer</h1>
+                    <h1 class="text-3xl font-bold text-gray-800">Create New Offer</h1>
                     <p class="text-gray-600 mt-2">Create a new property listing by filling in the details below</p>
                 </div>
 

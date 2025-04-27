@@ -71,6 +71,7 @@ Route::get('/tags/create',function(){return view('tags.create');})->name('tags.c
 
 //The offers related endpoints
 
+Route::get("/create_offer",[offerController::class,"createUserOffer"])->name("createOffer");
 Route::patch("/offers/{id}/suspend", [OfferController::class,"suspend"])->name('offers.suspend');
 Route::patch("/offers/{id}/reactivate", [OfferController::class,"reactivate"])->name('offers.reactivate');
 Route::get("/offers/{offerId}/ask_to_join",[OfferRequestController::class,"askToJoin"]);

@@ -56,6 +56,13 @@ class OfferController extends Controller
         return view("offers.create",compact("categories","regions","cities"));
     }
 
+   public function createUserOffer(){
+        $categories = $this->categoryRepository->getAll();
+        $regions= Region::all();
+        $cities= City::all();
+    return view("offers.createUser",compact("categories","regions","cities"));
+   }
+
 
     
     /**
