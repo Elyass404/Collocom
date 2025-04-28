@@ -97,10 +97,10 @@
                                     <button type="submit" class="px-2 py-1 bg-blue-500 text-white rounded text-sm">Activate</button>
                                 </form>
                             @endif
-                            <form action="{{route('offers.destroy', $offer->id)}}">
+                            <form method="POST" action="{{route('offers.destroy', $offer->id)}}">
                             @csrf
                             @method('DELETE')
-                            <a class="px-2 py-1 bg-red-500 text-white rounded text-sm">Delete</a>
+                            <button type="submit" class="px-2 py-1 bg-red-500 text-white rounded text-sm">Delete</button>
                         </form>
                         </td>
                     </tr>
