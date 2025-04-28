@@ -2,18 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\City;
+use App\Models\User;
 use App\Models\Offer;
+use App\Models\Region;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Auth\Events\Validated;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\StoreOfferRequest;
 use App\Http\Requests\UpdateOfferRequest;
-use App\Models\City;
-use App\Models\Region;
-use App\Models\User;
+use Illuminate\Contracts\Support\ValidatedData;
 use App\Repositories\Interfaces\OfferRepositoryInterface;
 use App\Repositories\Interfaces\CategoryRepositoryInterface;
 use App\Repositories\Interfaces\OfferPhotoRepositoryInterface;
-use Illuminate\Support\Facades\Auth;
 
 class OfferController extends Controller
 {
@@ -145,7 +147,8 @@ class OfferController extends Controller
         $cities = City::all();
         $regions = Region::all();
         $offerCreator = User::findOrFail($offer->owner_id);
-        return view("offers.edit", compact("offer","categories","cities","regions","offerCreator"));
+        $offerPhotos = $this->offerPhotoRepository->getOfferPhotos($id);
+        return view("offers.edit", compact("offer","categories","cities","regions","offerCreator","offerPhotos"));
     }
 
     /**
@@ -153,25 +156,71 @@ class OfferController extends Controller
      */
     public function update(UpdateOfferRequest $request, $id)
     {
-        // $validatedData = $request->validated();
-        // $this->offerRepository->update($id, $validatedData);
-        // return redirect()->route("offers.index")->with("success","The offer has been updated successfully");
-        /*
-    -call the user authenticated 
-    -define the validated data  variable  from the request 
-    -check if the thumbnail brought in the request is the same as the one stored in the db store the thumbnail path , from the request->file('thumbnail')->store('offer/thumbnails','public');
-    -store the information corresponded to the table offer in an associative array having the name of the column and the value you assign to it
-    -check if the images are the same, if not then  update the images in the offerPhotos
-    */
+        $user = Auth::user();
+        $validatedData = $request->validated();
+        
+        // Get the existing offer to access its current data
+        $existingOffer = $this->offerRepository->getById($id);
+        
+        // Prepare the offer data array with validated fields
+        $offerData = [
+            'title' => $validatedData['title'],
+            'price' => $validatedData['price'],
+            'category_id' => $validatedData['category_id'],
+            'region' => $validatedData['region'],
+            'city' => $validatedData['city'],
+            'number_of_rooms' => $validatedData['rooms'],
+            'place_capacity' => $validatedData['capacity'],
+            'available_places' => $validatedData['available_places'],
+            'description' => $validatedData['description'],
+            'phone_number' => $user->phone_number,
+            'situation_id' => $user->situation_id
+        ];
+        
+        // if the user has modifies the thumbnail of the offer, we do this 
+        if ($request->hasFile('thumbnail')) {
 
-    $user = Auth::user();
-    $validatedData = $request->validated();
+            // firstly i delete the old thumbnail in the storege 
+            if ($existingOffer->thumbnail && Storage::disk('public')->exists($existingOffer->thumbnail)) {
+                Storage::disk('public')->delete($existingOffer->thumbnail);
+            }
+            
+            // now i save the thumbnail the user choosed  in the strage
+            $thumbnailPath = $request->file('thumbnail')->store('offers/thumbnails', 'public');
+            $offerData['thumbnail'] = $thumbnailPath;
+        }
+        
+        //now we chnage the information of the offer in the table offers
+        $this->offerRepository->update($id, $offerData);
 
-    $offer = $this->offerRepository->getById($id);
-    if($offer->thumbnail === "offers/thumbnail/".$request->file('thumbnail')){
-        dd(true);
-    };
+        
+        // if the user changed the additional photos we should do the same we did with the thumbnail
+        if ($request->hasFile('photos')) {
 
+            // bring  all existing photos for this offer
+            $existingPhotos = $this->offerPhotoRepository->getOfferPhotos($id);
+            
+            // now we delete all existing photos from storage and database
+            foreach ($existingPhotos as $photo) {
+                if (Storage::disk('public')->exists($photo->photo)) {
+                    Storage::disk('public')->delete($photo->photo);
+                }
+                $this->offerPhotoRepository->deletePhoto($photo->id);
+            }
+            
+            // Store the new photos
+            foreach ($request->file('photos') as $photo) {
+                $photoPath = $photo->store('offers/photos', 'public');
+                $offerPhotoData = [
+                    "offer_id" => $id,
+                    "photo" => $photoPath,
+                ];
+                
+                $this->offerPhotoRepository->storePhoto($offerPhotoData);
+            }
+        }
+        
+        return redirect()->route('offers.index')->with('success', 'Offer updated successfully!');
         
     }
 

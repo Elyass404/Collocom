@@ -58,7 +58,13 @@ Route::middleware(['auth'])->group(function () {
 Route::get("/dashboard",[DashboardController::class,"index"])->name("dashboard");
 Route::resource('users', UserController::class);
 Route::resource('categories', CategoryController::class);
-Route::resource('/offers',OfferController::class);
+Route::resource('offers',OfferController::class);
+// Route::put("/offers/{offerId}",[OfferController::class,"update"])->name("offers.update");
+// Route::get("/offers/{offerId}/edit",[OfferController::class,"edit"])->name("offers.edit");
+// Route::get("/offers/create",[OfferController::class,"create"])->name("offers.create");
+// Route::get("/offers/{offerId}",[OfferController::class,"show"])->name("offers.show");
+// Route::get("/offers",[OfferController::class,"index"])->name("offers.index");
+// Route::delete("/offers/{offerId}", [OfferController::class, "destroy"])->name("offers.destroy");
 // Route::post('users', [UserController::class,"store"])->name('users.store');
 
 // Route::get('/users/create',function(){return view('users.create');})->name('users.create');

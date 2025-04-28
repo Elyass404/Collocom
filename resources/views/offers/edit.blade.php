@@ -36,8 +36,9 @@
                 </div>
             </div>
 
-            <form action="{{ route('offers.store') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('offers.update',$offer->id)}}" method="POST" enctype="multipart/form-data">
                 @csrf
+                @method("PUT")
                 
                 <!-- Basic Information Section -->
                 <div class="p-6 border-b border-gray-200">
@@ -145,7 +146,7 @@
                             
                             <div class="ml-5">
                                 <div class="relative">
-                                    <input type="file" name="thumbnail" id="thumbnail" accept="image/*" required class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
+                                    <input type="file" name="thumbnail" id="thumbnail" accept="image/*" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
                                     <label for="thumbnail" class="px-4 py-2 border border-gray-300 rounded-md bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 cursor-pointer">
                                         <i class="fas fa-upload mr-2"></i> Select Main Photo
                                     </label>
@@ -167,14 +168,23 @@
                                     <div class="text-sm text-gray-600">
                                         <label for="photos" class="relative cursor-pointer rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
                                             <span>Upload photos</span>
-                                            <input id="photos" name="photos[]" type="file" multiple accept="image/*" required class="sr-only">
+                                            <input id="photos" name="photos[]" type="file" multiple accept="image/*" {{ isset($offerPhotos) ? '' : 'required' }} class="sr-only">
                                         </label>
                                         <p class="pl-1">or drag and drop</p>
                                     </div>
                                     <p class="text-xs text-gray-500">PNG, JPG, GIF up to 10MB each</p>
                                 </div>
                             </div>
-                            <div id="photos-preview" class="mt-4 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4"></div>
+                            @if($offerPhotos)
+                            <div id="photos-preview" class="mt-4 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+                                @foreach(json_decode($offerPhotos) as $photo)
+                                    <div class="relative h-24 bg-gray-100 rounded-md overflow-hidden">
+                                    <img src="{{ asset('storage/' . $photo->photo) }}" class="h-full w-full object-cover">
+                                    </div>
+                                @endforeach
+                            </div>
+                               
+                                @endif
                             <p class="mt-2 text-xs text-gray-500">Try to include photos of all rooms, exterior views, and special features</p>
                         </div>
                     </div>
@@ -199,7 +209,7 @@
                         <i class="fas fa-times mr-2"></i> Cancel
                     </a>
                     <button type="submit" class="px-8 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                        <i class="fas fa-check mr-2"></i> Create Offer
+                        <i class="fas fa-check mr-2"></i> Update Offer
                     </button>
                 </div>
             </form>
@@ -269,43 +279,44 @@
             
             
             // Thumbnail preview
-            document.getElementById('thumbnail').addEventListener('change', function(e) {
-                const file = e.target.files[0];
-                if (file) {
-                    const reader = new FileReader();
-                    reader.onload = function(e) {
-                        const preview = document.getElementById('thumbnail-preview');
-                        const placeholder = document.getElementById('thumbnail-placeholder');
-                        
-                        preview.src = e.target.result;
-                        preview.classList.remove('hidden');
-                        placeholder.classList.add('hidden');
-                    }
-                    reader.readAsDataURL(file);
-                }
-            });
+document.getElementById('thumbnail').addEventListener('change', function(e) {
+    const file = e.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const preview = document.getElementById('thumbnail-preview');
+            const placeholder = document.getElementById('thumbnail-placeholder');
+            
+            preview.src = e.target.result;
+            preview.classList.remove('hidden');
+            placeholder.classList.add('hidden');
+        }
+        reader.readAsDataURL(file);
+    }
+});
 
             // Multiple photos preview
-            document.getElementById('photos').addEventListener('change', function(e) {
-                const previewContainer = document.getElementById('photos-preview');
-                previewContainer.innerHTML = '';
-                
-                Array.from(e.target.files).forEach(file => {
-                    const reader = new FileReader();
-                    reader.onload = function(e) {
-                        const previewBox = document.createElement('div');
-                        previewBox.className = 'relative h-24 bg-gray-100 rounded-md overflow-hidden';
-                        
-                        const img = document.createElement('img');
-                        img.src = e.target.result;
-                        img.className = 'h-full w-full object-cover';
-                        
-                        previewBox.appendChild(img);
-                        previewContainer.appendChild(previewBox);
-                    }
-                    reader.readAsDataURL(file);
-                });
-            });
+document.getElementById('photos').addEventListener('change', function(e) {
+    const previewContainer = document.getElementById('photos-preview');
+    // Clear all existing previews when new files are selected
+    previewContainer.innerHTML = '';
+    
+    Array.from(e.target.files).forEach(file => {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const previewBox = document.createElement('div');
+            previewBox.className = 'relative h-24 bg-gray-100 rounded-md overflow-hidden';
+            
+            const img = document.createElement('img');
+            img.src = e.target.result;
+            img.className = 'h-full w-full object-cover';
+            
+            previewBox.appendChild(img);
+            previewContainer.appendChild(previewBox);
+        }
+        reader.readAsDataURL(file);
+    });
+});
 
             // Drag and drop functionality for photos
             const dropZone = document.querySelector('.border-dashed');

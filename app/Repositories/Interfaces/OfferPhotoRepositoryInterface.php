@@ -6,4 +6,6 @@ interface OfferPhotoRepositoryInterface
 {
     public function storePhoto(array $data);
     public function getOfferPhotos($id);
+    public function deletePhoto($id);
+    
 }

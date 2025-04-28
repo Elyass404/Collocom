@@ -25,4 +25,10 @@ class OfferPhotoRepository implements OfferPhotoRepositoryInterface
     {
         return $this->offerPhoto->where('offer_id', $id)->get();
     }
+
+    public function deletePhoto($id){
+        $offer = $this->offerPhoto->findOrFail($id);
+        return $offer->delete();
+        
+    }
 }

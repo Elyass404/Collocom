@@ -49,7 +49,7 @@ class StoreOfferRequest extends FormRequest
              // Property Details
              'rooms' => 'required|integer|min:1',
              'capacity' => 'required|integer|min:2',
-             'available_places' => 'required|integer|min:1',
+             'available_places' => 'required|integer|min:1||max:'. $this->input('capacity'),
              'description' => 'required|string|min:20|max:5000',
              
              // Images
