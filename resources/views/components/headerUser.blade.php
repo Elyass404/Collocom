@@ -29,9 +29,15 @@
 
                 <!-- Right side buttons (static look, no auth logic) -->
                 <div class="hidden sm:ml-6 sm:flex sm:items-center">
+                    @auth
                     <a href="{{route("offers.create")}}" class="ml-3 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700">
                         Create Offer
                     </a>
+                    @else
+                    <a href="{{route("login")}}" class="ml-3 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700">
+                        Login
+                    </a>
+                    @endauth
                     <div class="ml-3 relative">
                         <div class="flex items-center">
                             <button type="button" class="bg-white rounded-full flex text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" id="user-menu-button">
