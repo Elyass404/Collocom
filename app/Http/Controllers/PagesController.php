@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Offer;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Repositories\Interfaces\OfferRepositoryInterface;
 
 class PagesController extends Controller
@@ -36,5 +37,14 @@ class PagesController extends Controller
         $offers = $this->offerRepository->getAll();
 
         return view("offers.offers_list", compact("offers"));
+    }
+
+    public function contact(){
+        if (Auth::check()){
+            $user = Auth::user();
+            return view("contact_us",compact("user"));
+        
+        }
+        return view("contact_us");
     }
 }

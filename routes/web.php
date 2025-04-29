@@ -9,11 +9,14 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\OfferRequestController;
+use App\Http\Controllers\SupportMessageController;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 Route::get('/', [PagesController::class, 'home'])->name('home');
 Route::get('offers/{id}/show_details', [PagesController::class, 'showDetails'])->name('offers.show_details');
 Route::get('offers/offers_list', [PagesController::class, 'offersList'])->name('offers.offers_list');
+Route::get('contact_us', [PagesController::class, 'contact'])->name('contact_us');
+Route::post('contact_us/send_message', [SupportMessageController::class, 'sendMessage'])->name('support.sendMessage');
 
 Route::get('/test', function () {
     return view('test');
