@@ -28,6 +28,7 @@ class SupportMessageController extends Controller
 
         // dd($validatedData["phone_number"]);
         $this->supportMessage->create($validatedData);
+        return redirect()->back()->with('success', 'Thank you for your message! We will get back to you soon.');
     }
     /**
      * Show the form for creating a new resource.
