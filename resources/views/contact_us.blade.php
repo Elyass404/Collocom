@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PropertyHub - Contact Us</title>
+    <title>Collocom - Contact Us</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
@@ -58,7 +58,7 @@
                     </div>
                     <h3 class="text-xl font-semibold text-gray-900 mb-2">Email Us</h3>
                     <p class="text-gray-600 mb-4">Our team is here to help with any questions</p>
-                    <a href="mailto:contact@propertyhub.com" class="text-indigo-600 font-medium hover:text-indigo-500">contact@propertyhub.com</a>
+                    <a href="mailto:contact@collocom.com" class="text-indigo-600 font-medium hover:text-indigo-500">contact@collocom.com</a>
                 </div>
                 
                 <!-- Card 2: Phone -->
@@ -83,7 +83,7 @@
                     </div>
                     <h3 class="text-xl font-semibold text-gray-900 mb-2">Visit Us</h3>
                     <p class="text-gray-600 mb-4">Come say hello at our office</p>
-                    <p class="text-indigo-600 font-medium">Casablanca, Morocco</p>
+                    <p class="text-indigo-600 font-medium">Ouarzazate, Morocco</p>
                 </div>
             </div>
         </div>
