@@ -91,9 +91,23 @@
     
     <!-- Contact Form Section -->
     <section class="py-12 bg-white">
+        
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <!-- Removed the grid layout to make the form take full width -->
-            <!-- Contact Form -->
+            @if ($errors->any())
+        <div class="bg-red-50 border-l-4 border-red-500 p-4 mb-6 rounded-md">
+            <div class="flex items-center mb-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-500 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+                </svg>
+                <h3 class="text-red-800 font-medium">Please correct the following errors:</h3>
+            </div>
+            <ul class="list-disc ml-5 text-red-700 text-sm">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
             <div>
                 <h2 class="text-3xl font-extrabold text-gray-900 mb-6">Send us a Message</h2>
                 <p class="text-lg text-gray-600 mb-8">
@@ -105,7 +119,7 @@
                         <!-- Name -->
                         <div>
                             <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
-                            <input type="text" name="name" id="name" class="form-input block w-full border border-gray-300 rounded-md shadow-sm py-3 px-4 focus:outline-none" placeholder="Your name" required>
+                            <input type="text" name="name" id="name" value="{{old('name')}}" class="form-input block w-full border border-gray-300 rounded-md shadow-sm py-3 px-4 focus:outline-none" placeholder="Your name" required>
                         </div>
                         
                         <!-- Email -->
