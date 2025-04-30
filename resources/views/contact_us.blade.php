@@ -136,26 +136,26 @@
                         <!-- Email -->
                         <div>
                             <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
-                            <input type="email" name="email" id="email" class="form-input block w-full border border-gray-300 rounded-md shadow-sm py-3 px-4 focus:outline-none" placeholder="your.email@example.com" required>
+                            <input type="email" name="email" id="email" value="{{old('email')}}" class="form-input block w-full border border-gray-300 rounded-md shadow-sm py-3 px-4 focus:outline-none" placeholder="your.email@example.com" required>
                         </div>
                     </div>
                     
                     <!-- Phone Number -->
                     <div>
                         <label for="phone_number" class="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
-                        <input type="tel" name="phone_number" id="phone_number" class="form-input block w-full border border-gray-300 rounded-md shadow-sm py-3 px-4 focus:outline-none" placeholder="Your phone number">
+                        <input type="tel" name="phone_number" id="phone_number" value="{{old('phone_number')}}" class="form-input block w-full border border-gray-300 rounded-md shadow-sm py-3 px-4 focus:outline-none" placeholder="Your phone number">
                     </div>
                     
                     <!-- object -->
                     <div>
                         <label for="object" class="block text-sm font-medium text-gray-700 mb-1">Object</label>
-                        <input type="text" name="object" id="object" class="form-input block w-full border border-gray-300 rounded-md shadow-sm py-3 px-4 focus:outline-none" placeholder="How can we help you?" required>
+                        <input type="text" name="object" id="object" value="{{old('object')}}" class="form-input block w-full border border-gray-300 rounded-md shadow-sm py-3 px-4 focus:outline-none" placeholder="How can we help you?" required>
                     </div>
                     
                     <!-- Message -->
                     <div>
                         <label for="message_content	" class="block text-sm font-medium text-gray-700 mb-1">Message</label>
-                        <textarea name="message_content" id="message_content" rows="5" class="form-input block w-full border border-gray-300 rounded-md shadow-sm py-3 px-4 focus:outline-none" placeholder="Tell us more about your inquiry..." required></textarea>
+                        <textarea name="message_content" id="message_content" value="{{old('message_content')}}" rows="5" class="form-input block w-full border border-gray-300 rounded-md shadow-sm py-3 px-4 focus:outline-none" placeholder="Tell us more about your inquiry..." required></textarea>
                     </div>
                     
                     <!-- Submit Button -->

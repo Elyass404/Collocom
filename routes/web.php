@@ -66,9 +66,10 @@ Route::resource('offers',OfferController::class);
 //Support Messages 
 Route::get("/support/index",[SupportMessageController::class,"index"])->name("support.index");
 Route::get("/support/{id}/show_message",[SupportMessageController::class,"show"])->name("support.show");
-Route::post("/support/{id}/mark_read",[SupportMessageController::class,"markRead"])->name("support.mark_read");
-Route::post("/support/{id}/mark_unread",[SupportMessageController::class,"markUnread"])->name("support.mark_unread");
+Route::patch("/support/{id}/mark_read",[SupportMessageController::class,"markRead"])->name("support.mark_read");
+Route::patch("/support/{id}/mark_unread",[SupportMessageController::class,"markUnread"])->name("support.mark_unread");
 Route::delete("/support/{id}/destroy",[SupportMessageController::class,"destroy"])->name("support.destroy");
+Route::post("/support/{id}/reply",[SupportMessageController::class,"reply"])->name("support.reply");
 // Route::put("/offers/{offerId}",[OfferController::class,"update"])->name("offers.update");
 // Route::get("/offers/{offerId}/edit",[OfferController::class,"edit"])->name("offers.edit");
 // Route::get("/offers/create",[OfferController::class,"create"])->name("offers.create");

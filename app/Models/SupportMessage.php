@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class SupportMessage extends Model
 {
+    protected $primaryKey = 'message_id';
+    
     protected $fillable = [
         "user_id",
         "name",
@@ -13,6 +15,7 @@ class SupportMessage extends Model
         "email",
         "phone_number",
         "object",
+        "status",
 
     ];
 }
