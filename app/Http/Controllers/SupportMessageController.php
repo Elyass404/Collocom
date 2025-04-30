@@ -16,6 +16,13 @@ class SupportMessageController extends Controller
         $this->supportMessage= $supportMessage;
     }
     
+    public function index(){
+        $messages = $this->supportMessage->paginate(20);
+        $countMessages =5 ;
+        $unreadMessages=  552;
+        $latestMessages = 2;
+        return view ("support.index",compact("messages","countMessages","unreadMessages","latestMessages"));
+    }
 
     public function sendMessage(SupportMessageRequest $request){
 
@@ -49,7 +56,7 @@ class SupportMessageController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(support_message $support_message)
+    public function show($id)
     {
         //
     }
@@ -73,8 +80,11 @@ class SupportMessageController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(support_message $support_message)
+    public function destroy($id)
     {
-        //
+        $message = $this->supportMessage->where("message_id",$id); // i did this instead of "find/findOrFail' because when i was creating the table in the DB i chnaged the Id column with "messages_id" and find/findOrFail is looking for the column that called id
+        $message->delete();
+        return redirect()->back()->with('success', 'Message deleted successfully.');
+
     }
 }
