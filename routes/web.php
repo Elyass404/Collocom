@@ -9,11 +9,14 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\OfferRequestController;
+use App\Http\Controllers\SupportMessageController;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 Route::get('/', [PagesController::class, 'home'])->name('home');
 Route::get('offers/{id}/show_details', [PagesController::class, 'showDetails'])->name('offers.show_details');
 Route::get('offers/offers_list', [PagesController::class, 'offersList'])->name('offers.offers_list');
+Route::get('contact_us', [PagesController::class, 'contact'])->name('contact_us');
+Route::post('contact_us/send_message', [SupportMessageController::class, 'sendMessage'])->name('support.sendMessage');
 
 Route::get('/test', function () {
     return view('test');
@@ -59,6 +62,14 @@ Route::get("/dashboard",[DashboardController::class,"index"])->name("dashboard")
 Route::resource('users', UserController::class);
 Route::resource('categories', CategoryController::class);
 Route::resource('offers',OfferController::class);
+
+//Support Messages 
+Route::get("/support/index",[SupportMessageController::class,"index"])->name("support.index");
+Route::get("/support/{id}/show_message",[SupportMessageController::class,"show"])->name("support.show");
+Route::patch("/support/{id}/mark_read",[SupportMessageController::class,"markRead"])->name("support.mark_read");
+Route::patch("/support/{id}/mark_unread",[SupportMessageController::class,"markUnread"])->name("support.mark_unread");
+Route::delete("/support/{id}/destroy",[SupportMessageController::class,"destroy"])->name("support.destroy");
+Route::post("/support/{id}/reply",[SupportMessageController::class,"reply"])->name("support.reply");
 // Route::put("/offers/{offerId}",[OfferController::class,"update"])->name("offers.update");
 // Route::get("/offers/{offerId}/edit",[OfferController::class,"edit"])->name("offers.edit");
 // Route::get("/offers/create",[OfferController::class,"create"])->name("offers.create");
