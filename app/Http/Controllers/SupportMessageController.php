@@ -44,43 +44,6 @@ class SupportMessageController extends Controller
         return view("support.show",compact("message","previousMessages"));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(support_message $support_message)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, support_message $support_message)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy($id)
     {
         $message = $this->supportMessage->where("message_id",$id)->first(); // i did this instead of "find/findOrFail' because when i was creating the table in the DB i chnaged the Id column with "messages_id" and find/findOrFail is looking for the column that called id

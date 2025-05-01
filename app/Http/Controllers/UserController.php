@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
 use Illuminate\Support\Facades\Hash;
 use App\Repositories\Interfaces\UserRepositoryInterface;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -95,5 +96,16 @@ class UserController extends Controller
     {
         $this->userRepository->delete($id);
         return redirect()->route("users.index")->with('success',"The user has been deleted successfully!");
+    }
+
+    public function profile($id){
+        if(isset($id)){
+            $user = $this->userRepository->findById($id);
+        }else{
+            $user = Auth::user();
+            dd($user);  
+        }
+
+        return view("users.profile",compact("user"));
     }
 }
