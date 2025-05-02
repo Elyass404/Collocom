@@ -150,7 +150,7 @@
                                             class="w-32 h-32 rounded-full object-cover" id="profile-preview">
                                     @else
                                         <div class="w-32 h-32 rounded-full bg-gray-300 flex items-center justify-center" id="profile-preview-placeholder">
-                                            <span class="text-gray-500 text-2xl font-bold">{{ substr($user->name, 0, 1) }}</span>
+                                            <span class="text-gray-500 text-4xl font-bold">{{ substr($user->name, 0, 1) }}</span>
                                         </div>
                                         <img src="" alt="{{ $user->name }}" class="w-32 h-32 rounded-full object-cover hidden" id="profile-preview">
                                     @endif

@@ -105,30 +105,38 @@ class UserController extends Controller
         $user = $this->userRepository->findById($id);
         $validatedData= $request->validated();
 
-        if (!is_null($validatedData['password'])) {
+        
 
+        if (!is_null($validatedData['password'])) {
+            unset($validatedData['current_password'],$validatedData['pssword_validation']);
             $validatedData['password'] = Hash::make($validatedData['password']);
+
         }else{
             unset($validatedData["password"]);
-            // dd($validatedData);
-
         }
 
         // if the user has modified  the profile picture, we do this 
         if($request->hasFile("profile_picture")){
-        
 
-            // firstly i delete the old thumbnail in the storege 
+            // firstly i delete the old profile picture in the storege 
             if ($user->profile_picture && Storage::disk('public')->exists($user->profile_picture)) {
                 Storage::disk('public')->delete($user->profile_picture);
             }
-            
-            // now i save the thumbnail the user choosed  in the strage
+
+            // now i save the profile picture the user choosed  in the strage
             $profile_picture_path = $request->file('profile_picture')->store('users/profile_pictures', 'public');
-            
             $validatedData['profile_picture'] = $profile_picture_path;
         }
 
+        //what if the user just want to remove the picture, this is what we gonna handle now
+        if($request["remove_picture"]){
+            // if the remove picture checkbox is checked we delete the picture from the storage
+            if ($user->profile_picture && Storage::disk('public')->exists($user->profile_picture)) {
+                Storage::disk('public')->delete($user->profile_picture);
+            }
+            $validatedData["profile_picture"] = null;
+        }
+        
         $this->userRepository->update($id,$validatedData);
 
         return redirect()->route("users.profile",$id)->with("success","The user updated successfully!");
