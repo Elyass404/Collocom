@@ -27,7 +27,7 @@
         <div class="relative bg-gradient-to-r from-red-500 to-blue-600 h-64">
             <!-- Edit Profile Button - Only visible to the profile owner -->
             @if(auth()->id() == $user->id)
-                <a href="#{{--{{ route('profile.edit') }}--}}" class="absolute top-4 right-6 bg-white bg-opacity-20 hover:bg-opacity-30 p-3 rounded-full text-white transition duration-200">
+                <a href="{{ route('users.edit_profile',Auth::id()) }}" class="absolute top-4 right-6 bg-white bg-opacity-20 hover:bg-opacity-30 p-3 rounded-full text-white transition duration-200">
                     <i class="fas fa-cog text-xl"></i>
                       
                 </a>

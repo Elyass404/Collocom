@@ -5,9 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
+use App\Models\Situation;
+use App\Repositories\interfaces\SituationRepositoryInterface;
 use Illuminate\Support\Facades\Hash;
 use App\Repositories\Interfaces\UserRepositoryInterface;
 use Illuminate\Support\Facades\Auth;
+use Symfony\Component\CssSelector\Node\FunctionNode;
 
 class UserController extends Controller
 {
@@ -16,9 +19,11 @@ class UserController extends Controller
      */
 
     protected $userRepository;
-    public function __construct(UserRepositoryInterface $userRepository)
+    protected $situationRepository;
+    public function __construct(UserRepositoryInterface $userRepository, SituationRepositoryInterface $situationRepository)
     {
         $this->userRepository = $userRepository;
+        $this->situationRepository = $situationRepository;
     }
 
     public function index()
@@ -80,7 +85,17 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update( $id, UserRequest $request)
+
+     public function editProfile($id){
+        if(Auth::id() != $id){
+            return ("you can't aceess this page!");
+        }
+
+        $user = Auth::user();
+        $situations =$this->situationRepository->getAll();
+        return view("users.edit_profile",compact("user","situations"));
+     }
+    public function update(UserRequest $request, $id)
     {
         $validatedData= $request->validated();
 

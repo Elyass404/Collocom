@@ -82,6 +82,7 @@ Route::post("/support/{id}/reply",[SupportMessageController::class,"reply"])->na
 // Route::get('/users/create',function(){return view('users.create');})->name('users.create');
 
 Route::get('/profile/{id}',[UserController::class,"profile"])->name('users.profile');
+Route::get('/profile/{id}/edit_profile',[UserController::class,"editProfile"])->name('users.edit_profile');
 
 Route::get('/tags/index',function(){return view('tags.index');})->name('tags.index');
 
