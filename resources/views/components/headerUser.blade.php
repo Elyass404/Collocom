@@ -6,7 +6,7 @@
                     <!-- Logo -->
                     <div class="flex-shrink-0 flex items-center">
                         <a href="{{route("home")}}" class="flex items-center">
-                            <img src="/path/to/your/logo.png" alt="PropertyHub" class="h-8 w-auto">
+                            <img src="{{asset("images/logos/collocom_full_logo_blue.svg")}}" alt="Collocom logo" class="h-8 w-auto">
                         </a>
                     </div>
 
@@ -30,7 +30,7 @@
                 <!-- Right side buttons (static look, no auth logic) -->
                 <div class="hidden sm:ml-6 sm:flex sm:items-center">
                     @auth
-                    <a href="{{route("offers.create")}}" class="ml-3 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700">
+                    <a href="{{route("createOffer")}}" class="ml-3 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700">
                         Create Offer
                     </a>
                     @else

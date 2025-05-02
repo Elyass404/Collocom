@@ -1,10 +1,13 @@
 <!-- resources/views/components/topbar.blade.php -->
 <div class="bg-white shadow-md fixed w-full z-10">
-    <div class="container mx-auto flex justify-between items-center p-4">
-        <div class="text-xl font-bold">Collocom</div>
+    <div class="container mx-auto flex justify-between items-center py-4">
+        <div class="text-xl font-bold">
+            <a href="{{route("home")}}">
+            <span><img src="{{asset("images/logos/collocom_full_logo_blue.svg")}}" class="h-8 w-auto" alt="Collocom logo"></span></div>
         <div class="flex items-center space-x-4">
-            <span class="text-gray-700">ilyass</span>
-            <img src="https://via.placeholder.com/40" alt="Profile" class="w-10 h-10 rounded-full">
+        </a>
+            <span class="text-gray-700">{{Auth::user()->name}}</span>
+            <img src="{{asset('storage/'.Auth::user()->profile_picture)}}" alt="Profile" class="w-10 h-10 rounded-full">
             <div class="relative">
                 <button id="profile-menu" class="focus:outline-none">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
