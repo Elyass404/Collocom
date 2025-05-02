@@ -42,9 +42,13 @@
                         <div class="flex items-center">
                             <button type="button" class="bg-white rounded-full flex text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" id="user-menu-button">
                                 <span class="sr-only">Open user menu</span>
+                                @if(!is_null(Auth::user()->profile_picture))
                                 <span class="h-8 w-8 rounded-full bg-gray-200 flex items-center justify-center">
-                                    <span class="text-xs font-medium text-gray-500">A</span>
+                                    <img class="rounded-full" src="{{asset('storage/'.Auth::user()->profile_picture)}}" alt="user_picture">
                                 </span>
+                                @else
+                                <span class="h-8 w-8 rounded-full bg-gray-200 flex items-center justify-center font-bold ">{{substr(Auth::user()->name, 0, 1)}}</span>
+                                @endif
                             </button>
                         </div>
                         <div id="user-dropdown" class="hidden z-30 origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5">

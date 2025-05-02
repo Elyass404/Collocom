@@ -27,7 +27,7 @@ class UpdateUserRequest extends FormRequest
             'email'     => 'required|email|unique:users,email,' . Auth::id(),
             'gender'    => 'required|in:Male,Female',
             'password'  => 'nullable|string|min:8|confirmed',
-            'profile_picture' => 'nullable|image|max:3000',
+            'profile_picture' => 'nullable|image|mimes:jpeg,png,jpg|max:3000',
             'birthdate' => 'nullable|date|before:' . now()->subYears(5)->format('Y-m-d'),
             'bio'       => 'nullable|string|max:1000',
             'situation_id' => 'nullable|string|exists:situations,id',

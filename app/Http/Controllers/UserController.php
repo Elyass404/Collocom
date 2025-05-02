@@ -104,15 +104,19 @@ class UserController extends Controller
     {
         $user = $this->userRepository->findById($id);
         $validatedData= $request->validated();
-        dd(true);
 
-        if (!empty($validatedData['password'])) {
+        if (!is_null($validatedData['password'])) {
 
             $validatedData['password'] = Hash::make($validatedData['password']);
+        }else{
+            unset($validatedData["password"]);
+            // dd($validatedData);
+
         }
 
         // if the user has modified  the profile picture, we do this 
         if($request->hasFile("profile_picture")){
+        
 
             // firstly i delete the old thumbnail in the storege 
             if ($user->profile_picture && Storage::disk('public')->exists($user->profile_picture)) {
@@ -121,12 +125,13 @@ class UserController extends Controller
             
             // now i save the thumbnail the user choosed  in the strage
             $profile_picture_path = $request->file('profile_picture')->store('users/profile_pictures', 'public');
-            $request['profile_picture'] = $profile_picture_path;
+            
+            $validatedData['profile_picture'] = $profile_picture_path;
         }
 
         $this->userRepository->update($id,$validatedData);
 
-        return redirect()->route("users.index")->with("success","The user updated successfully!");
+        return redirect()->route("users.profile",$id)->with("success","The user updated successfully!");
     }
 
     /**
