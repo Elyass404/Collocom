@@ -38,7 +38,7 @@
                 <div class="flex items-center pt-32">
                     <div class="relative">
                         @if($user->profile_picture)
-                            <img src="{{--{{ asset('storage/' . $user->profile_picture) }}--}}" alt="{{ $user->name }}" class="w-32 h-32 rounded-full border-4 border-white object-cover">
+                            <img src="{{ asset('storage/' . $user->profile_picture) }}" alt="{{ $user->name }}" class="w-32 h-32 rounded-full border-4 border-white object-cover">
                         @else
                             <div class="w-32 h-32 rounded-full border-4 border-white bg-gray-300 flex items-center justify-center">
                                 <span class="text-gray-500 text-2xl font-bold">{{ substr($user->name, 0, 1) }}</span>

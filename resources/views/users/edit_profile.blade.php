@@ -15,7 +15,7 @@
     @include('components.headerUser')
 
     <!-- Main Content -->
-    <div class="w-full pt-24 pb-12">
+    <div class="w-full pt-14 pb-12">
         
         @if (session('success'))
             <div class="container mx-auto  bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">

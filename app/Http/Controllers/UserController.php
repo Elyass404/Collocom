@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
@@ -11,6 +12,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Repositories\Interfaces\UserRepositoryInterface;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\CssSelector\Node\FunctionNode;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -86,18 +88,41 @@ class UserController extends Controller
      * Update the specified resource in storage.
      */
 
-     public function editProfile($id){
+    public function editProfile($id){
         if(Auth::id() != $id){
             return ("you can't aceess this page!");
         }
 
         $user = Auth::user();
         $situations =$this->situationRepository->getAll();
+
         return view("users.edit_profile",compact("user","situations"));
-     }
-    public function update(UserRequest $request, $id)
+    }
+
+
+    public function update(UpdateUserRequest $request, $id)
     {
+        $user = $this->userRepository->findById($id);
         $validatedData= $request->validated();
+        dd(true);
+
+        if (!empty($validatedData['password'])) {
+
+            $validatedData['password'] = Hash::make($validatedData['password']);
+        }
+
+        // if the user has modified  the profile picture, we do this 
+        if($request->hasFile("profile_picture")){
+
+            // firstly i delete the old thumbnail in the storege 
+            if ($user->profile_picture && Storage::disk('public')->exists($user->profile_picture)) {
+                Storage::disk('public')->delete($user->profile_picture);
+            }
+            
+            // now i save the thumbnail the user choosed  in the strage
+            $profile_picture_path = $request->file('profile_picture')->store('users/profile_pictures', 'public');
+            $request['profile_picture'] = $profile_picture_path;
+        }
 
         $this->userRepository->update($id,$validatedData);
 
