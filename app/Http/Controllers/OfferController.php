@@ -144,15 +144,23 @@ class OfferController extends Controller
 
         $userId = Auth::id();
         $offer = $this->offerRepository->getByUserId($userId);
-        $totalDemands = $this->offerRequestRepository->getRequests()->count();
-        $acceptedDemands = $this->offerRequestRepository->getRequests()->where("status","accepted")->count();
-        $rejectedDemands = $this->offerRequestRepository->getRequests()->where("status","rejected")->count();
-        $recentDemands = $this->offerRequestRepository->getRequests()->where('created_at', '>=', now()->subDay())->count();
+        $totalDemands = $this->offerRequestRepository->getDemandes()->count();
+        $acceptedDemands = $this->offerRequestRepository->getDemandes()->where("status","accepted")->count();
+        $rejectedDemands = $this->offerRequestRepository->getDemandes()->where("status","rejected")->count();
+        $recentDemands = $this->offerRequestRepository->getDemandes()->where('created_at', '>=', now()->subDay())->count();
 
-        $recentDemandsList = $this->offerRequestRepository->getRequests()->where("status","pending");
-        dd($recentDemandsList);
+        $recentDemandsList = $this->offerRequestRepository->getPending();
+        foreach($recentDemandsList as $d){
+          print_r($d->user->name);
+        }
+        // dd($recentDemandsList->count());  
 
-        return view("offers.my_offer", compact("offer","totalDemands","acceptedDemands","recentDemands","rejectedDemands"));
+        return view("offers.my_offer", compact("offer",
+                                               "totalDemands",
+                                               "acceptedDemands",
+                                               "rejectedDemands",
+                                               "recentDemands",
+                                               "recentDemandsList"));
     }
 
     /**

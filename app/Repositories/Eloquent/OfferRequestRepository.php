@@ -83,4 +83,8 @@ class OfferRequestRepository implements OfferRequestRepositoryInterface
                     ->exists(); 
     }
 
+    public function getPending(){
+        return $this->OfferRequest->where("status","pending")->get();
+    }
+
 }

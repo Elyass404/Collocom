@@ -192,13 +192,13 @@
                 </a>
             </div>
 
-            @if(count($recentDemandsList) > 0)
+            @if($recentDemands> 0)
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                 @foreach($recentDemandsList as $demand)
                 <div class="bg-gray-50 rounded-lg p-4 border border-gray-100 transform hover:-translate-y-1 transition-transform duration-300">
                     <div class="flex items-start justify-between">
                         <div class="flex items-center">
-                            <img src="{{ $demand->user->profile_photo }}" alt="{{ $demand->user->name }}" class="h-10 w-10 rounded-full object-cover">
+                            <img src="{{ asset('storage/'.$demand->owner->name) }}" alt="{{ $demand->owner->name }}" class="h-10 w-10 rounded-full object-cover">
                             <div class="ml-3">
                                 <h3 class="font-medium text-gray-800">{{ $demand->user->name }}</h3>
                                 <span class="inline-block px-2 py-1 text-xs font-semibold rounded-full {{ 
@@ -214,7 +214,7 @@
                     </div>
                     
                     <div class="mt-3">
-                        <p class="text-sm text-gray-600 line-clamp-2">{{ Str::limit($demand->message, 80) }}</p>
+                        <p class="text-sm text-gray-600 line-clamp-2">{{ Str::limit($demand->user->bio, 80) }}</p>
                     </div>
                     
                     <div class="mt-4 flex justify-between items-center">
