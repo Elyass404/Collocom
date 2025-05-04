@@ -5,7 +5,7 @@ namespace App\Repositories\Interfaces;
 interface OfferRequestRepositoryInterface
 {
     public function askToJoin(array $data);
-    public function getRequests($id);
+    public function getRequests();
     public function getById($id);
     public function getDemandes();
     public function acceptRequest($id);

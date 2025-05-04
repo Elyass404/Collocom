@@ -29,18 +29,26 @@ class OfferRequestRepository implements OfferRequestRepositoryInterface
         return $this->OfferRequest->findOrFail($id);
     }
 
-    public function getRequests($id) //this method for the user to see his applied demands
+    public function getRequests() //this method for the user to see his applied demands
     {
         return $this->OfferRequest->where("user_id", Auth::id());
     }
 
-    public function getDemandes() //this method for the owner of the offer to get the demandes people sent 
-    {
+    public function getDemandes(){ //this method for the owner of the offer to get the demandes people sent 
         return $this->OfferRequest->where("owner_id",Auth::id());
     }
 
     public function askTojoin(array $data){
       return  $this->OfferRequest->create($data);
+    }
+
+    public function cancelDamande($offerId)
+    {
+        $offer = $this->OfferRequest->where('offer_id', $offerId)
+                        ->where('user_id', Auth::id())
+                        ->first();
+
+        return $offer->delete();
     }
 
     public function rejectRquest($id){
@@ -55,38 +63,24 @@ class OfferRequestRepository implements OfferRequestRepositoryInterface
         return $offer->update(['status'=>"Accepted"]);
     }
 
-    public function cancelDamande($offerId)
-    {
-        $offer = $this->OfferRequest->where('offer_id', $offerId)
-                        ->where('user_id', Auth::id())
-                        ->first();
-
-        return $offer->delete();
-    }
-
-    public function getDemande($offerId, $userId)
-    {
-        
-           return $this->OfferRequest
-                    ->where('offer_id',$offerId)
-                    ->where('user_id', $userId)
-                    ->exists(); 
-        
-        
-
-    }
-
-    public function cancelDecision($id)
-    {
+    public function cancelDecision($id){
         $offer = $this->getById($id);
         if($offer->status ==="Accepted"){
 
             //if you it is accepted then we already decreased one; By canceling the decision then we should increament to go back to the number before we accepted
             //but if the decision is rejecting it, then the number will not be affected, so we just change the status to pending directly 
             $this->offers->where('id',$id)->increment("available_places", 1);
-
         }
         
         return $offer->update(["status"=>"Pending"]);
     }
+
+    public function getDemande($offerId, $userId) {
+        //i made this method in order to check if a certain user applied/sent demande to  a certain offer or not, in order to prevent the user to apply a demande more than once to the same offer
+           return $this->OfferRequest
+                    ->where('offer_id',$offerId)
+                    ->where('user_id', $userId)
+                    ->exists(); 
+    }
+
 }

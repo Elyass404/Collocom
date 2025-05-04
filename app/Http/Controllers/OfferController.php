@@ -12,6 +12,7 @@ use Illuminate\Auth\Events\Validated;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\StoreOfferRequest;
 use App\Http\Requests\UpdateOfferRequest;
+use App\Repositories\Eloquent\OfferRequestRepository;
 use Illuminate\Contracts\Support\ValidatedData;
 use App\Repositories\Interfaces\OfferRepositoryInterface;
 use App\Repositories\Interfaces\CategoryRepositoryInterface;
@@ -25,11 +26,13 @@ class OfferController extends Controller
     protected $offerRepository; 
     protected $categoryRepository;
     protected $offerPhotoRepository;
-    public function __construct(OfferRepositoryInterface $offerRepository, CategoryRepositoryInterface $categoryRepository, OfferPhotoRepositoryInterface $offerPhotoRepository)
+    protected $offerRequestRepository;
+    public function __construct(OfferRepositoryInterface $offerRepository, CategoryRepositoryInterface $categoryRepository, OfferPhotoRepositoryInterface $offerPhotoRepository, OfferRequestRepository $offerRequestRepository)
     {
         $this->offerRepository = $offerRepository;
         $this->categoryRepository = $categoryRepository;
         $this->offerPhotoRepository = $offerPhotoRepository;
+        $this->offerRequestRepository = $offerRequestRepository;
     }
     public function index()
     {
@@ -135,6 +138,21 @@ class OfferController extends Controller
         
         
         return view("offers.show", compact("offer","photos"));
+    }
+
+    public function myOffer(){
+
+        $userId = Auth::id();
+        $offer = $this->offerRepository->getByUserId($userId);
+        $totalDemands = $this->offerRequestRepository->getRequests()->count();
+        $acceptedDemands = $this->offerRequestRepository->getRequests()->where("status","accepted")->count();
+        $rejectedDemands = $this->offerRequestRepository->getRequests()->where("status","rejected")->count();
+        $recentDemands = $this->offerRequestRepository->getRequests()->where('created_at', '>=', now()->subDay())->count();
+
+        $recentDemandsList = $this->offerRequestRepository->getRequests()->where("status","pending");
+        dd($recentDemandsList);
+
+        return view("offers.my_offer", compact("offer","totalDemands","acceptedDemands","recentDemands","rejectedDemands"));
     }
 
     /**

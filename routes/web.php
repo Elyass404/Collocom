@@ -95,6 +95,8 @@ Route::patch("/offers/{id}/suspend", [OfferController::class,"suspend"])->name('
 Route::patch("/offers/{id}/reactivate", [OfferController::class,"reactivate"])->name('offers.reactivate');
 Route::get("/offers/{offerId}/ask_to_join",[OfferRequestController::class,"askToJoin"]);
 Route::get("/offers/{offerId}/cancel_demande",[OfferRequestController::class,"cancelDemande"]);
+Route::get('/my_offer',[OfferController::class,"myOffer"])->name('my_offer');
+
 
 // Route::get('/offers/index',function(){return view('offers.index');})->name('offers.index');
 
