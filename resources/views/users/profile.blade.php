@@ -1,100 +1,174 @@
-<!-- resources/views/users/edit.blade.php -->
+<!-- resources/views/profile/show.blade.php -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Update Profile</title>
+    <title>{{ $user->name }} - Profile</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<body class="bg-gray-100">
-    <!-- Include Top Bar -->
-    @include('components.topbar')
+<body class="bg-gray-50">
+    
+    @include('components.headerUser')
 
     <!-- Main Content -->
-    <div class="pt-32 p-6">
-        <!-- Back Button -->
-        <div class="mb-6">
-            <a href="#" class="inline-flex items-center px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd" />
-                </svg>
-                Back
-            </a>
+    <div class="w-full pt-10 pb-12">
+        
+        @if (session('success'))
+            <div class="mx-6 bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
+                {{ session('success') }}
+            </div>
+        @endif
+
+        <!-- Profile Header Section -->
+        <div class="relative bg-gradient-to-r from-red-500 to-blue-600 h-64">
+            <!-- Edit Profile Button - Only visible to the profile owner -->
+            @if(auth()->id() == $user->id)
+                <a href="{{ route('users.edit_profile',Auth::id()) }}" class="absolute top-4 right-6 bg-white bg-opacity-20 hover:bg-opacity-30 p-3 rounded-full text-white transition duration-200">
+                    <i class="fas fa-cog text-xl"></i>
+                      
+                </a>
+            @endif
+            
+            <!-- Profile Image and Basic Info -->
+            <div class="container mx-auto px-6">
+                <div class="flex items-center pt-32">
+                    <div class="relative">
+                        @if($user->profile_picture)
+                            <img src="{{ asset('storage/' . $user->profile_picture) }}" alt="{{ $user->name }}" class="w-32 h-32 rounded-full border-4 border-white object-cover">
+                        @else
+                            <div class="w-32 h-32 rounded-full border-4 border-white bg-gray-300 flex items-center justify-center">
+                                <span class="text-gray-500 text-2xl font-bold">{{ substr($user->name, 0, 1) }}</span>
+                            </div>
+                        @endif
+                    </div>
+                    <div class="ml-6 pt-10">
+                        <h1 class="text-3xl font-bold text-white">{{ $user->name }}</h1>
+                        <p class="text-blue-100 mt-1">{{ $user->email }}</p>
+                    </div>
+                </div>
+            </div>
         </div>
-
-        <div class="bg-white rounded-lg shadow-md p-6">
-            <h1 class="text-2xl font-bold mb-6">Update Profile</h1>
-
-            <!-- Update Profile Form -->
-            <form action="{{--{{ route('profile.update') }}--}}" method="POST" enctype="multipart/form-data">
-                @csrf
-                @method('PUT')
-
-                <!-- Name -->
-                <div class="mb-4">
-                    <label for="name" class="block text-gray-700">Name</label>
-                    <input type="text" name="name" id="name" value="{{--{{ old('name', $user->name) }}--}}" class="w-full px-4 py-2 border rounded-lg" required>
-                </div>
-
-                <!-- Email -->
-                <div class="mb-4">
-                    <label for="email" class="block text-gray-700">Email</label>
-                    <input type="email" name="email" id="email" value="{{--{{ old('email', $user->email) }}--}}" class="w-full px-4 py-2 border rounded-lg" required>
-                </div>
-
-                <!-- Photo -->
-                <div class="mb-4">
-                    <label for="photo" class="block text-gray-700">Profile Photo</label>
-                    <input type="file" name="photo" id="photo" class="w-full px-4 py-2 border rounded-lg">
-                    {{--@if($user->photo)
-                        <div class="mt-2">
-                            <img src="https://images.unsplash.com/profile-1700009111141-05e9502e95c4image?w=150&dpr=1&crop=faces&bg=%23fff&h=150&auto=format&fit=crop&q=60&ixlib=rb-4.0.3" alt="Current Profile Photo" class="h-20 w-20 rounded-full object-cover">
+        
+        <!-- Profile Content -->
+        <div class="container mx-auto px-6 py-4  mt-12">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            
+                <!-- Left Column - Bio and Basic Info -->
+                <div class="md:col-span-2 space-y-6 ">
+                    <!-- Bio Card -->
+                    <div class="bg-white rounded-lg  shadow-sm p-6">
+                        <h2 class="text-xl font-bold text-gray-800 mb-4">About</h2>
+                        @if($user->bio)
+                            <p class="text-gray-700 whitespace-pre-line">{{ $user->bio }}</p>
+                        @else
+                            <p class="text-gray-500 italic">No bio available</p>
+                        @endif
+                    </div>
+                    
+                    
+                    <div class="bg-white rounded-lg shadow-sm p-6">
+                        <h2 class="text-xl font-bold text-gray-800 mb-4">Activity</h2>
+                        <!-- Placeholder for future activity content -->
+                        <div class="text-center py-10 text-gray-500">
+                            <i class="fas fa-chart-line text-4xl mb-3"></i>
+                            <p>User activity will be shown here</p>
                         </div>
-                    @endif--}}
+                    </div>
                 </div>
-
-                <!-- Address -->
-                <div class="mb-4">
-                    <label for="address" class="block text-gray-700">Address</label>
-                    <input type="text" name="address" id="address" value="{{--{{ old('address', $user->address) }}--}}" class="w-full px-4 py-2 border rounded-lg">
+                
+                <!-- Right Column - User Details -->
+                <div class="space-y-6 ">
+                    <!-- Personal Info Card -->
+                    <div class="bg-white rounded-lg shadow-sm p-6">
+                        <h2 class="text-xl font-bold text-gray-800 mb-4">Personal Information</h2>
+                        
+                        <div class="space-y-4">
+                            <div class="flex items-center">
+                                <div class="w-10 text-center text-gray-500">
+                                    <i class="fas fa-phone"></i>
+                                </div>
+                                <div>
+                                    <p class="text-xs text-gray-500">Phone Number</p>
+                                    <p class="text-gray-800">{{ $user->phone_number ?? 'Not provided' }}</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-center">
+                                <div class="w-10 text-center text-gray-500">
+                                    <i class="fas fa-venus-mars"></i>
+                                </div>
+                                <div>
+                                    <p class="text-xs text-gray-500">Gender</p>
+                                    <p class="text-gray-800">{{ $user->gender ?? 'Not specified' }}</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-center">
+                                <div class="w-10 text-center text-gray-500">
+                                    <i class="fas fa-birthday-cake"></i>
+                                </div>
+                                <div>
+                                    <p class="text-xs text-gray-500">Birthdate</p>
+                                    <p class="text-gray-800">
+                                        @if($user->birthdate)
+                                            {{ \Carbon\Carbon::parse($user->birthdate)->format('F j, Y') }}
+                                        @else
+                                            Not provided
+                                        @endif
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-center">
+                                <div class="w-10 text-center text-gray-500">
+                                    <i class="fas fa-user-tag"></i>
+                                </div>
+                                <div>
+                                    <p class="text-xs text-gray-500">Situation</p>
+                                    <p class="text-gray-800">{{ $user->situation->name ?? 'Not specified' }}</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-center">
+                                <div class="w-10 text-center text-gray-500">
+                                    <i class="fas fa-calendar-alt"></i>
+                                </div>
+                                <div>
+                                    <p class="text-xs text-gray-500">Member Since</p>
+                                    <p class="text-gray-800">{{ $user->created_at->format('F Y') }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Connect Card - For future social features -->
+                    <div class="bg-white rounded-lg shadow-sm p-6">
+                        <h2 class="text-xl font-bold text-gray-800 mb-4">Connect</h2>
+                        
+                        <!-- This is a placeholder for future social connection features -->
+                        <div class="flex items-center justify-center space-x-4 py-2">
+                            <button class="bg-blue-100 text-blue-500 p-3 rounded-full hover:bg-blue-200 transition">
+                                <i class="fab fa-facebook-f"></i>
+                            </button>
+                            <button class="bg-blue-100 text-blue-500 p-3 rounded-full hover:bg-blue-200 transition">
+                                <i class="fab fa-twitter"></i>
+                            </button>
+                            <button class="bg-blue-100 text-blue-500 p-3 rounded-full hover:bg-blue-200 transition">
+                                <i class="fab fa-linkedin-in"></i>
+                            </button>
+                        </div>
+                    </div>
                 </div>
-
-                <!-- Bio -->
-                <div class="mb-4">
-                    <label for="bio" class="block text-gray-700">Bio</label>
-                    <textarea name="bio" id="bio" rows="4" class="w-full px-4 py-2 border rounded-lg">{{--{{ old('bio', $user->bio) }}--}}</textarea>
-                </div>
-
-                <!-- Password (Optional Update) -->
-                <div class="mb-4">
-                    <label for="password" class="block text-gray-700">New Password (Optional)</label>
-                    <input type="password" name="password" id="password" class="w-full px-4 py-2 border rounded-lg">
-                    <p class="text-sm text-gray-600 mt-1">Leave blank if you don't want to change your password</p>
-                </div>
-
-                <!-- Confirm Password -->
-                <div class="mb-4">
-                    <label for="password_confirmation" class="block text-gray-700">Confirm New Password</label>
-                    <input type="password" name="password_confirmation" id="password_confirmation" class="w-full px-4 py-2 border rounded-lg">
-                </div>
-
-                <!-- Submit Button -->
-                <div class="mt-6">
-                    <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">
-                        Update Profile
-                    </button>
-                </div>
-            </form>
+            </div>
         </div>
     </div>
 
-    <!-- JavaScript for Dropdown Menu -->
     <script>
-        document.getElementById('profile-menu').addEventListener('click', function() {
-            document.getElementById('menu').classList.toggle('hidden');
-        });
+        // Any JavaScript needed for profile page interactions
     </script>
 </body>
 </html>

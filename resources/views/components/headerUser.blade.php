@@ -6,7 +6,7 @@
                     <!-- Logo -->
                     <div class="flex-shrink-0 flex items-center">
                         <a href="{{route("home")}}" class="flex items-center">
-                            <img src="/path/to/your/logo.png" alt="PropertyHub" class="h-8 w-auto">
+                            <img src="{{asset("images/logos/collocom_full_logo_blue.svg")}}" alt="Collocom logo" class="h-8 w-auto">
                         </a>
                     </div>
 
@@ -30,7 +30,7 @@
                 <!-- Right side buttons (static look, no auth logic) -->
                 <div class="hidden sm:ml-6 sm:flex sm:items-center">
                     @auth
-                    <a href="{{route("offers.create")}}" class="ml-3 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700">
+                    <a href="{{route("createOffer")}}" class="ml-3 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700">
                         Create Offer
                     </a>
                     @else
@@ -42,13 +42,17 @@
                         <div class="flex items-center">
                             <button type="button" class="bg-white rounded-full flex text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" id="user-menu-button">
                                 <span class="sr-only">Open user menu</span>
+                                @if(!is_null(Auth::user()->profile_picture))
                                 <span class="h-8 w-8 rounded-full bg-gray-200 flex items-center justify-center">
-                                    <span class="text-xs font-medium text-gray-500">A</span>
+                                    <img class="rounded-full" src="{{asset('storage/'.Auth::user()->profile_picture)}}" alt="user_picture">
                                 </span>
+                                @else
+                                <span class="h-8 w-8 rounded-full bg-gray-200 flex items-center justify-center font-bold ">{{substr(Auth::user()->name, 0, 1)}}</span>
+                                @endif
                             </button>
                         </div>
-                        <div id="user-dropdown" class="hidden origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5">
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Your Profile</a>
+                        <div id="user-dropdown" class="hidden z-30 origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5">
+                            <a href="{{route("users.profile",Auth::id())}}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">My Profile</a>
                             <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">My Offers</a>
                             <button class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Sign out</button>
                         </div>

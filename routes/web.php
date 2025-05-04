@@ -70,6 +70,7 @@ Route::patch("/support/{id}/mark_read",[SupportMessageController::class,"markRea
 Route::patch("/support/{id}/mark_unread",[SupportMessageController::class,"markUnread"])->name("support.mark_unread");
 Route::delete("/support/{id}/destroy",[SupportMessageController::class,"destroy"])->name("support.destroy");
 Route::post("/support/{id}/reply",[SupportMessageController::class,"reply"])->name("support.reply");
+
 // Route::put("/offers/{offerId}",[OfferController::class,"update"])->name("offers.update");
 // Route::get("/offers/{offerId}/edit",[OfferController::class,"edit"])->name("offers.edit");
 // Route::get("/offers/create",[OfferController::class,"create"])->name("offers.create");
@@ -80,7 +81,8 @@ Route::post("/support/{id}/reply",[SupportMessageController::class,"reply"])->na
 
 // Route::get('/users/create',function(){return view('users.create');})->name('users.create');
 
-Route::get('/profile',function(){return view('users.profile');})->name('users.profile');
+Route::get('/profile/{id}',[UserController::class,"profile"])->name('users.profile');
+Route::get('/profile/{id}/edit_profile',[UserController::class,"editProfile"])->name('users.edit_profile');
 
 Route::get('/tags/index',function(){return view('tags.index');})->name('tags.index');
 

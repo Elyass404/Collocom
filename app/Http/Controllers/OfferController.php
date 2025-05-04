@@ -35,7 +35,7 @@ class OfferController extends Controller
     {
         $offers= $this->offerRepository->getAll();
         // dd($offers->demands);
-        $countOffers = 174;
+        $countOffers = $this->offerRepository->getAll()->count();
         $activeOffers = 144;
         $latestOffers = 23;
         

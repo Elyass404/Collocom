@@ -11,8 +11,6 @@
 <body class="bg-gray-100">
     
     @include('components.topbar')
-    {{-- @include('components.headerUser') --}}
-
     @include('components.sidebar')
 
     <!-- Main Content -->
@@ -59,7 +57,6 @@
                         <th class="py-2">Pnone Number</th>
                         <th class="py-2">Region</th>
                         <th class="py-2">City</th>
-                        <th class="py-2">Places</th>
                         <th class="py-2">Status</th>
                         <th class="py-2">Actions</th>
                     </tr>
@@ -72,7 +69,6 @@
                         <td class="py-2 text-center">{{ $offer->phone_number }}</td>
                         <td class="py-2 text-center">{{ $offer->region }}</td>
                         <td class="py-2 text-center">{{ $offer->city}}</td>
-                        <td class="py-2 text-center">{{ $offer->available_places }}</td>
                         <td class="py-2 text-center">
                             @if($offer->status == "Active")
                                 <span class="px-2 py-1 bg-green-100 text-green-600 rounded-full text-xs">Active</span>

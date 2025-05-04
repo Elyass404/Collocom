@@ -3,7 +3,11 @@
       <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
         <!-- Site info -->
         <div class="col-span-1 md:col-span-1">
-          <h2 class="text-xl font-bold text-white mb-4">Collocom</h2>
+          <div class="text-xl font-bold text-white mb-4">
+            <a href="{{route("home")}}">
+              <img src="{{asset("images/logos/collocom_full_logo_white.svg")}}" class="h-10 w-auto" alt="Collocom logo">
+            </a>
+          </div>
           <p class="text-gray-400 text-sm">
             Find your perfect temporary stay with our platform that connects people looking for a place with those who have spaces to share.
           </p>
@@ -30,10 +34,10 @@
         <div class="col-span-1">
           <h3 class="text-sm font-semibold text-gray-300 uppercase tracking-wider">Quick Links</h3>
           <ul class="mt-4 space-y-2">
-            <li><span class="text-gray-400 hover:text-white">Home</span></li>
-            <li><span class="text-gray-400 hover:text-white">Offers</span></li>
-            <li><span class="text-gray-400 hover:text-white">About Us</span></li>
-            <li><span class="text-gray-400 hover:text-white">Contact</span></li>
+            <li><a href="{{route("home")}}" class="text-gray-400 hover:text-white"><span>Home</span></a></li>
+            <li><a href="{{route("offers.offers_list")}}"class="text-gray-400 hover:text-white"><span>Offers</span></a></li>
+            <li><a href="{{route("home")}}" class="text-gray-400 hover:text-white"><span>About Us</span></a></li>
+            <li><a href="{{route("contact_us")}}" class="text-gray-400 hover:text-white"><span>Contact</span></a></li>
           </ul>
         </div>
   
