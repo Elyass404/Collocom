@@ -61,6 +61,14 @@ class User extends Authenticatable
         return $this->hasOne(Offer::class);
     }
 
+    public function demands(){
+        return $this->hasMany(OfferRequest::class,"owner_id");
+    }
+
+    public function requests(){
+        return $this->hasMany(OfferRequest::class,"user_id");
+    }
+    
     public function support_messages(){
         return $this->hasMany(SupportMessage::class);
     }
@@ -82,4 +90,6 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Role::class);
     }
+
+
 }

@@ -2,6 +2,7 @@
 
 namespace App\Repositories\Eloquent;
 
+use App\Models\Category;
 use App\Models\Offer;
 use App\Repositories\Interfaces\OfferRepositoryInterface;
 use Illuminate\Support\Facades\Auth;
@@ -33,10 +34,14 @@ class OfferRepository implements OfferRepositoryInterface
         
     }
 
-    public function getById($id)
-    {
+    public function getById($id){
         return $this->offers->findOrFail($id);
     }
+
+    public function getByUserId($userId){
+        return $this->offers->with("category")->where("owner_id",$userId)->firstOrFail();
+    }
+
 
     public function create(array $data)
     {
@@ -65,6 +70,12 @@ class OfferRepository implements OfferRepositoryInterface
     public function suspend($id)
     {
         $offer= $this->offers->where('id',$id)->update(["status"=>"Suspended"]);
+        return $offer;
+    }
+
+    public function pause($id)
+    {
+        $offer= $this->offers->where('id',$id)->update(["status"=>"Paused"]);
         return $offer;
     }
 }
