@@ -22,14 +22,16 @@
                 <a href="{{ route('offers.edit', $offer->id) }}" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md transition-all duration-300 ease-in-out mr-2">
                     <i class="fas fa-edit mr-2"></i>Edit Offer
                 </a>
-                <button id="toggleOfferStatus" class="{{ $offer->is_active ? 'bg-red-500 hover:bg-red-600' : 'bg-green-500 hover:bg-green-600' }} text-white px-4 py-2 rounded-md transition-all duration-300 ease-in-out">
-                    <i class="fas {{ $offer->is_active ? 'fa-pause' : 'fa-play' }} mr-2"></i>{{ $offer->is_active ? 'Pause Offer' : 'Activate Offer' }}
+                @if($offer->status != "Suspended" && $offer->status != "Review")
+                <button id="toggleOfferStatus" class="{{ $offer->status == "Active" ? 'bg-red-500 hover:bg-red-600' : 'bg-green-500 hover:bg-green-600' }} text-white px-4 py-2 rounded-md transition-all duration-300 ease-in-out">
+                    <i class="fas {{ $offer->status == "Active" ? 'fa-pause' : 'fa-play' }} mr-2"></i>{{ $offer->status == "Active" ? 'Pause Offer' : ($offer->status == "Paused" ? 'Activate Offer' :'') }}
                 </button>
+                @endif
             </div>
         </div>
 
         <!-- Offer Status Banner -->
-        @if(!$offer->is_active)
+        @if($offer->status == "Paused")
         <div class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 mb-6 rounded-md" role="alert">
             <div class="flex">
                 <div class="flex-shrink-0">
@@ -38,6 +40,46 @@
                 <div class="ml-3">
                     <p class="font-medium">Your offer is currently paused</p>
                     <p class="text-sm">Your property is not visible to potential roommates. Activate it to receive new demand requests.</p>
+                </div>
+            </div>
+        </div>
+        @elseif($offer->status == "Active")
+        <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-6 rounded-md" role="alert">
+            <div class="flex">
+                <div class="flex-shrink-0">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <div class="ml-3">
+                    <p class="font-medium">Your offer is currently Active</p>
+                    <p class="text-sm">Your property is visible to potential roommates. Pause it if you don't want to receive new demand requests.</p>
+                </div>
+            </div>
+        </div>
+        @elseif($offer->status == "Review")
+        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-xl font-bold text-gray-800 mb-4">Verification Status</h2>
+            
+            <div class="flex flex-col md:flex-row items-center justify-between">
+                <div class="flex items-center mb-4 md:mb-0">
+                    <div class="bg-yellow-100 p-3 rounded-full mr-4">
+                        <i class="fas fa-exclamation-circle text-yellow-500 text-xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-medium text-gray-800">Your offer is pending verification</h3>
+                        <p class="text-sm text-gray-600">Our team will review your listing within 24-48 hours</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @elseif($offer->status == "Suspended")
+        <div class="bg-green-100 border-l-4 border-red-500 text-red-700 p-4 mb-6 rounded-md" role="alert">
+            <div class="flex">
+                <div class="flex-shrink-0">
+                    <i class="fas fa-exclamation-circle"></i>
+                </div>
+                <div class="ml-3">
+                    <p class="font-medium">Your offer is currently Suspended</p>
+                    <p class="text-sm">Your offer has been suspended due to a violation of our terms and conditions. Please review the guidelines and contact support for further assistance.</p>
                 </div>
             </div>
         </div>
@@ -55,35 +97,39 @@
                             <h2 class="text-2xl font-bold text-gray-800">{{ $offer->title }}</h2>
                             <p class="text-gray-600 flex items-center mt-1">
                                 <i class="fas fa-map-marker-alt mr-2 text-red-500"></i>
-                                {{ $offer->title }}
+                                {{ $offer->city .' ('. $offer->region.')'}}
                             </p>
                         </div>
-                        <span class="bg-green-100 text-green-800 text-xs px-3 py-1 rounded-full font-semibold uppercase">{{ $offer->category->name }}</span>
+                        <span class="bg-green-100 text-green-800 text-xs px-3 py-1 rounded-full font-bold uppercase">{{ $offer->category->name }}</span>
                     </div>
                     
                     <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4">
                         <div class="text-center">
                             <p class="text-gray-600 text-sm">Monthly Rent</p>
-                            <p class="font-bold text-gray-800">${{ $offer->price }}/mo</p>
+                            <p class="font-bold text-gray-800">MAD {{ $offer->price }}/mo</p>
                         </div>
                         <div class="text-center">
-                            <p class="text-gray-600 text-sm">Room Type</p>
+                            <p class="text-gray-600 text-sm">Property Type</p>
                             <p class="font-bold text-gray-800">{{ $offer->category->name }}</p>
                         </div>
                         <div class="text-center">
-                            <p class="text-gray-600 text-sm">Available From</p>
-                            <p class="font-bold text-gray-800">{{ $offer->created_at->format('M d, Y') }}</p>
+                            <p class="text-gray-600 text-sm">Total capacity</p>
+                            <p class="font-bold text-gray-800">{{ $offer->place_capacity }}</p>
                         </div>
                         <div class="text-center">
-                            <p class="text-gray-600 text-sm">Published On</p>
-                            <p class="font-bold text-gray-800">{{ $offer->created_at->format('M d, Y') }}</p>
+                            <p class="text-gray-600 text-sm">Available places</p>
+                            <p class="font-bold text-gray-800">{{ $offer->available_places}}</p>
                         </div>
                     </div>
                     
                     <div class="flex flex-wrap gap-2 mt-4">
-                        @foreach(["TV","Pool","Back yard","Duplex","Limmak",] as $amenity)
+                        @if($offer->amenities)
+                        @foreach($offer->amenities as $amenity)
                         <span class="bg-gray-100 text-gray-800 text-xs px-2 py-1 rounded">{{ $amenity }}</span>
                         @endforeach
+                        @else
+                        <span class="bg-red-100 text-gray-800 text-xs px-2 py-1 rounded">No amenities listed</span>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -104,8 +150,7 @@
                 </div>
                 <div class="mt-4">
                     <div class="flex items-center">
-                        <span class="text-sm font-medium text-gray-500">Conversion rate:</span>
-                        <span class="ml-2 text-sm font-medium text-green-600">{{ round(($acceptedDemands / ($totalDemands ?: 1)) * 100) }}%</span>
+                        <span class="text-sm font-medium text-gray-500">If you can add some text in here </span>
                     </div>
                 </div>
             </div>
@@ -123,22 +168,7 @@
                 </div>
                 <div class="mt-4">
                     <div class="flex items-center">
-                        @if(1)
-                        <span class="text-green-500 flex items-center">
-                            <i class="fas fa-arrow-up mr-1"></i> 45%
-                        </span>
-                        <span class="ml-2 text-sm text-gray-500">from previous day</span>
-                        @elseif($demandTrend < 0)
-                        <span class="text-red-500 flex items-center">
-                            <i class="fas fa-arrow-down mr-1"></i> {{ abs(12) }}%
-                        </span>
-                        <span class="ml-2 text-sm text-gray-500">from previous day</span>
-                        @else
-                        <span class="text-gray-500 flex items-center">
-                            <i class="fas fa-minus mr-1"></i> 0%
-                        </span>
-                        <span class="ml-2 text-sm text-gray-500">no change</span>
-                        @endif
+                        <span class="text-sm font-medium text-gray-500">If you can add some text in here </span>
                     </div>
                 </div>
             </div>
@@ -156,8 +186,7 @@
                 </div>
                 <div class="mt-4">
                     <div class="flex items-center">
-                        <span class="text-sm font-medium text-gray-500">Acceptance rate:</span>
-                        <span class="ml-2 text-sm font-medium text-green-600">{{ round(($acceptedDemands / ($totalDemands ?: 1)) * 100) }}%</span>
+                        <span class="text-sm font-medium text-gray-500">If you can add some text in here </span>
                     </div>
                 </div>
             </div>
@@ -175,8 +204,7 @@
                 </div>
                 <div class="mt-4">
                     <div class="flex items-center">
-                        <span class="text-sm font-medium text-gray-500">Rejection rate:</span>
-                        <span class="ml-2 text-sm font-medium text-red-600">{{ round(($rejectedDemands / ($totalDemands ?: 1)) * 100) }}%</span>
+                        <span class="text-sm font-medium text-gray-500">If you can add some text in here </span>
                     </div>
                 </div>
             </div>
@@ -198,15 +226,11 @@
                 <div class="bg-gray-50 rounded-lg p-4 border border-gray-100 transform hover:-translate-y-1 transition-transform duration-300">
                     <div class="flex items-start justify-between">
                         <div class="flex items-center">
-                            <img src="{{ asset('storage/'.$demand->owner->name) }}" alt="{{ $demand->owner->name }}" class="h-10 w-10 rounded-full object-cover">
+                            <img src="{{ asset('storage/'.$demand->user->profile_picture) }}" alt="{{ $demand->user->name }}" class="h-10 w-10 rounded-full object-cover">
                             <div class="ml-3">
                                 <h3 class="font-medium text-gray-800">{{ $demand->user->name }}</h3>
-                                <span class="inline-block px-2 py-1 text-xs font-semibold rounded-full {{ 
-                                    $demand->user->situation == 'Student' ? 'bg-blue-100 text-blue-800' : 
-                                    ($demand->user->situation == 'Employee' ? 'bg-green-100 text-green-800' : 
-                                    'bg-purple-100 text-purple-800') 
-                                }}">
-                                    {{ $demand->user->situation }}
+                                <span class="inline-block px-2 py-1 text-xs font-semibold rounded-full bg-blue-100 text-blue-800" >
+                                    {{ $demand->user->situation ? $demand->user->situation->name : 'N/A' }}
                                 </span>
                             </div>
                         </div>
@@ -214,7 +238,7 @@
                     </div>
                     
                     <div class="mt-3">
-                        <p class="text-sm text-gray-600 line-clamp-2">{{ Str::limit($demand->user->bio, 80) }}</p>
+                        <p class="text-sm text-gray-600 line-clamp-2">{{ Str::limit($demand->user->bio, 110) }}</p>
                     </div>
                     
                     <div class="mt-4 flex justify-between items-center">
@@ -225,7 +249,7 @@
                         }}">
                             {{ ucfirst($demand->status) }}
                         </span>
-                        <a href="{{ route('demands.show', $demand->id) }}" class="text-blue-600 hover:text-blue-800 text-sm font-medium">
+                        <a href="{{ route('offers.show', $demand->id) }}" class="text-blue-600 hover:text-blue-800 text-sm font-medium">
                             Show User
                         </a>
                     </div>
@@ -242,102 +266,12 @@
             </div>
             @endif
         </div>
-
-        <!-- Verification Status -->
-        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
-            <h2 class="text-xl font-bold text-gray-800 mb-4">Verification Status</h2>
-            
-            <div class="flex flex-col md:flex-row items-center justify-between">
-                <div class="flex items-center mb-4 md:mb-0">
-                    @if($offer->is_verified)
-                    <div class="bg-green-100 p-3 rounded-full mr-4">
-                        <i class="fas fa-check-circle text-green-500 text-xl"></i>
-                    </div>
-                    <div>
-                        <h3 class="font-medium text-gray-800">Your offer is verified</h3>
-                        <p class="text-sm text-gray-600">Verified offers receive 3x more demand requests on average</p>
-                    </div>
-                    @else
-                    <div class="bg-yellow-100 p-3 rounded-full mr-4">
-                        <i class="fas fa-exclamation-circle text-yellow-500 text-xl"></i>
-                    </div>
-                    <div>
-                        <h3 class="font-medium text-gray-800">Your offer is pending verification</h3>
-                        <p class="text-sm text-gray-600">Our team will review your listing within 24-48 hours</p>
-                    </div>
-                    @endif
-                </div>
-                
-                @if(!$offer->is_verified)
-                <a href="{{ route('verification.documents') }}" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md transition-colors duration-300 ease-in-out">
-                    <i class="fas fa-upload mr-2"></i>Upload Documents
-                </a>
-                @endif
-            </div>
-        </div>
-
-        <!-- Insights Section -->
-        <div class="bg-white rounded-lg shadow-md p-6">
-            <h2 class="text-xl font-bold text-gray-800 mb-4">Insights</h2>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <!-- Most Common Occupations -->
-                <div>
-                    <h3 class="font-medium text-gray-700 mb-3">Most Common Situations</h3>
-                    <div class="space-y-3">
-                        @foreach($situationStats as $situation)
-                        <div class="flex items-center">
-                            <span class="text-sm text-gray-600 w-24">{{ $situation['name'] }}</span>
-                            <div class="flex-1 mx-2">
-                                <div class="bg-gray-200 rounded-full h-2 overflow-hidden">
-                                    <div class="bg-blue-500 h-2 rounded-full" style="width: {{ $situation['percentage'] }}%"></div>
-                                </div>
-                            </div>
-                            <span class="text-sm font-medium text-gray-700">{{ $situation['percentage'] }}%</span>
-                        </div>
-                        @endforeach
-                    </div>
-                </div>
-                
-                <!-- Average Response Time -->
-                <div>
-                    <h3 class="font-medium text-gray-700 mb-3">Your Response Performance</h3>
-                    <div class="flex items-center mb-4">
-                        <div class="p-3 bg-{{ $avgResponseTime < 24 ? 'green' : ($avgResponseTime < 48 ? 'yellow' : 'red') }}-100 rounded-full mr-4">
-                            <i class="fas fa-clock text-{{ $avgResponseTime < 24 ? 'green' : ($avgResponseTime < 48 ? 'yellow' : 'red') }}-500"></i>
-                        </div>
-                        <div>
-                            <p class="text-sm text-gray-600">Average response time</p>
-                            <p class="font-medium text-gray-800">
-                                @if($avgResponseTime < 1)
-                                    Less than 1 hour
-                                @elseif($avgResponseTime < 24)
-                                    {{ round($avgResponseTime) }} hours
-                                @else
-                                    {{ round($avgResponseTime / 24, 1) }} days
-                                @endif
-                            </p>
-                        </div>
-                    </div>
-                    
-                    <div class="flex items-center">
-                        <div class="p-3 bg-{{ $responseRate >= 80 ? 'green' : ($responseRate >= 60 ? 'yellow' : 'red') }}-100 rounded-full mr-4">
-                            <i class="fas fa-reply text-{{ $responseRate >= 80 ? 'green' : ($responseRate >= 60 ? 'yellow' : 'red') }}-500"></i>
-                        </div>
-                        <div>
-                            <p class="text-sm text-gray-600">Response rate</p>
-                            <p class="font-medium text-gray-800">{{ $responseRate }}%</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
     </main>
 
     <!-- Include Footer Component -->
     @include('components.footer')
 
-    <script>
+    {{-- <script>
         document.getElementById('toggleOfferStatus').addEventListener('click', function() {
             // Send AJAX request to toggle status
             fetch('{{ route("offer.toggle", $offer->id) }}', {
@@ -354,6 +288,6 @@
                 }
             });
         });
-    </script>
+    </script> --}}
 </body>
 </html>
