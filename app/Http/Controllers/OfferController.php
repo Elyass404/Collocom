@@ -149,10 +149,7 @@ class OfferController extends Controller
         $rejectedDemands = $this->offerRequestRepository->getDemandes()->where("status","rejected")->count();
         $recentDemands = $this->offerRequestRepository->getDemandes()->where('created_at', '>=', now()->subDay())->count();
 
-        $recentDemandsList = $this->offerRequestRepository->getPending();
-        foreach($recentDemandsList as $d){
-          print_r($d->user->name);
-        }
+        $recentDemandsList = $this->offerRequestRepository->getPending()->where('created_at', '>=', now()->subDay());
         // dd($recentDemandsList->count());  
 
         return view("offers.my_offer", compact("offer",
@@ -272,7 +269,7 @@ class OfferController extends Controller
 
     public function pause($id){
         $this->offerRepository->pause($id);
-        return redirect()->route("offers.index")->with("success","The offer has been Suspended!");
+        return redirect()->route("offers.index")->with("success","The offer has been Paused!");
     }
 
 

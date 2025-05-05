@@ -12,4 +12,5 @@ interface OfferRepositoryInterface
     public function delete($id);
     public function reactivate($id);
     public function suspend($id);
+    public function pause($id);
 }
