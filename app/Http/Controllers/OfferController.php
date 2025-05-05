@@ -246,6 +246,7 @@ class OfferController extends Controller
             }
         }
         
+        //make a success page here not the index
         return redirect()->route('offers.index')->with('success', 'Offer updated successfully!');
         
     }
@@ -268,5 +269,11 @@ class OfferController extends Controller
         $this->offerRepository->suspend($id);
         return redirect()->route("offers.index")->with("success","The offer has been Suspended!");
     }
+
+    public function pause($id){
+        $this->offerRepository->pause($id);
+        return redirect()->route("offers.index")->with("success","The offer has been Suspended!");
+    }
+
 
 }

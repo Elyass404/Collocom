@@ -72,4 +72,10 @@ class OfferRepository implements OfferRepositoryInterface
         $offer= $this->offers->where('id',$id)->update(["status"=>"Suspended"]);
         return $offer;
     }
+
+    public function pause($id)
+    {
+        $offer= $this->offers->where('id',$id)->update(["status"=>"Paused"]);
+        return $offer;
+    }
 }
