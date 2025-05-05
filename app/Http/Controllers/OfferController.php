@@ -160,6 +160,23 @@ class OfferController extends Controller
                                                "recentDemandsList"));
     }
 
+    public function offerDemands(){
+
+        $pendingDemands = $this->offerRequestRepository->getDemandes()->where("status","pending")->count();
+        $acceptedDemands = $this->offerRequestRepository->getDemandes()->where("status","accepted")->count();
+        $rejectedDemands = $this->offerRequestRepository->getDemandes()->where("status","rejected")->count();
+
+        $pendingDemandsList = $this->offerRequestRepository->getPending();
+        $acceptedDemandsList = $this->offerRequestRepository->getAccepted();
+        $rejectedDemandsList = $this->offerRequestRepository->getRejected();
+
+
+
+        // dd($pendingDemands);  
+
+        return view("offers.demands_list",compact("pendingDemands","acceptedDemands","rejectedDemands","pendingDemandsList","acceptedDemandsList","rejectedDemandsList"));
+    }
+
     /**
      * Show the form for editing the specified resource.
      */

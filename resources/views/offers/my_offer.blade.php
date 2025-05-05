@@ -214,7 +214,7 @@
         <div class="bg-white rounded-lg shadow-md p-6 mb-8">
             <div class="flex justify-between items-center mb-6">
                 <h2 class="text-xl font-bold text-gray-800">Recent Demand Requests</h2>
-                <a href="#{{-- {{ route('demands.index') }} --}}" class="text-blue-500 hover:text-blue-700 flex items-center transition-colors duration-300">
+                <a href=" {{ route('my_offer.demands') }} " class="text-blue-500 hover:text-blue-700 flex items-center transition-colors duration-300">
                     Show all demands
                     <i class="fas fa-arrow-right ml-2"></i>
                 </a>

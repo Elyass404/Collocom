@@ -87,4 +87,11 @@ class OfferRequestRepository implements OfferRequestRepositoryInterface
         return $this->OfferRequest->where("status","pending")->get();
     }
 
+    public function getAccepted(){
+        return $this->OfferRequest->where("status","accepted")->get();
+    }
+
+    public function getRejected(){
+        return $this->OfferRequest->where("status","rejected")->get();
+    }
 }
