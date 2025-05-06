@@ -53,19 +53,36 @@ class OfferRequestRepository implements OfferRequestRepositoryInterface
 
     public function rejectRquest($id){
         $offer = $this->getById($id);
-       return $offer->update(['status'=>'Rejected']);
+        $offerId = $offer->offer_id;
 
+        if($offer->status == "accepted"){
+            $this->offers->where('id', $offerId)->increment("available_places", 1); //since we are rejecting someone that is already accepted, the available places should increase by 1
+        }
+
+        return $offer->update(["status"=>"rejected"]);
+    }
+
+    public function pendingRequest($id){
+        $offer = $this->getById($id);
+        $offerId = $offer->offer_id;
+
+        if($offer->status == "accepted"){
+            $this->offers->where('id', $offerId)->increment("available_places", 1); //since we are pending someone that is already accepted, the available places should increase by 1
+        }
+
+        return $offer->update(["status"=>"pending"]);
     }
 
     public function acceptRequest($id){
         $offer = $this->getById($id);
-        $this->offers->where('id',$id)->decrement("available_places", 1); //since we accepted someone , now the needed places for the house/appartment... should decrease, thats why iam decreasing 1 from the available places so the other users know how many places are available 
-        return $offer->update(['status'=>"Accepted"]);
+        $offerId = $offer->offer_id;
+        $this->offers->where('id',$offerId)->decrement("available_places", 1); //since we accepted someone , now the needed places for the house/appartment... should decrease, thats why iam decreasing 1 from the available places so the other users know how many places are available 
+        return $offer->update(["status"=>"accepted"]);
     }
 
     public function cancelDecision($id){
         $offer = $this->getById($id);
-        if($offer->status ==="Accepted"){
+        if($offer->status ==="accepted"){
 
             //if you it is accepted then we already decreased one; By canceling the decision then we should increament to go back to the number before we accepted
             //but if the decision is rejecting it, then the number will not be affected, so we just change the status to pending directly 

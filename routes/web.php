@@ -96,7 +96,7 @@ Route::patch("/offers/{id}/reactivate", [OfferController::class,"reactivate"])->
 Route::get("/offers/{offerId}/ask_to_join",[OfferRequestController::class,"askToJoin"]);
 Route::get("/offers/{offerId}/cancel_demande",[OfferRequestController::class,"cancelDemande"]);
 Route::get("/offers/{offerId}/reject_demande",[OfferRequestController::class,"rejectRquest"])->name("offers.rejectDemand");
-Route::get("/offers/{offerId}/accept_demande",[OfferRequestController::class,"acceptRequest"])->name("offers.acceptDemand");
+Route::post("/offers/{offerId}/accept_demande",[OfferRequestController::class,"acceptRequest"])->name("offers.acceptDemand");
 
 Route::get('/my_offer',[OfferController::class,"myOffer"])->name('my_offer');
 Route::get('/my_offer/demands',[OfferController::class,"offerDemands"])->name('my_offer.demands');

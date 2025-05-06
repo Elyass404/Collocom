@@ -14,19 +14,16 @@ use function PHPUnit\Framework\isEmpty;
 
 class OfferRequestController extends Controller 
 {
-    /**
-     * Display a listing of the resource.
-     */
+    
     protected $offerRequestRepository; 
     protected $offerRepository;
-    public function __construct(OfferRequestRepositoryInterface $offerRequestRepository, OfferRepositoryInterface $offerRepository)
-    {
+    public function __construct(OfferRequestRepositoryInterface $offerRequestRepository, OfferRepositoryInterface $offerRepository){
         $this->offerRequestRepository = $offerRequestRepository;
         $this->offerRepository =$offerRepository;
     }
 
-    public function askToJoin($offerId)
-    {
+    public function askToJoin($offerId){
+
         try{
         $offer = $this->offerRepository->getById($offerId);
         $offerData = [
@@ -45,8 +42,6 @@ class OfferRequestController extends Controller
         }else{
             return response()->json(["error"=>"You have alreadey sent a demand for this offer!"]);
         }
-        
-        
 
         }catch(Exception $e){
             return response()->json(["error"=>$e->getMessage()]);
@@ -56,10 +51,8 @@ class OfferRequestController extends Controller
     public function cancelDemande($offerId){
 
         try{
-            
-            
-            $this->offerRequestRepository->cancelDamande($offerId);
 
+            $this->offerRequestRepository->cancelDamande($offerId);
             return response()->json(["success"=>"Your demande has been Canceled successfully !"]);
 
         }catch(Exception $e){
@@ -69,51 +62,13 @@ class OfferRequestController extends Controller
 
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+    public function acceptRequest($offerRequestId){
+        $this->offerRequestRepository->acceptRequest($offerRequestId);
+        return redirect()->back()->with('success', 'The request has been accepted successfully!');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreOfferRequestRequest $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(OfferRequest $offerRequests)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(OfferRequest $offerRequests)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateOfferRequestsRequest $request, OfferRequest $offerRequests)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(OfferRequest $offerRequests)
-    {
-        //
+    public function rejectRequest($offerRequestId){
+        $this->offerRequestRepository->rejectRequest($offerRequestId);
+        return redirect()->back()->with('success', 'The request has been accepted successfully!');
     }
 }

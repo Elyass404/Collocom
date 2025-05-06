@@ -15,6 +15,7 @@ class OfferRequest extends Model
         'offer_id',
         'owner_id',
         'user_id',
+        'status'
     ];
 
     public function offer(){
