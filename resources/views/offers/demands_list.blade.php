@@ -28,12 +28,6 @@
             <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4" role="alert">
             <strong class="font-bold">Success!</strong>
             <span class="block sm:inline">{{ session('success') }}</span>
-            <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
-                <svg class="fill-current h-6 w-6 text-green-500" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                <title>Close</title>
-                <path d="M14.348 5.652a1 1 0 00-1.414 0L10 8.586 7.066 5.652a1 1 0 10-1.414 1.414L8.586 10l-2.934 2.934a1 1 0 101.414 1.414L10 11.414l2.934 2.934a1 1 0 001.414-1.414L11.414 10l2.934-2.934a1 1 0 000-1.414z"/>
-                </svg>
-            </span>
             </div>
         @endif
 
@@ -86,7 +80,7 @@
                                 <div class="p-5">
                                     <div class="flex justify-between items-start">
                                         <div class="flex items-center">
-                                            <img src="{{ asset('storage/'.$demand->user->profile_photo) }}" alt="{{ $demand->user->name }}" class="h-12 w-12 rounded-full object-cover border-2 border-blue-100">
+                                            <img src="{{ asset('storage/'.$demand->user->profile_picture) }}" alt="{{ $demand->user->name }}" class="h-12 w-12 rounded-full object-cover border-2 border-blue-100">
                                             <div class="ml-4">
                                                 <h3 class="font-medium text-gray-800">{{ $demand->user->name }}</h3>
                                                 <span class="inline-block px-2 py-1 text-xs font-semibold rounded-full {{ 
@@ -116,13 +110,13 @@
                                             View Profile
                                         </a>
                                         <div class="flex gap-2">
-                                            <form action="{{ route('offers.rejectDemand', $demand->id) }}" method="POST">
+                                            <form action="{{ route('offers.rejectDemand', $demand->id) }}" method="GET">
                                                 @csrf
                                                 <button type="submit" class="bg-red-100 hover:bg-red-200 text-red-600 px-4 py-2 rounded-md text-sm font-medium transition-colors duration-300">
                                                     Reject
                                                 </button>
                                             </form>
-                                            <form action="{{ route('offers.acceptDemand', $demand->id) }}" method="POST">
+                                            <form action="{{ route('offers.acceptDemand', $demand->id) }}" method="GET">
                                                 @csrf
                                                 <button type="submit" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors duration-300">
                                                     Accept
@@ -185,6 +179,20 @@
                                         <div>
                                             <span class="text-xs text-gray-500">Accepted on {{ $demand->updated_at->format('M d, Y') }}</span>
                                         </div>
+                                        <div class="flex gap-2">
+                                            <form action="{{ route('offers.rejectDemand', $demand->id) }}" method="GET">
+                                                @csrf
+                                                <button type="submit" class="bg-red-100 hover:bg-red-200 text-red-600 px-4 py-2 rounded-md text-sm font-medium transition-colors duration-300">
+                                                    Reject
+                                                </button>
+                                            </form>
+                                            <form action="{{ route('offers.pendingDemand', $demand->id) }}" method="GET">
+                                                @csrf
+                                                <button type="submit" class="bg-yellow-400 hover:bg-yellow-500 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors duration-300">
+                                                    Pending
+                                                </button>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -209,7 +217,7 @@
                                 <div class="p-5">
                                     <div class="flex justify-between items-start">
                                         <div class="flex items-center">
-                                            <img src="{{ $demand->user->profile_photo }}" alt="{{ $demand->user->name }}" class="h-12 w-12 rounded-full object-cover border-2 border-red-100">
+                                            <img src="{{asset('storage/'.$demand->user->profile_picture)  }}" alt="{{ $demand->user->name }}" class="h-12 w-12 rounded-full object-cover border-2 border-red-100">
                                             <div class="ml-4">
                                                 <h3 class="font-medium text-gray-800">{{ $demand->user->name }}</h3>
                                                 <span class="inline-block px-2 py-1 text-xs font-semibold rounded-full {{ 
@@ -241,6 +249,20 @@
                                         <div>
                                             <span class="text-xs text-gray-500">Rejected on {{ $demand->updated_at->format('M d, Y') }}</span>
                                         </div>
+                                        <div class="flex gap-2">
+                                            <form action="{{ route('offers.pendingDemand', $demand->id) }}" method="GET">
+                                                @csrf
+                                                <button type="submit" class="bg-yellow-400 hover:bg-yellow-500 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors duration-300">
+                                                    Pending
+                                                </button>
+                                            </form>
+                                            <form action="{{ route('offers.acceptDemand', $demand->id) }}" method="GET">
+                                                @csrf
+                                                <button type="submit" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors duration-300">
+                                                    Accept
+                                                </button>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -262,7 +284,7 @@
             <div class="lg:w-1/4">
                 <div class="bg-white rounded-lg shadow-md p-5">
                     <div class="flex items-center justify-between mb-6">
-                        <h2 class="text-lg font-bold text-gray-800">Future Roommates</h2>
+                        <h2 class="text-lg font-bold text-gray-800">My Actual Roommates</h2>
                         <span class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs font-medium">{{ $acceptedDemands }}</span>
                     </div>
                     
@@ -271,7 +293,7 @@
                             @foreach($acceptedDemandsList as $demand)
                             <div class="bg-gray-50 rounded-lg p-4 transform hover:-translate-y-1 transition-transform duration-300">
                                 <div class="flex items-center">
-                                    <img src="{{ $demand->user->profile_photo }}" alt="{{ $demand->user->name }}" class="h-10 w-10 rounded-full object-cover border-2 border-green-100">
+                                    <img src="{{ asset('storage/'.$demand->user->profile_picture) }}" alt="{{ $demand->user->name }}" class="h-10 w-10 rounded-full object-cover border-2 border-green-100">
                                     <div class="ml-3">
                                         <h3 class="font-medium text-gray-800">{{ $demand->user->name }}</h3>
                                         <span class="inline-block px-2 py-1 text-xs font-semibold rounded-full {{ 

@@ -51,7 +51,7 @@ class OfferRequestRepository implements OfferRequestRepositoryInterface
         return $offer->delete();
     }
 
-    public function rejectRquest($id){
+    public function rejectRequest($id){
         $offer = $this->getById($id);
         $offerId = $offer->offer_id;
 

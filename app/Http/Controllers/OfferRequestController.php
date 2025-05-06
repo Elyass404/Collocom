@@ -69,6 +69,11 @@ class OfferRequestController extends Controller
 
     public function rejectRequest($offerRequestId){
         $this->offerRequestRepository->rejectRequest($offerRequestId);
-        return redirect()->back()->with('success', 'The request has been accepted successfully!');
+        return redirect()->back()->with('success', 'The request has been rejected successfully!');
+    }
+
+    public function pendingRequest($offerRequestId){
+        $this->offerRequestRepository->pendingRequest($offerRequestId);
+        return redirect()->back()->with('success', 'The request has been listed in pending successfully!');
     }
 }

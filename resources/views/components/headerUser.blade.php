@@ -53,7 +53,8 @@
                         </div>
                         <div id="user-dropdown" class="hidden z-30 origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5">
                             <a href="{{route("users.profile",Auth::id())}}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">My Profile</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">My Offers</a>
+                            <a href="{{route('my_offer')}}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">My Offer</a>
+                            <a href="{{route('my_offer.demands')}}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Manage Demands</a>
                             <button class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Sign out</button>
                         </div>
                     </div>
