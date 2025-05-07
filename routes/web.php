@@ -9,6 +9,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\OfferRequestController;
+use App\Http\Controllers\SituationsController;
 use App\Http\Controllers\SupportMessageController;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
@@ -61,6 +62,7 @@ Route::middleware(['auth'])->group(function () {
 Route::get("/dashboard",[DashboardController::class,"index"])->name("dashboard");
 Route::resource('users', UserController::class);
 Route::resource('categories', CategoryController::class);
+Route::resource('situations', SituationsController::class);
 Route::resource('offers',OfferController::class);
 
 //Support Messages 

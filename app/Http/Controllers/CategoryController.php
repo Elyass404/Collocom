@@ -25,9 +25,8 @@ class CategoryController extends Controller
         //continue the work from here , get inspired by the user controller, it uses the repository pattern as well
         $categories = $this->categoryRepository->getAll();
         $countCategories= Category:: count();
-        $countOffers= Offer:: count();
         $activeCategories = 12;
-        $latestCategory = 4;
+        $latestCategory = Category::where('created_at', '>=', now()->subHours(48))->count();
 
         
         
