@@ -93,14 +93,17 @@ Route::get('/tags/create',function(){return view('tags.create');})->name('tags.c
 Route::get("/create_offer",[offerController::class,"createUserOffer"])->name("createOffer");
 Route::patch("/offers/{id}/suspend", [OfferController::class,"suspend"])->name('offers.suspend');
 Route::patch("/offers/{id}/reactivate", [OfferController::class,"reactivate"])->name('offers.reactivate');
+Route::patch("/offers/{id}/pause", [OfferController::class,"pause"])->name('offers.pause');
 Route::get("/offers/{offerId}/ask_to_join",[OfferRequestController::class,"askToJoin"]);
 Route::get("/offers/{offerId}/cancel_demande",[OfferRequestController::class,"cancelDemande"]);
 Route::get("/offers/{offerId}/reject_demande",[OfferRequestController::class,"rejectRequest"])->name("offers.rejectDemand");
 Route::get("/offers/{offerId}/accept_demande",[OfferRequestController::class,"acceptRequest"])->name("offers.acceptDemand");
 Route::get("/offers/{offerId}/pending_demande",[OfferRequestController::class,"pendingRequest"])->name("offers.pendingDemand");
+Route::get("/offers/{offerId}/confirm_demande",[OfferRequestController::class,"pendingRequest"])->name("offers.confirmDemand");
 
 Route::get('/my_offer',[OfferController::class,"myOffer"])->name('my_offer');
 Route::get('/my_offer/demands',[OfferController::class,"offerDemands"])->name('my_offer.demands');
+Route::get('/user/{userId}/sent_demands',[OfferRequestController::class,"userSentDemands"])->name('sent_demands');
 
 
 // Route::get('/offers/index',function(){return view('offers.index');})->name('offers.index');

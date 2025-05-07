@@ -19,7 +19,7 @@ class PagesController extends Controller
         $this->offerRepository = $offerRepository;
     }
     public function home(){
-        $latestOffers = Offer::with('category')->latest()->take(3)->get();
+        $latestOffers = Offer::with('category')->where("status","Active")->latest()->take(3)->get();
         $countOffers = Offer::count();
         $countUsers = User::count();
         $countCities = Offer::distinct('city')->count('city');
@@ -35,6 +35,8 @@ class PagesController extends Controller
 
     public function offersList(){
         $offers = $this->offerRepository->getAll();
+    //     $offer = $this->offerRepository->getById(83);
+    //    dd($offer->demands) ;
 
         return view("offers.offers_list", compact("offers"));
     }

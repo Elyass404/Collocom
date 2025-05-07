@@ -76,4 +76,26 @@ class OfferRequestController extends Controller
         $this->offerRequestRepository->pendingRequest($offerRequestId);
         return redirect()->back()->with('success', 'The request has been listed in pending successfully!');
     }
+
+    public function userSentDemands($serId){
+
+        $pendingDemands = $this->offerRequestRepository->getRequests()->where("status","pending")->count();
+        $acceptedDemands = $this->offerRequestRepository->getRequests()->where("status","accepted")->count();
+        $rejectedDemands = $this->offerRequestRepository->getRequests()->where("status","rejected")->count();
+
+
+        // dd($acceptedDemands);
+
+        $pendingDemandsList = $this->offerRequestRepository->getUserPending();
+        $acceptedDemandsList = $this->offerRequestRepository->getUserAccepted();
+        $rejectedDemandsList = $this->offerRequestRepository->getUserRejected();
+
+        return view("offers.sent_demands_list",compact("pendingDemands",
+                                                       "acceptedDemands",
+                                                       "rejectedDemands",
+                                                       "pendingDemandsList",
+                                                       "acceptedDemandsList",
+                                                       "rejectedDemandsList"));
+        
+    }
 }

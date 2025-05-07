@@ -22,11 +22,17 @@
                 <a href="{{ route('offers.edit', $offer->id) }}" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md transition-all duration-300 ease-in-out mr-2">
                     <i class="fas fa-edit mr-2"></i>Edit Offer
                 </a>
-                @if($offer->status != "Suspended" && $offer->status != "Review")
-                <button id="toggleOfferStatus" class="{{ $offer->status == "Active" ? 'bg-red-500 hover:bg-red-600' : 'bg-green-500 hover:bg-green-600' }} text-white px-4 py-2 rounded-md transition-all duration-300 ease-in-out">
-                    <i class="fas {{ $offer->status == "Active" ? 'fa-pause' : 'fa-play' }} mr-2"></i>{{ $offer->status == "Active" ? 'Pause Offer' : ($offer->status == "Paused" ? 'Activate Offer' :'') }}
-                </button>
-                @endif
+                    @if($offer->status != "Suspended" && $offer->status != "Review")
+                    <form action="{{ $offer->status == 'Active' ? route('offers.pause', $offer->id) : ($offer->status == 'Paused' ? route('offers.reactivate',$offer->id) : '') }}" method="POST" class="inline-block">
+                        @csrf
+                        @method("patch")
+                        <button type="submit" id="toggleOfferStatus" class="{{ $offer->status == "Active" ? 'bg-red-500 hover:bg-red-600' : 'bg-green-500 hover:bg-green-600' }} text-white px-4 py-2 rounded-md transition-all duration-300 ease-in-out">
+                            <i class="fas {{ $offer->status == "Active" ? 'fa-pause' : 'fa-play' }} mr-2"></i>{{ $offer->status == "Active" ? 'Pause Offer' : ($offer->status == "Paused" ? 'Activate Offer' :'') }}
+                        </button>
+                    </form>
+                    @endif
+                    
+                </div>
             </div>
         </div>
 

@@ -170,18 +170,12 @@ class OfferController extends Controller
         $acceptedDemandsList = $this->offerRequestRepository->getAccepted();
         $rejectedDemandsList = $this->offerRequestRepository->getRejected();
 
-
-
         // dd($pendingDemands);  
 
         return view("offers.demands_list",compact("pendingDemands","acceptedDemands","rejectedDemands","pendingDemandsList","acceptedDemandsList","rejectedDemandsList"));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit($id)
-    {
+    public function edit($id){
         $offer = $this->offerRepository->getById($id);
         $categories = $this->categoryRepository->getAll();
         $cities = City::all();
@@ -194,8 +188,7 @@ class OfferController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateOfferRequest $request, $id)
-    {
+    public function update(UpdateOfferRequest $request, $id){
         $user = Auth::user();
         $validatedData = $request->validated();
         
@@ -276,17 +269,19 @@ class OfferController extends Controller
 
     public function reactivate($id){
         $this->offerRepository->reactivate($id);
-        return redirect()->route("offers.index")->with("success","The offer has been Activated!");
+        return redirect()->back()->with("success", "The offer has been Reactivated!");
+
     }
 
     public function suspend($id){
         $this->offerRepository->suspend($id);
-        return redirect()->route("offers.index")->with("success","The offer has been Suspended!");
+        return redirect()->back()->with("success", "The offer has been Suspended!");
+
     }
 
     public function pause($id){
         $this->offerRepository->pause($id);
-        return redirect()->route("offers.index")->with("success","The offer has been Paused!");
+        return redirect()->back()->with("success", "The offer has been Paused!");
     }
 
 

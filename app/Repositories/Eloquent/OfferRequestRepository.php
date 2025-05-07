@@ -101,14 +101,44 @@ class OfferRequestRepository implements OfferRequestRepositoryInterface
     }
 
     public function getPending(){
-        return $this->OfferRequest->where("status","pending")->get();
+        return $this->OfferRequest
+        ->where("status","pending")
+        ->where("owner_id",Auth::id())
+        ->get();
     }
 
     public function getAccepted(){
-        return $this->OfferRequest->where("status","accepted")->get();
+        return $this->OfferRequest
+        ->where("status","accepted")
+        ->where("owner_id",Auth::id())
+        ->get();
     }
 
     public function getRejected(){
-        return $this->OfferRequest->where("status","rejected")->get();
+        return $this->OfferRequest
+        ->where("status","rejected")
+        ->where("owner_id",Auth::id())
+        ->get();
+    }
+
+    public function getUserPending(){
+        return $this->OfferRequest
+        ->where("status","pending")
+        ->where("user_id",Auth::id())
+        ->get();
+    }
+
+    public function getUserAccepted(){
+        return $this->OfferRequest
+        ->where("status","accepted")
+        ->where("user_id",Auth::id())
+        ->get();
+    }
+
+    public function getUserRejected(){
+        return $this->OfferRequest
+        ->where("status","rejected")
+        ->where("user_id",Auth::id())
+        ->get();
     }
 }

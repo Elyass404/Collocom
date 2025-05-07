@@ -18,20 +18,27 @@ class OfferRepository implements OfferRepositoryInterface
         $this->offers= $offers;
     }
 
-    public function getAll()
-    {
-        // return $this->offers->whereNotNull('category_id')->paginate(20);
+    public function getAll(){ // returns only the offers where the category is not null and also the status is active
         
         $userId = Auth::id();
 
-    $offers = $this->offers
+        $offers = $this->offers
         ->whereNotNull('category_id')
+        ->where("status","Active")
         ->with(['demands' => fn($query) => $query->where('user_id', $userId)])
         ->paginate(20);
 
         return $offers;
+    }
 
-        
+    public function getSuspended(){
+        $offers = $this->offers->where("status","Suspended")->paginate(20);
+        return $offers;
+    }
+
+    public function getReview(){ //getting only the offers with the status "REVIEW"
+        $offers = $this->offers->where("status","Review")->paginate(20);
+        return $offers;
     }
 
     public function getById($id){

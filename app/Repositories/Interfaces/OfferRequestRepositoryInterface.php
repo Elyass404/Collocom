@@ -17,4 +17,7 @@ interface OfferRequestRepositoryInterface
     public function getPending();
     public function getAccepted();
     public function getRejected();
+    public function getUserPending();//to get the pending demands someone sent to the offers
+    public function getUserAccepted();//to get the accepted demands someone sent to the offers
+    public function getUserRejected();//to get the rejected demands someone sent to the offers
 }
