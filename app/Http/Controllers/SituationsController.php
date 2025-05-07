@@ -52,9 +52,11 @@ class SituationsController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show()
+    public function show($id)
     {
-        //
+        $situation = $this->situationRepository->getById($id);
+
+        return view("situations.show", compact("situation"));
     }
 
     /**
