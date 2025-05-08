@@ -7,21 +7,25 @@ use App\Models\Situation;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
 use App\Repositories\Eloquent\AuthRepository;
+use App\Repositories\Eloquent\RoleRepository;
 use App\Repositories\Eloquent\UserRepository;
 use App\Repositories\Eloquent\OfferRepository;
 use App\Repositories\Eloquent\CategoryRepository;
 use App\Repositories\Eloquent\SituationRepository;
+
+
+
 use App\Repositories\Eloquent\OfferPhotoRepository;
-
-
-
+use App\Repositories\Eloquent\PermissionRepository;
 use App\Repositories\Eloquent\OfferRequestRepository;
 use App\Repositories\Interfaces\AuthRepositoryInterface;
+use App\Repositories\Interfaces\RoleRepositoryInterface;
 use App\Repositories\Interfaces\UserRepositoryInterface;
 use App\Repositories\Interfaces\OfferRepositoryInterface;
 use App\Repositories\Interfaces\CategoryRepositoryInterface;
 use App\Repositories\interfaces\SituationRepositoryInterface;
 use App\Repositories\Interfaces\OfferPhotoRepositoryInterface;
+use App\Repositories\Interfaces\PermissionRepositoryInterface;
 use App\Repositories\Interfaces\OfferRequestRepositoryInterface;
 
 class AppServiceProvider extends ServiceProvider
@@ -45,6 +49,10 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(OfferRequestRepositoryInterface::class, OfferRequestRepository::class);
         //binding the SituationRequestRepositoryInterface with the SituationRequestRepository
         $this->app->bind(SituationRepositoryInterface::class, SituationRepository::class);
+        //binding the RoleRequestRepositoryInterface with the RoleRequestRepository
+        $this->app->bind(RoleRepositoryInterface::class, RoleRepository::class);
+        //binding the PermissionRequestRepositoryInterface with the PermissionRequestRepository
+        $this->app->bind(PermissionRepositoryInterface::class, PermissionRepository::class);
     }
 
     /**
