@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\CheckRole;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
@@ -8,8 +9,8 @@ use App\Http\Controllers\PagesController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\OfferRequestController;
 use App\Http\Controllers\SituationsController;
+use App\Http\Controllers\OfferRequestController;
 use App\Http\Controllers\SupportMessageController;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
@@ -23,8 +24,11 @@ Route::post('contact_us/send_message', [SupportMessageController::class, 'sendMe
 Route::get('/test', function () {
     return view('test');
 });
-Route::get('/test2', function () {
-    return view('test2');
+
+// Route::get('/test2', function () { return view('test2'); })->middleware('role:admin');
+
+Route::middleware([CheckRole::class . ':admin'])->group(function () {
+    Route::get('/test2', function () { return view('test2'); });
 });
 
 Route::get('/dashboard', function () {
@@ -49,12 +53,6 @@ Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-
-
-
-
-
-
 
 
 Route::middleware(['auth'])->group(function () {
