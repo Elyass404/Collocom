@@ -49,4 +49,8 @@ class PagesController extends Controller
         }
         return view("contact_us");
     }
+
+    public function aboutUs(){
+        return view('about_us');
+    }
 }
