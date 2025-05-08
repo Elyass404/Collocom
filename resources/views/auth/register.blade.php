@@ -86,12 +86,12 @@
                             <label class="block text-gray-700 text-sm font-bold mb-1">Gender</label>
                             <div class="flex items-center space-x-4">
                                 <div class="flex items-center">
-                                    <input type="radio" id="male" name="gender" value="male" {{ old('gender') == 'male' ? 'checked' : '' }}
+                                    <input type="radio" id="male" name="gender" value="Male" {{ old('gender') == 'male' ? 'checked' : '' }}
                                         class="mr-1 focus:ring-blue-500">
                                     <label for="male" class="text-gray-700 text-sm">Male</label>
                                 </div>
                                 <div class="flex items-center">
-                                    <input type="radio" id="female" name="gender" value="female" {{ old('gender') == 'female' ? 'checked' : '' }}
+                                    <input type="radio" id="female" name="gender" value="Female" {{ old('gender') == 'female' ? 'checked' : '' }}
                                         class="mr-1 focus:ring-blue-500">
                                     <label for="female" class="text-gray-700 text-sm">Female</label>
                                 </div>

@@ -18,13 +18,27 @@ class AuthRepository implements AuthRepositoryInterface
     }
 
     public function register(Array $data){
-
-        return User::create([
-            "name"=>$data["name"],
-            "email"=>$data["email"],
-            "password"=>Hash::make($data["password"]),
-        ]);
+    // Handle the profile picture upload
+    $profilePicturePath = null;
+    if (isset($data['profile_picture'])) {
+        // Store the file in the public disk under users/profile_picture directory
+        // This automatically generates a unique filename
+        $profilePicturePath = $data['profile_picture']->store('users/profile_picture', 'public');
     }
+
+    // Create the user with all form fields
+    return User::create([
+        'name' => $data['name'],
+        'email' => $data['email'],
+        'password' => Hash::make($data['password']),
+        'gender' => $data['gender'],
+        'birthdate' => $data['birthdate'],
+        'bio' => $data['bio'] ?? null,
+        'situation_id' => $data['situation'],
+        'phone_number' => $data['phone_number'],
+        'profile_picture' => $profilePicturePath,
+    ]);
+}
 
     public function login(Array $credentials){
 

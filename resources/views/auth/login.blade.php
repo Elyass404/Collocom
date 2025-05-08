@@ -9,6 +9,14 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
 <body class="bg-gray-100 flex items-center justify-center min-h-screen">
+
+    @if (session('success'))
+        <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-6 w-full max-w-md" role="alert">
+            <strong class="font-bold">Success!</strong>
+            <span class="block sm:inline">{{ session('success') }}</span>
+        </div>
+    @endif
+
     <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
         <img src="http://logobook.com/wp-content/uploads/2019/02/NHS_Camden_and_Challenge_logo-1.svg" alt="Logo" class="w-16 h-16 mx-auto">
         <h2 class="text-2xl font-bold mb-6 mt-4 text-gray-800 text-center">Log In </h2>
