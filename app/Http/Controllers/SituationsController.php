@@ -19,8 +19,7 @@ class SituationsController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
+    public function index(){
         $situations = $this->situationRepository->getAll();
         $countSituations= Situation:: count();
         $activeSituations = 15;
@@ -46,7 +45,7 @@ class SituationsController extends Controller
         $validatedData = $request->validated();
 
         $this->situationRepository->create($validatedData);
-        dd(true);
+        return redirect()->route('situations.index')->with('success', 'Situation created successfully!');
     }
 
     /**

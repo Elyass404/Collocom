@@ -19,7 +19,7 @@ class RoleRepository implements RoleRepositoryInterface
 
     public function getAllRoles()
     {
-        return $this->roles->all();
+        return $this->roles->paginate(20);
     }
 
     public function findRoleById($id)
@@ -30,6 +30,14 @@ class RoleRepository implements RoleRepositoryInterface
     public function createRole(array $data)
     {
         return $this->roles->create($data);
+    }
+
+    public function updateRole(array $data,$id)
+    {
+        $role = $this->roles->find($id);
+        $role->update($data);
+
+        return $role;
     }
 
     public function deleteRole($id)
