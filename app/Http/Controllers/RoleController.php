@@ -4,27 +4,32 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\RoleRequest;
 use App\Models\Role;
+use App\Repositories\Interfaces\PermissionRepositoryInterface;
 use Illuminate\Http\Request;
 use App\Repositories\Interfaces\RoleRepositoryInterface;
 
 class RoleController extends Controller
 {
     protected $roleRepository;
-    public function __construct(RoleRepositoryInterface $roleRepository){
+    protected $permissionRepository;
+    public function __construct(RoleRepositoryInterface $roleRepository, PermissionRepositoryInterface $permissionRepository){
         $this->roleRepository = $roleRepository;
+        $this->permissionRepository = $permissionRepository;
     }
 
     public function index(){
         $roles = $this->roleRepository->getAllRoles();
         $countRoles = Role::count();
-        $activeRoles = 15; 
+        $activeRoles = 1; 
         $latestRole = Role::where('created_at', '>=', now()->subHours(48))->count();
 
         return view("roles.index", compact("roles", "countRoles", "activeRoles", "latestRole"));
     }
 
     public function create(){
-        return view("roles.create");
+
+        $permissions = $this->permissionRepository->getAllPermissions(); 
+        return view("roles.create",compact("permissions"));
     }
 
     public function store(RoleRequest $request){
@@ -42,8 +47,9 @@ class RoleController extends Controller
 
     public function edit($id){
         $role = $this->roleRepository->findRoleById($id);
+        $permissions = $this->permissionRepository->getAllPermissions(); 
 
-        return view("roles.edit",compact("role"));
+        return view("roles.edit",compact("role","permissions"));
     }
 
     public function update(RoleRequest $request, $id)

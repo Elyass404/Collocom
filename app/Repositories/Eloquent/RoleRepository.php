@@ -19,7 +19,7 @@ class RoleRepository implements RoleRepositoryInterface
 
     public function getAllRoles()
     {
-        return $this->roles->all();
+        return $this->roles->paginate(20);
     }
 
     public function findRoleById($id)
