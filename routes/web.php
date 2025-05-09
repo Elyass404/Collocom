@@ -27,7 +27,7 @@ Route::get('/test', function () {
 
 // Route::get('/test2', function () { return view('test2'); })->middleware('role:admin');
 
-Route::middleware([CheckRole::class . ':admin'])->group(function () {
+Route::middleware(['auth','role:admin'])->group(function () {
     Route::get('/test2', function () { return view('test2'); });
 });
 
