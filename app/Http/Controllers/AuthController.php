@@ -9,14 +9,18 @@ use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\RegisterRequest;
 use App\Models\User;
 use App\Repositories\Interfaces\AuthRepositoryInterface;
+use App\Repositories\interfaces\SituationRepositoryInterface;
 
 class AuthController extends Controller
 {
     protected $authRepository;
+    protected $situationRepository;
 
-    public function __construct(AuthRepositoryInterface $authRepository)
+    public function __construct(AuthRepositoryInterface $authRepository, SituationRepositoryInterface $situationRepository)
     {
         $this->authRepository = $authRepository;
+        $this->situationRepository = $situationRepository;
+
     }
 
 
@@ -27,7 +31,8 @@ class AuthController extends Controller
 
     public function showRegister()
     {
-        return view('auth.register'); 
+        $situations = $this->situationRepository->getAll();
+        return view('auth.register',compact("situations")); 
     }
 
     public function register(RegisterRequest $request){

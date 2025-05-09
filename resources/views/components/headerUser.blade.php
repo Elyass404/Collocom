@@ -79,6 +79,7 @@
     <!-- Mobile menu -->
     <div class="hidden sm:hidden bg-white mt-2 rounded-xl shadow-md" id="mobile-menu">
         <div class="pt-2 pb-3 space-y-1">
+<<<<<<< HEAD
             <a href="{{route('home')}}" class="block pl-3 pr-4 py-2 border-l-4 text-base font-medium text-gray-500 hover:text-gray-700">Home</a>
             <a href="{{route('offers.offers_list')}}" class="block pl-3 pr-4 py-2 border-l-4 text-base font-medium text-gray-500 hover:text-gray-700">Offers</a>
             <a href="{{route('about_us')}}" class="block pl-3 pr-4 py-2 border-l-4 text-base font-medium text-gray-500 hover:text-gray-700">About Us</a>
@@ -87,8 +88,19 @@
         </div>
 
         @auth
+=======
+            <a href="home" class="block pl-3 pr-4 py-2 border-l-4 text-base font-medium text-gray-500 hover:text-gray-700">Home</a>
+            <a href="offers.offers_list" class="block pl-3 pr-4 py-2 border-l-4 text-base font-medium text-gray-500 hover:text-gray-700">Offers</a>
+            <a href="#" class="block pl-3 pr-4 py-2 border-l-4 text-base font-medium text-gray-500 hover:text-gray-700">About Us</a>
+            <a href="contact_us" class="block pl-3 pr-4 py-2 border-l-4 text-base font-medium text-gray-500 hover:text-gray-700">Contact</a>
+            <a href="{{route('offers.create')}}" class="block pl-3 pr-4 py-2 border-l-4 text-base font-medium text-indigo-600 hover:bg-gray-50 hover:border-gray-300">Create Offer</a>
+        </div>
+        @if(!is_null(Auth::user()))
+>>>>>>> feature/adding_more_info_in_register
         <div class="pt-4 pb-3 border-t border-gray-200">
+            
             <div class="flex items-center px-4">
+<<<<<<< HEAD
             <div class="flex-shrink-0">
                 @if(!is_null(Auth::user()->profile_picture))
                 <span class="h-10 w-10 rounded-full bg-gray-200 flex items-center justify-center">
@@ -104,8 +116,27 @@
                 <div class="text-base font-medium text-gray-800">{{ Auth::user()->name }}</div>
                 <div class="text-sm font-medium text-gray-500">{{ Auth::user()->email }}</div>
             </div>
+=======
+                <div class="flex-shrink-0">
+                    <span class="h-10 w-10 rounded-full bg-gray-200 flex items-center justify-center">
+                        @if(!is_null(Auth::user()->profile_picture))
+                                <span class="h-8 w-8 rounded-full bg-gray-200 flex items-center justify-center">
+                                    <img class="rounded-full" src="{{asset('storage/'.Auth::user()->profile_picture)}}" alt="user_picture">
+                                </span>
+                                @else
+                                <span class="h-8 w-8 rounded-full bg-gray-200 flex items-center justify-center font-bold ">{{substr(Auth::user()->name, 0, 1)}}</span>
+                                @endif
+                    </span>
+                </div>
+                <div class="ml-3">
+                    <div class="text-base font-medium text-gray-800">John Doe</div>
+                    <div class="text-sm font-medium text-gray-500">john@example.com</div>
+                </div>
+>>>>>>> feature/adding_more_info_in_register
             </div>
+            
             <div class="mt-3 space-y-1">
+<<<<<<< HEAD
             <a href="{{route('users.profile', Auth::id())}}" class="block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100">Your Profile</a>
             <a href="{{route('my_offer')}}" class="block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100">My Offers</a>
             <form method="POST" action="{{ route('logout') }}">
@@ -115,6 +146,19 @@
             </div>
         </div>
         @endauth
+=======
+                <a href="{{route("users.profile",Auth::id())}}" class="block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100">Your Profile</a>
+                <a href="{{route("my_offer")}}" class="block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100">My Offers</a>
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <button type="submit" class="block w-full text-left px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100">
+                        Sign out
+                    </button>
+                </form>
+            </div>
+        </div>
+        @endif
+>>>>>>> feature/adding_more_info_in_register
     </div>
 </header>
 
