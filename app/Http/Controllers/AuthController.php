@@ -42,70 +42,25 @@ class AuthController extends Controller
         return redirect()->route('login')->with('success',"You have created you account with success! Please login.");
     }
 
-    public function login(LoginRequest $request){
-
-        if($this->authRepository->login($request->validated())){
-           return redirect()->route("dashboard")->with("seccess","Welcome Back!");
+    public function login(LoginRequest $request)
+{
+    if ($this->authRepository->login($request->validated())) {
+        // Check if the logged-in user has the admin role
+        if (Auth::user()->hasRole('admin')) {
+            return redirect()->route("dashboard")->with("success", "Welcome Back, Admin!");
         }
 
-        return back()->withErrors(["email","Invalid Credential!"])->withInput();
+        // Redirect non-admin users to the home page
+        return redirect()->route("home")->with("success", "Welcome Back!");
     }
+
+    return back()->withErrors(["email" => "Invalid Credentials!"])->withInput();
+}
+
 
     public function logout(){
         $this->authRepository->logout();
         return redirect()->route("login")->with("success","You are logged out!");
     }
-
-
-
-
-
-
-
-//the method without the repository design patter
-
-    /* public function register(RegisterRequest  $request){
-
-        // $request->validate([
-        //     'name' => 'required|string|max:255',
-        //     'email' => 'required|email|unique:users',
-        //     'password' => 'required|min:6|confirmed',
-        // ]);
-
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
-
-        // Log in the user
-        Auth::login($user);
-
-        return redirect()->route('dashboard')->with('success', 'Registration successful!');
-    }
-
-public function login(LoginRequest $request){
-
-    
-    $credentials = $request->only('email', 'password');
-
-    if (Auth::attempt($credentials)) {
-        $request->session()->regenerate();
-        return redirect()->route('dashboard')->with('success', 'Login successful!');
-    }
-
-    return back()->withErrors(['password' => 'Invalid Information','email' => 'hadchi ghalet'])->withInput();
-
-}
-
-public function logout(Request $request)
-{
-    Auth::logout();
-
-    $request->session()->invalidate();
-    $request->session()->regenerateToken();
-
-    return redirect()->route('login')->with('success', 'You have been logged out.');
-} */
 
 }

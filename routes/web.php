@@ -26,7 +26,6 @@ Route::get('/test', function () {
     return view('test');
 });
 
-// Route::get('/test2', function () { return view('test2'); })->middleware('role:admin');
 
 Route::middleware(['auth','role:admin'])->group(function () {
     Route::get('/test2', function () { return view('test2'); });
@@ -36,11 +35,11 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::middleware('auth')->group(function () {
+// Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
+// });
 
 // authentication routes:
 
@@ -59,30 +58,22 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::middleware(['auth'])->group(function () {
 
 // Route::get('/dash',function(){return view('dashboard');})->name('dashboard');
-Route::get("/dashboard",[DashboardController::class,"index"])->name("dashboard");
-Route::resource('users', UserController::class);
-Route::resource('categories', CategoryController::class);
-Route::resource('situations', SituationsController::class);
-Route::resource('roles', RoleController::class);
-Route::resource('offers',OfferController::class);
+// Route::get("/dashboard",[DashboardController::class,"index"])->name("dashboard");
+// Route::resource('users', UserController::class);
+// Route::resource('categories', CategoryController::class);
+// Route::resource('situations', SituationsController::class);
+// Route::resource('roles', RoleController::class);
+// Route::resource('offers',OfferController::class);
 
-//Support Messages 
-Route::get("/support/index",[SupportMessageController::class,"index"])->name("support.index");
-Route::get("/support/{id}/show_message",[SupportMessageController::class,"show"])->name("support.show");
-Route::patch("/support/{id}/mark_read",[SupportMessageController::class,"markRead"])->name("support.mark_read");
-Route::patch("/support/{id}/mark_unread",[SupportMessageController::class,"markUnread"])->name("support.mark_unread");
-Route::delete("/support/{id}/destroy",[SupportMessageController::class,"destroy"])->name("support.destroy");
-Route::post("/support/{id}/reply",[SupportMessageController::class,"reply"])->name("support.reply");
+// //Support Messages 
+// Route::get("/support/index",[SupportMessageController::class,"index"])->name("support.index");
+// Route::get("/support/{id}/show_message",[SupportMessageController::class,"show"])->name("support.show");
+// Route::patch("/support/{id}/mark_read",[SupportMessageController::class,"markRead"])->name("support.mark_read");
+// Route::patch("/support/{id}/mark_unread",[SupportMessageController::class,"markUnread"])->name("support.mark_unread");
+// Route::delete("/support/{id}/destroy",[SupportMessageController::class,"destroy"])->name("support.destroy");
+// Route::post("/support/{id}/reply",[SupportMessageController::class,"reply"])->name("support.reply");
 
-// Route::put("/offers/{offerId}",[OfferController::class,"update"])->name("offers.update");
-// Route::get("/offers/{offerId}/edit",[OfferController::class,"edit"])->name("offers.edit");
-// Route::get("/offers/create",[OfferController::class,"create"])->name("offers.create");
-// Route::get("/offers/{offerId}",[OfferController::class,"show"])->name("offers.show");
-// Route::get("/offers",[OfferController::class,"index"])->name("offers.index");
-// Route::delete("/offers/{offerId}", [OfferController::class, "destroy"])->name("offers.destroy");
-// Route::post('users', [UserController::class,"store"])->name('users.store');
 
-// Route::get('/users/create',function(){return view('users.create');})->name('users.create');
 
 Route::get('/profile/{id}',[UserController::class,"profile"])->name('users.profile');
 Route::get('/profile/{id}/edit_profile',[UserController::class,"editProfile"])->name('users.edit_profile');
@@ -94,7 +85,7 @@ Route::get('/tags/create',function(){return view('tags.create');})->name('tags.c
 //The offers related endpoints
 
 Route::get("/create_offer",[offerController::class,"createUserOffer"])->name("createOffer");
-Route::patch("/offers/{id}/suspend", [OfferController::class,"suspend"])->name('offers.suspend');
+// Route::patch("/offers/{id}/suspend", [OfferController::class,"suspend"])->name('offers.suspend');
 Route::patch("/offers/{id}/reactivate", [OfferController::class,"reactivate"])->name('offers.reactivate');
 Route::patch("/offers/{id}/pause", [OfferController::class,"pause"])->name('offers.pause');
 Route::get("/offers/{offerId}/ask_to_join",[OfferRequestController::class,"askToJoin"]);
@@ -108,14 +99,39 @@ Route::get('/my_offer',[OfferController::class,"myOffer"])->name('my_offer');
 Route::get('/my_offer/demands',[OfferController::class,"offerDemands"])->name('my_offer.demands');
 Route::get('/user/{userId}/sent_demands',[OfferRequestController::class,"userSentDemands"])->name('sent_demands');
 
-
-// Route::get('/offers/index',function(){return view('offers.index');})->name('offers.index');
-
-// Route::get('/offers/create',function(){return view('offers.create');})->name('offers.create');
 });
 
-//this is just for the test
-Route::get("/hello",function(){return "heelo";})->middleware(["auth"]);
+
+
+
+Route::middleware(['auth', 'role:admin'])->group(function () {
+
+    // Dashboard
+    Route::get("/dashboard", [DashboardController::class, "index"])->name("dashboard");
+
+    // User Management
+    Route::resource('users', UserController::class);
+
+    // Categories, Situations, Roles, Offers
+    Route::resource('categories', CategoryController::class);
+    Route::resource('situations', SituationsController::class);
+    Route::resource('roles', RoleController::class);
+    Route::resource('offers', OfferController::class);
+
+    // Support Messages
+    Route::get("/support/index", [SupportMessageController::class, "index"])->name("support.index");
+    Route::get("/support/{id}/show_message", [SupportMessageController::class, "show"])->name("support.show");
+    Route::patch("/support/{id}/mark_read", [SupportMessageController::class, "markRead"])->name("support.mark_read");
+    Route::patch("/support/{id}/mark_unread", [SupportMessageController::class, "markUnread"])->name("support.mark_unread");
+    Route::delete("/support/{id}/destroy", [SupportMessageController::class, "destroy"])->name("support.destroy");
+    Route::post("/support/{id}/reply", [SupportMessageController::class, "reply"])->name("support.reply");
+
+    // Offers - Suspend
+    Route::patch("/offers/{id}/suspend", [OfferController::class, "suspend"])->name('offers.suspend');
+});
+
+
+
 
 
 
