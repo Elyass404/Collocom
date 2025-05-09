@@ -73,6 +73,26 @@
     </header> --}}
 
     @include('components.headerUser')
+
+    @if (session('success'))
+        <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4" role="alert">
+            <strong class="font-bold">Success!</strong>
+            <span class="block sm:inline">{{ session('success') }}</span>
+            <button type="button" class="absolute top-0 bottom-0 right-0 px-4 py-3" data-dismiss="alert">
+                <span class="text-green-700">&times;</span>
+            </button>
+        </div>
+    @endif
+
+    @if (session('error'))
+        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
+            <strong class="font-bold">Error!</strong>
+            <span class="block sm:inline">{{ session('error') }}</span>
+            <button type="button" class="absolute top-0 bottom-0 right-0 px-4 py-3" data-dismiss="alert">
+                <span class="text-red-700">&times;</span>
+            </button>
+        </div>
+    @endif
     
     <!-- Hero Section -->
     <section class="hero-pattern py-16 sm:py-24">

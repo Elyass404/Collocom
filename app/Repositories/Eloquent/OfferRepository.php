@@ -46,7 +46,7 @@ class OfferRepository implements OfferRepositoryInterface
     }
 
     public function getByUserId($userId){
-        return $this->offers->with("category")->where("owner_id",$userId)->firstOrFail();
+        return $this->offers->with("category")->where("owner_id",$userId)->first();
     }
 
 

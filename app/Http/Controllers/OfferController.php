@@ -18,6 +18,8 @@ use App\Repositories\Interfaces\OfferRepositoryInterface;
 use App\Repositories\Interfaces\CategoryRepositoryInterface;
 use App\Repositories\Interfaces\OfferPhotoRepositoryInterface;
 
+use function PHPUnit\Framework\isNull;
+
 class OfferController extends Controller
 {
     /**
@@ -55,6 +57,7 @@ class OfferController extends Controller
      */
     public function create()
     {
+        
         $categories = $this->categoryRepository->getAll();
         $regions= Region::all();
         $cities= City::all();
@@ -63,6 +66,14 @@ class OfferController extends Controller
     }
 
    public function createUserOffer(){
+
+        $userId = Auth::id();
+        
+        $userOffer = $this->offerRepository->getByUserId($userId);
+        if ($userOffer !== null) {
+            return view("offer_restriction")->with('error', 'You already have an active offer request.');
+        }
+
         $categories = $this->categoryRepository->getAll();
         $regions= Region::all();
         $cities= City::all();
@@ -144,6 +155,9 @@ class OfferController extends Controller
 
         $userId = Auth::id();
         $offer = $this->offerRepository->getByUserId($userId);
+        if(isNull($offer)){
+            return view("no_offer");
+        }
         $totalDemands = $this->offerRequestRepository->getDemandes()->count();
         $acceptedDemands = $this->offerRequestRepository->getDemandes()->where("status","accepted")->count();
         $rejectedDemands = $this->offerRequestRepository->getDemandes()->where("status","rejected")->count();
