@@ -2,6 +2,7 @@
 
 namespace App\Repositories\Eloquent;
 
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -27,7 +28,7 @@ class AuthRepository implements AuthRepositoryInterface
     }
 
     // Create the user with all form fields
-    return User::create([
+    $user = User::create([
         'name' => $data['name'],
         'email' => $data['email'],
         'password' => Hash::make($data['password']),
@@ -38,6 +39,12 @@ class AuthRepository implements AuthRepositoryInterface
         'phone_number' => $data['phone_number'],
         'profile_picture' => $profilePicturePath,
     ]);
+
+    $role = Role::where('name', 'user')->first();
+    $user->assignRole($role->id);
+
+    return $user;
+
 }
 
     public function login(Array $credentials){
