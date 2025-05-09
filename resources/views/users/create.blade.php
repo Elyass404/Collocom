@@ -59,7 +59,7 @@ Copy<!-- Include Sidebar -->
                     <option value="">Select Gender</option>
                     <option value="male" {{ old('gender') == 'male' ? 'selected' : '' }}>Male</option>
                     <option value="female" {{ old('gender') == 'female' ? 'selected' : '' }}>Female</option>
-                    <option value="other" {{ old('gender') == 'other' ? 'selected' : '' }}>Other</option>
+                    
                 </select>
                 @error('gender')
                     <p class="text-red-500 text-xs italic mt-1">{{ $message }}</p>
