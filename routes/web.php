@@ -62,6 +62,7 @@ Route::get("/dashboard",[DashboardController::class,"index"])->name("dashboard")
 Route::resource('users', UserController::class);
 Route::resource('categories', CategoryController::class);
 Route::resource('situations', SituationsController::class);
+// Route::resource('roles', Rolecon::class);
 Route::resource('offers',OfferController::class);
 
 //Support Messages 

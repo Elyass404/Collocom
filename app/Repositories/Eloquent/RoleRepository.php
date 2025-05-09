@@ -32,6 +32,14 @@ class RoleRepository implements RoleRepositoryInterface
         return $this->roles->create($data);
     }
 
+    public function updateRole(array $data,$id)
+    {
+        $role = $this->roles->find($id);
+        $role->update($data);
+
+        return $role;
+    }
+
     public function deleteRole($id)
     {
         return $this->roles->where('id', $id)->delete();
