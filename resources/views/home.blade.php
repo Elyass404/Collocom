@@ -325,7 +325,7 @@
                 <div class="bg-white p-6 rounded-lg shadow-md testimonial-card">
                     <div class="flex items-center mb-4">
                         <div class="flex-shrink-0">
-                            <img class="h-12 w-12 rounded-full" src="/api/placeholder/100/100" alt="User avatar">
+                            <img class="h-12 w-12 rounded-full" src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=1480&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="User avatar">
                         </div>
                         <div class="ml-4">
                             <h4 class="text-lg font-semibold text-gray-900">Ahmed Bouda</h4>
@@ -355,7 +355,7 @@
                 <div class="bg-white p-6 rounded-lg shadow-md testimonial-card">
                     <div class="flex items-center mb-4">
                         <div class="flex-shrink-0">
-                            <img class="h-12 w-12 rounded-full" src="/api/placeholder/100/100" alt="User avatar">
+                            <img class="h-12 w-12 rounded-full object-cover" src="https://images.unsplash.com/profile-1700009111141-05e9502e95c4image?w=150&dpr=1&crop=faces&bg=%23fff&h=150&auto=format&fit=crop&q=60&ixlib=rb-4.1.0" alt="User avatar">
                         </div>
                         <div class="ml-4">
                             <h4 class="text-lg font-semibold text-gray-900">Ilyass mar</h4>
@@ -385,7 +385,7 @@
                 <div class="bg-white p-6 rounded-lg shadow-md testimonial-card">
                     <div class="flex items-center mb-4">
                         <div class="flex-shrink-0">
-                            <img class="h-12 w-12 rounded-full" src="/api/placeholder/100/100" alt="User avatar">
+                            <img class="h-12 w-12 rounded-full object-cover" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="User avatar">
                         </div>
                         <div class="ml-4">
                             <h4 class="text-lg font-semibold text-gray-900">Ikram Kamali</h4>
